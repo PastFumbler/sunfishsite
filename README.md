@@ -64,7 +64,7 @@ Other fallbacks that are built in:
 | `js/` | Script folder |
 | `js/ocean.js` | All behaviour, plus the embedded sea-life drawings (the `ART` table) |
 | `assets/` | Images and illustrations |
-| `assets/img/` | 39 image files: 23 photos and one piece of PADI course artwork from the live site, two stock photographs (`stock-*.jpg`), nine labelled placeholders for the dive-site photos (`site-*.jpg`), the share image, two logo files and the PADI badge. Each is listed in section 6 |
+| `assets/img/` | 39 image files: 22 photos and one piece of PADI course artwork from the live site, the nine dive-site photos supplied by the owner (`site-*.jpg`), three stock photographs (`stock-*.jpg`), the share image, two logo files and the PADI badge. Each is listed in section 6 |
 | `assets/svg/` | Editable sources of the illustrations |
 | `assets/svg/favicon.svg` | Browser tab icon, a sunfish silhouette. Linked directly from every page |
 | `assets/svg/wreck-scene.svg` | Source of the ferry wreck at the bottom of `index.html` |
@@ -89,7 +89,8 @@ Other fallbacks that are built in:
 | `assets/svg/creatures/jellyfish.svg` | Jellyfish (The caves) |
 | `assets/svg/creatures/barracuda.svg` | Barracuda, one fish; cloned into a school (Blue water) |
 | `assets/svg/creatures/amberjack.svg` | Greater amberjack (Blue water) |
-| `assets/svg/creatures/sunfish.svg` | Ocean sunfish, Mola mola, the shop's namesake (Blue water) |
+| `assets/svg/creatures/sunfish.svg` | Ocean sunfish, Mola mola, the shop's namesake (the large one in Blue water; smaller ones at the Surface, in The caves and Blue water, and as a dark silhouette at the wreck) |
+| `assets/svg/creatures/diver.svg` | Scuba diver with a yellow cylinder and fins, trailing bubbles (every zone; a dark silhouette at the wreck) |
 
 The header and footer markup is duplicated in every page (between the `HEADER` and `FOOTER` comments). A change to either has to be made nine times; only `aria-current="page"` differs between pages. The logo and the PADI badge are part of that markup (section 6 (e)). The phone action bar, the block between the two `MOBILE ACTION BAR` comments just above the script tag at the foot of each page, is duplicated in the same way and is identical on all nine (section 9). So is the `<head>` (lines 3 to 48): only the title, the description and the three `og:` lines that repeat them and give the page address differ from page to page.
 
@@ -167,11 +168,13 @@ All body text sits in a `.panel` (frosted glass). `applyTones()` sets `data-tone
 
   | Zone | Cast |
   |---|---|
-  | Surface | turtle, two shoals of bream |
-  | Shallow reef | parrotfish, seagrass, octopus with seagrass, two wrasse |
-  | The caves | moray, two jellyfish, grouper, lionfish |
-  | Blue water | sunfish, a school of barracuda, two amberjack |
-  | The wreck | two groupers and a shoal of bream, as dim single-tone silhouettes |
+  | Surface | turtle, a shoal of bream, a diver, a second shoal of bream, a small sunfish |
+  | Shallow reef | parrotfish, seagrass, a diver, octopus with seagrass, two wrasse |
+  | The caves | moray, two jellyfish, grouper, a small sunfish, lionfish, a diver |
+  | Blue water | the large sunfish, two divers, two smaller sunfish, a school of barracuda, two amberjack |
+  | The wreck | two groupers, a shoal of bream, a diver and a sunfish, as dim single-tone silhouettes |
+
+  How many of each list appear depends on how much water the zone has on that page; phones take at most the first half of each list. The smaller sunfish and the divers are ordinary swimmers: only the large sunfish has a lane to itself.
 
 - `buildLife()` places them in a `.sea-life` layer that spans the whole page and sits behind the content. Each animal is put at the page position that matches its depth. It looks for open water. Headings that sit directly on the water are off limits, counting the distance an animal's parallax carries it while it is on screen: an animal that finds no clear water is tried with less parallax and is left out if text is still in the way. The marker column of a depth timeline is off limits too (a swimming animal may pass behind it; on phones, where each marker stands in the open water above its panel, no animal swims at the height of a marker), and nothing is parked behind the "Scroll to dive" pill on the home page (a swimming animal may pass behind it). Panels and photos are avoided where possible, and an anchored animal (moray, octopus, seagrass) is left out rather than shown more than a fifth hidden. The sunfish has its lane to itself, with room for the parallax of the lanes next to it. Its water is reserved before the other zones are planned, so that an animal of the zone above cannot settle in the only open water tall enough for it; and where that gives it clearly better water, the sunfish does without its parallax.
 - The plan is made again when the text moves (web fonts arriving, a resize, a specialties filter), and only then.
@@ -236,7 +239,7 @@ Each drawing exists twice:
 
 | Drawing | Editable source | Copy the site actually uses |
 |---|---|---|
-| Sea life (13 animals) | `assets/svg/creatures/NAME.svg` | The `ART` table in `js/ocean.js`, between `/* ==ART:BEGIN== */` and `/* ==ART:END== */` (lines 39 to 56) |
+| Sea life (13 animals and the diver) | `assets/svg/creatures/NAME.svg` | The `ART` table in `js/ocean.js`, between `/* ==ART:BEGIN== */` and `/* ==ART:END== */` (lines 39 to 57) |
 | Wreck | `assets/svg/wreck-scene.svg` | `index.html`, between `<!-- WRECK:BEGIN -->` and `<!-- WRECK:END -->` (lines 290 to 292) |
 | Seabed vignettes | `assets/svg/seabed-PAGE.svg` | Each inner page, between `<!-- SEABED:BEGIN seabed-PAGE -->` and `<!-- SEABED:END -->`, just above the footer |
 
@@ -280,10 +283,10 @@ To change an animal's size, speed or zone, edit its entry in `CAST` instead; the
 `assets/img` holds three kinds of picture:
 
 - **Real pictures from the live site**, sunfish-divers.com: the photos in (a), the PADI course artwork in (b), the logo and the PADI badge in (e).
-- **Two stock photographs** (`stock-*.jpg`), free to use with no attribution required, in places where the live site has no picture of the subject. They are listed in (c).
-- **Nine labelled placeholders** (`site-*.jpg`) on the dive-site cards of `dive-trips.html`. They are blue cards that print their own file name, waiting for your own photos. See (d).
+- **Nine dive-site photographs supplied by the owner** (`site-*.jpg`), one on each dive-site card of `dive-trips.html`. See (d).
+- **Three stock photographs** (`stock-*.jpg`), free to use with no attribution required, in places where there is no picture of the subject from the centre itself. They are listed in (c).
 
-Every picture was cropped and resized for the web (JPEG, none larger than 161 KB, 2.6 MB for the whole folder).
+Every picture was cropped and resized for the web (JPEG, none larger than 181 KB, 3.2 MB for the whole folder).
 
 Four things to know before launch:
 
@@ -298,7 +301,6 @@ Four things to know before launch:
 |---|---|---|---|---|
 | `diver-and-turtle.jpg` | 800 x 1000 | index hero, try-diving gallery ("Amazing encounters") | Try Diving page gallery, `GalleryImage15.png`, captioned "Amazing encounters" | A diver giving two thumbs up beside a large sea turtle on sand and seagrass |
 | `discover-scuba-diving-shoal.jpg` | 800 x 800 | index, Try Diving teaser ("Discover Scuba Diving, twice a day") | Home page Instagram block; the post reads "Discover Scuba Diving. Twice a day" | A diver with arms outstretched inside a shoal of silver fish |
-| `courses-pool-training.jpg` | 1200 x 900 | index Courses teaser, courses hero ("Training in the pool") | Home page, background of the "Dive courses" section, `DSC01237.jpg` | Four divers kneeling on the floor of a swimming pool, a fifth in the foreground |
 | `dive-centre-front.jpg` | 1200 x 674 | index Dive Centre teaser ("The dive centre, Ayia Napa"), about hero ("At home in Ayia Napa since 1982") | Home page "Sunfish Divers Dive Centre" section and top of the Dive Centre page, `IMG_0251.jpg` | The front of the dive centre: the Sunfish Divers sign, "PADI 5 STAR IDC CENTER" and the entrance |
 | `dive-centre-shop-front.jpg` | 720 x 900 | dive-centre hero ("The shop in Ayia Napa"), contact hero ("The dive centre, Ayia Napa") | Dive Centre page, under "Welcome to our dive center", `IMG_3385.jpg` | The shop front seen straight on: the sign above windows decorated with underwater scenes |
 | `dive-centre-shop-interior.jpg` | 960 x 325 | dive-centre, "In the shop" ("Inside the shop") | Dive Centre page, under "Everything you need for your underwater adventure", `shop.jpeg` | A panorama of the inside of the shop: fins, masks, shelves, cabinets, wetsuits |
@@ -333,39 +335,40 @@ Two of these are small originals and look a little soft on high-resolution scree
 
 ### (c) Stock photographs (free to use, no attribution required)
 
-Two slots show something the live site has no picture of. They are filled with stock photographs whose licence allows free use, commercial use included, without payment and without credit. **These photographs do not show the centre's own dives, people or equipment unless marked as located; neither of the two is.** Each is marked in the HTML with a `STOCK PHOTO` comment on the line above its figure.
+Three slots show something there is no picture of from the centre itself. They are filled with stock photographs whose licence allows free use, commercial use included, without payment and without credit. **These photographs do not show the centre's own dives, people or equipment unless marked as located; none of the three is.** Each is marked in the HTML with a `STOCK PHOTO` comment directly before its figure.
 
 | File in `assets/img/` | Size (px) | Used on (caption on the page) | What it shows | Source page | Author | Licence | Retrieved | Kind |
 |---|---|---|---|---|---|---|---|---|
 | `stock-diver-with-underwater-camera.jpg` | 800 x 1000 | `specialties.html`, beside the grid ("Camera at the ready"). Comment on line 260 | A scuba diver in mid-water holding a large underwater camera with two strobe lights, the sun bursting through the surface behind | https://www.pexels.com/photo/low-angle-shot-of-man-in-diving-gears-underwater-7001654/ | Leonardo Lamas (Pexels) | Pexels License | 2026-11-18 | Illustrative: replace with your own photo |
 | `stock-two-divers-in-sun-rays.jpg` | 800 x 1000 | `instructor-courses.html`, PADI Assistant Instructor Course ("Under the sun rays"). Comment on line 177 | Two scuba divers upright in mid-water beneath bright sun rays, one in a red top facing the other, who holds out a hand | https://www.pexels.com/photo/two-scuba-divers-floating-in-depths-of-ocean-in-sun-rays-11060853/ | Carlos Jamaica (Pexels) | Pexels License | 2026-11-18 | Illustrative: replace with your own photo |
+| `stock-divers-wading-into-shallow-bay.jpg` | 800 x 1000 | `index.html`, Courses teaser, and `courses.html`, hero ("Wading in from the shore"). Comment on the same line as each figure: index line 174, courses line 114 | Five scuba divers wading waist-deep into a calm, clear bay beside a rocky shore with old stone walls | https://www.pexels.com/photo/men-diving-in-a-bay-11442926/ | Anatolii Maks (Pexels) | Pexels License | 2026-11-18 | Illustrative: replace with your own photo |
 
-- The Pexels License (https://www.pexels.com/license/) says: "All photos and videos on Pexels are free to use" and "Attribution is not required". You may crop and edit them. It does not allow selling unaltered copies of a photo, implying that the people in it endorse a product, showing identifiable people in a bad light, or using a photo as part of a trade mark or business name. Neither picture is used in any of those ways here.
-- Neither source page says where its photo was taken, so the site names no place for them, and they are not presented as Sunfish Divers' own courses or customers.
-- Both are crops. The camera picture is cut to the diver and the sun (the fin blades at the left, and the maker's marks on them, are outside the frame). The two-divers picture is cut to its upper two thirds, which leaves only the divers, the light and open water.
+- The Pexels License (https://www.pexels.com/license/) says: "All photos and videos on Pexels are free to use" and "Attribution is not required". You may crop and edit them. It does not allow selling unaltered copies of a photo, implying that the people in it endorse a product, showing identifiable people in a bad light, or using a photo as part of a trade mark or business name. None of the three pictures is used in any of those ways here.
+- None of the source pages says where its photo was taken, so the site names no place for them, and they are not presented as Sunfish Divers' own courses or customers.
+- All three are crops. The wading picture is cut to an upright 4:5 frame around the divers, with contrast and colour lifted slightly; it replaced the swimming-pool training photo from the live site at the owner's request. The camera picture is cut to the diver and the sun (the fin blades at the left, and the maker's marks on them, are outside the frame). The two-divers picture is cut to its upper two thirds, which leaves only the divers, the light and open water.
 - To replace one with your own photo, follow "Replacing or adding a photo" below, and delete the `STOCK PHOTO` comment above the figure and the `stock-` file.
-- No stock is used, and none should be, for the logo, the PADI badge, staff portraits, the shop, the Zenobia, Liberty and Nemesis III wrecks, the Instagram tiles, the share image or the nine dive-site cards.
+- No stock is used, and none should be, for the logo, the PADI badge, staff portraits, the shop, the Zenobia, Liberty and Nemesis III wrecks, the Instagram tiles, the share image or the nine dive-site cards (those carry the owner's own photos).
 
-### (d) Photos still to supply
+### (d) The dive-site photos, and photos still to supply
 
-**The nine dive-site cards** (`dive-trips.html`, comment on line 155). Each card has an empty photo slot that shows a blue placeholder printed with its own file name, in type large enough to read on a phone, where the cards are small. To fill a slot, save your photo in `assets/img` under exactly the name shown on the card, over the placeholder:
+**The nine dive-site cards** (`dive-trips.html`, comment on line 155) now carry the photographs the owner supplied. Each was cropped to the card's 3:2 shape; none was enlarged, so three are smaller than the others because their originals were small. To change one, save the new photo in `assets/img` under exactly the same name and update `alt`, `width` and `height` on the line shown:
 
-| Dive site | File to save in `assets/img/` | Image tag on line |
-|---|---|---|
-| Green Bay | `site-green-bay.jpg` | 159 |
-| Blue Haze | `site-blue-haze.jpg` | 169 |
-| The Caves | `site-the-caves.jpg` | 179 |
-| The Canyon | `site-the-canyon.jpg` | 189 |
-| Chapel Bay | `site-chapel-bay.jpg` | 199 |
-| Konnos Point | `site-konnos-point.jpg` | 209 |
-| Paramount | `site-paramount.jpg` | 219 |
-| Nissia | `site-nissia.jpg` | 229 |
-| Shallow Reef | `site-shallow-reef.jpg` | 239 |
+| Dive site | File in `assets/img/` | Size (px) | What it shows | Image tag on line |
+|---|---|---|---|---|
+| Green Bay | `site-green-bay.jpg` | 1080 x 720 | Statues and columns standing on the sandy seabed | 159 |
+| Blue Haze | `site-blue-haze.jpg` | 1200 x 800 | Two divers at the surface in clear turquoise water beside the rocky shore | 169 |
+| The Caves | `site-the-caves.jpg` | 640 x 427 | Looking out through the mouth of an underwater cave onto sunlit sand | 179 |
+| The Canyon | `site-the-canyon.jpg` | 960 x 640 | Divers climbing down the rocks to the clear water | 189 |
+| Chapel Bay | `site-chapel-bay.jpg` | 1024 x 683 | A shoal of small silver fish over an algae-covered rock just below the surface | 199 |
+| Konnos Point | `site-konnos-point.jpg` | 935 x 623 | Fish over pale boulders and seagrass in blue water | 209 |
+| Paramount | `site-paramount.jpg` | 640 x 427 | Sunlight falling through blue water from the surface | 219 |
+| Nissia | `site-nissia.jpg` | 894 x 596 | A diver hovering over seagrass and sand | 229 |
+| Shallow Reef | `site-shallow-reef.jpg` | 1200 x 800 | Ornate wrasse beside an algae-covered rock just below the surface | 239 |
 
-- Size to supply: landscape, about 1200 x 800 px (3:2), JPEG. A photo of another shape is cropped from the centre to 3:2.
-- After that, only the `alt` text needs editing. It now reads, for example, `alt="Photo of Blue Haze to come"`: change it to say what your photo shows. If your file is not 1200 x 800, also set `width` and `height` on the same line to its real size.
+- Best size for a replacement: landscape, about 1200 x 800 px (3:2), JPEG. A photo of another shape is cropped from the centre to 3:2. The photos of The Caves and Paramount are only 640 px wide: sharper originals would look better on large screens.
+- The `alt` text of each says what the photo shows and names the site, as the owner supplied each photo for that site. Where the photos came from and who took them is not recorded here: confirm you may use them before launch.
 - File names are case-sensitive on the web: keep them in lower case, exactly as listed.
-- Until a real photo is there the card shows the placeholder; if the file is deleted, the card shows a tinted box with the file name instead. No stock photographs are used on these cards.
+- If a file is deleted, its card shows a tinted box with the file name instead. No stock photographs are used on these cards.
 - On phones the nine cards stand two to a row (photo, name, tag), and the ninth runs across with its photo beside its name. When you add a description to a card (the TODO on each card), write it as a `<p>` inside the card's `<div class="card__body">`: as soon as one card has such a paragraph, phones show one card per row so that the text has room. Nothing else needs changing.
 
 **Other places where a photo of your own would improve the site:**
@@ -408,20 +411,20 @@ Two slots show something the live site has no picture of. They are filled with s
 
 | Item | Where | What is needed |
 |---|---|---|
-| Enquiry form | `contact.html` line 139 (`FORM HANDLER` comment, form on line 140) and `js/ocean.js` line 1645 (`FORM HANDLER` comment in `initForms()`) | The form validates and then shows a success box, but sends nothing. Give the form a real handler (`action` and `method`, or a `fetch` call at the marked place in the script), show the success box only when sending worked, and add server-side validation and spam protection. The "Send enquiry" button (line 184) carries a `disabled` attribute that the script removes, so that the demo form cannot submit itself when the script is missing; take the attribute out once the form has a real `action`. Then reword the two demo notices: the note under the button (`contact.html` line 185) and the success message (lines 189 to 190) |
+| Enquiry form | `contact.html` line 139 (`FORM HANDLER` comment, form on line 140) and `js/ocean.js` line 1657 (`FORM HANDLER` comment in `initForms()`) | The form validates and then shows a success box, but sends nothing. Give the form a real handler (`action` and `method`, or a `fetch` call at the marked place in the script), show the success box only when sending worked, and add server-side validation and spam protection. The "Send enquiry" button (line 184) carries a `disabled` attribute that the script removes, so that the demo form cannot submit itself when the script is missing; take the attribute out once the form has a real `action`. Then reword the two demo notices: the note under the button (`contact.html` line 185) and the success message (lines 189 to 190) |
 | WhatsApp number | 20 links to `https://wa.me/35799879396`, each with a TODO comment on the line above (listed per file below): the footer and the phone action bar of every page, the "Find us in Ayia Napa" panel on the home page and the "talk to us" list on the contact page | Confirm that +357 99 879 396 is correct. If it changes, change the link in all 20 places and the visible number in the 11 places that print it (the action bar shows the word "WhatsApp", not the number) |
 | Map marker | `contact.html` line 295 (iframe on line 299) | Confirm the marker position, currently 34.985407 N, 34.000226 E, the OpenStreetMap entry for Sunfish Divers. The "Open in Google Maps" link on line 301 searches by name and address instead |
 | Search engines | Line 10 of every page (`<meta name="robots" content="noindex, nofollow">`, with its TODO comment on line 9) | The tag keeps the temporary test site out of search results. It must come out when the site goes live, or the real site will not be found either: delete lines 9 and 10 from all nine pages (section 10, "At launch") |
 | Page URLs for sharing | Line 18 of every page (`og:url`) | Currently `https://sunfish-divers.com/` for the home page and `https://sunfish-divers.com/PAGE.html` for the others. Change them if the live addresses differ. These are the only addresses in the site that name a domain; on the test site they simply point at the future address |
 | Share image | Line 19 of every page (`og:image`), file `assets/img/og-sunfish-divers.jpg` | The file is a real photo (the front of the dive centre). The tag must hold a full address, and it points at `https://sunfish-divers.com/assets/img/og-sunfish-divers.jpg`, where the file does not exist yet: link previews show no picture until the site is on its final domain, or until line 19 is changed to the address where the site really is. That is true of the test site too: a link to it shared in a chat shows the title and description without a picture |
 | Photo rights | Section 6 | Confirm the right to use each photo from the live site, and the PADI course artwork in 6 (b). The two stock photographs in 6 (c) need no permission and no credit |
-| Photos still missing | Section 6 (d) | Supply the nine dive-site photos (save each under the file name shown on its card, then edit its `alt` text) and the others listed there. Replace the two stock photographs in 6 (c) with your own when you have them |
+| Photos still missing | Section 6 (d) | The nine dive-site photos are in place. Supply the others listed there, and replace the three stock photographs in 6 (c) with your own when you have them |
 | Instagram strip | `index.html` lines 309 to 325 | Three fixed tiles that link to the Instagram profile. It is not a live feed; either supply newer photos or connect a feed |
 | Course, site and service details | The content TODOs below | The pages hold only what was in the brief. No prices, schedules, depths or staff details were invented |
 
 ### Every TODO comment, by file
 
-There are 65 `TODO` comments, all in the HTML pages. `css/styles.css`, `js/ocean.js` and the SVG files contain none. Line numbers are those of the files as delivered; they move as soon as a line is added or removed above them, so search a page for `TODO` to find them again.
+There are 64 `TODO` comments, all in the HTML pages. `css/styles.css`, `js/ocean.js` and the SVG files contain none. Line numbers are those of the files as delivered; they move as soon as a line is added or removed above them, so search a page for `TODO` to find them again.
 
 **`index.html`**
 
@@ -439,7 +442,6 @@ There are 65 `TODO` comments, all in the HTML pages. `css/styles.css`, `js/ocean
 |---|---|
 | 9 | Take out the `noindex` tag on the next line when the site goes live (section 10) |
 | 17 | Confirm the final page URL and the share image address |
-| 155 | Supply photos of the nine dive sites: save each under the file name shown on its card and update its `alt` text (section 6 (d)) |
 | 164 | Green Bay: add depth, level and a short description |
 | 174 | Blue Haze: add depth, level and a short description |
 | 184 | The Caves: add depth, level and a short description |
@@ -533,7 +535,7 @@ There are 65 `TODO` comments, all in the HTML pages. `css/styles.css`, `js/ocean
 | 392 | Confirm the WhatsApp number in the footer |
 | 410 | Confirm the WhatsApp number in the phone action bar |
 
-Markers that do not use the word TODO but also need action: `FORM HANDLER` (`contact.html` line 139, `js/ocean.js` line 1645), the `PADI course artwork` comment (`instructor-courses.html` line 114, see section 6 (b)), and the two `STOCK PHOTO` comments (`specialties.html` line 260, `instructor-courses.html` line 177, see section 6 (c)).
+Markers that do not use the word TODO but also need action: `FORM HANDLER` (`contact.html` line 139, `js/ocean.js` line 1657), the `PADI course artwork` comment (`instructor-courses.html` line 114, see section 6 (b)), and the four `STOCK PHOTO` comments (`specialties.html` line 260, `instructor-courses.html` line 177, `index.html` line 174, `courses.html` line 114, see section 6 (c)).
 
 ## 8. Browser support and accessibility
 
@@ -555,7 +557,7 @@ Accessibility, as built:
 - Visible focus outlines on every interactive element (`:focus-visible`, 3 px), dark on light panels and sand-coloured on dark ones.
 - The depth gauge is keyboard-usable: each zone is a button with a full label such as "Shallow reef 5 m to 12 m", and the current zone is marked.
 - All decoration is hidden from assistive technology: the water, sea life, bubbles, wreck and vignettes are `aria-hidden`.
-- Every photo has `alt` text that describes what is in the picture (the nine dive-site placeholders say "Photo of Green Bay to come" and so on, until real photos replace them) and has `width` and `height` set to the real size of its file, so the page does not jump as images arrive. All are lazy-loaded except the opening photo of each page. The label behind each photo (its file name, seen only if the file is missing) is drawn but not read out by screen readers.
+- Every photo has `alt` text that describes what is in the picture and has `width` and `height` set to the real size of its file, so the page does not jump as images arrive. All are lazy-loaded except the opening photo of each page. The label behind each photo (its file name, seen only if the file is missing) is drawn but not read out by screen readers.
 - The logo images have an empty `alt`, because the link around them carries the name "Sunfish Divers, home". The header logo is not lazy-loaded either, as it is on screen from the start. The PADI badge is an image with the `alt` text "PADI 5 Star Instructor Development Centre".
 - Text always sits on a panel whose colours switch with depth; the design target was WCAG AA contrast at every depth.
 - The large headings that sit directly on the water are the exception. They are held to 3:1 (the AA figure for large text) against the plain water. One screen shows about 14 m of the colour scale from top to bottom, so on some screen sizes one or two headings near 12 m come down to between 2.7:1 and 3:1 for the moment they are at the very top or the very bottom of the screen; a soft halo around the letters makes up for it there.
@@ -668,7 +670,7 @@ You need a GitHub account (github.com, free) and Git on this computer. To see wh
    git branch -M main
    ```
 
-   `git status` lists what is about to be published. It should show the 76 files of section 3 and nothing else: the nine pages, `README.md`, `.nojekyll`, `.gitignore`, `css/styles.css`, `js/ocean.js`, 39 files under `assets/img/` and 23 under `assets/svg/`. If the commit stops with "Please tell me who you are", run the two `git config` lines it shows with your own name and email address, then repeat the commit. Warnings that "LF will be replaced by CRLF" are harmless.
+   `git status` lists what is about to be published. It should show the 77 files of section 3 and nothing else: the nine pages, `README.md`, `.nojekyll`, `.gitignore`, `css/styles.css`, `js/ocean.js`, 39 files under `assets/img/` and 24 under `assets/svg/`. If the commit stops with "Please tell me who you are", run the two `git config` lines it shows with your own name and email address, then repeat the commit. Warnings that "LF will be replaced by CRLF" are harmless.
 
 4. **Create the repository on GitHub.** Sign in at github.com, click the **+** at the top right and choose **New repository**. Give it a name in lower case without spaces, for example `sunfish-divers-test`: the name becomes part of the address. Choose **Public**. Leave "Add a README file" unticked, and do not choose a .gitignore template or a licence: the repository has to start empty. Click **Create repository**.
 
@@ -729,7 +731,7 @@ When the site is to replace the live one, go through this list. The first four r
 | Page addresses for sharing | `og:url`, line 18 of every page (line 16 once the `noindex` lines are gone) | Must be the full, final address of each page. They are already written for `https://sunfish-divers.com/` with the present file names; if the site goes online there unchanged, they are right as they stand. Then delete the TODO comment on the line above |
 | Share image | `og:image`, the line after `og:url` | Must be a full address too: `https://sunfish-divers.com/assets/img/og-sunfish-divers.jpg` works as soon as the folder is on that domain. A relative address does not work in this tag |
 | Phone action bar | The `MOBILE ACTION BAR` block at the foot of every page; section 9 | Decide whether to keep the Call, WhatsApp and Book a dive bar. To keep it, confirm the WhatsApp number (section 7). To remove it, follow "To remove it" in section 9 |
-| Remaining placeholders | Section 6 (d), section 6 (c) | Supply the nine dive-site photos and edit their `alt` texts; replace the two stock photographs and the Bubblemaker stand-in with your own pictures if you have them |
+| Remaining placeholders | Section 6 (d), section 6 (c) | Replace the three stock photographs and the Bubblemaker stand-in with your own pictures if you have them; confirm the rights to the dive-site photos |
 | Content still open | Section 7, "Every TODO comment, by file" | Course, dive-site and service details, IDC dates, dive packages, the map marker |
 | Enquiry form | Section 7, first row of the table | Connect a real form handler. Until then the form sends nothing |
 | Photo rights | Section 6 | Confirm the right to use the photos taken from the live site and the PADI course artwork |

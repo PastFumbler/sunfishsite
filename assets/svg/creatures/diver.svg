@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 170">
+  <!-- exhaled bubbles, trailing up behind the head -->
+  <g fill="#cdeaf0">
+    <circle class="sf-drift" style="--sf-dx:-3px;--sf-dy:-8px;--sf-dur:3.2s" cx="272" cy="70" r="3.4"/>
+    <circle class="sf-drift" style="--sf-dx:3px;--sf-dy:-10px;--sf-dur:4s;--sf-delay:-1.2s" cx="262" cy="52" r="2.4"/>
+    <circle class="sf-drift" style="--sf-dx:-4px;--sf-dy:-11px;--sf-dur:4.6s;--sf-delay:-2.4s" cx="268" cy="36" r="4"/>
+    <circle class="sf-drift" style="--sf-dx:3px;--sf-dy:-9px;--sf-dur:3.8s;--sf-delay:-0.7s" cx="256" cy="22" r="2.2"/>
+  </g>
+  <!-- far leg and fin -->
+  <g class="sf-wag" style="transform-origin:130px 98px;--sf-amp:7deg;--sf-dur:1.3s;--sf-delay:-1.3s">
+    <path fill="#d6b060" d="M60 92L18 80C11 78 6 83 9 89L14 100L9 111C6 117 11 122 18 120L60 106Z"/>
+    <path fill="#254257" d="M136 88C112 88 84 91 58 94L58 105C84 108 112 110 136 110Z"/>
+  </g>
+  <!-- far arm, reaching forward -->
+  <path fill="#254257" d="M232 96C248 102 268 112 292 124L288 133C264 124 244 114 226 106Z"/>
+  <circle cx="294" cy="130" r="5" fill="#d99a76"/>
+  <!-- cylinder, valve and boot -->
+  <rect x="140" y="56" width="94" height="24" rx="12" fill="#f4d58d"/>
+  <path fill="#e0ac4f" d="M152 56L140 56A12 12 0 0 0 140 80L152 80Z"/>
+  <rect x="184" y="56" width="8" height="24" fill="#e0ac4f"/>
+  <rect x="232" y="62" width="11" height="11" rx="2.5" fill="#6b8c9c"/>
+  <path fill="none" stroke="#fff4dc" stroke-width="2.4" stroke-linecap="round" d="M156 62L176 62M198 62L222 62"/>
+  <!-- near leg and fin -->
+  <g class="sf-wag" style="transform-origin:130px 92px;--sf-amp:7deg;--sf-dur:1.3s">
+    <path fill="#f4d58d" d="M60 84L18 72C11 70 6 75 9 81L14 92L9 103C6 109 11 114 18 112L60 98Z"/>
+    <path fill="none" stroke="#d6b060" stroke-width="1.8" stroke-linecap="round" d="M50 87L22 79M52 92L20 92M50 97L22 105"/>
+    <path fill="#3d6379" d="M136 80C112 80 84 83 58 86L58 97C84 100 112 102 136 102Z"/>
+    <path fill="#254257" d="M66 85L54 86.4L54 97.6L66 99Z"/>
+  </g>
+  <!-- body in a wetsuit -->
+  <path fill="#3d6379" d="M126 78C152 73 202 70 238 74C248 76 252 86 250 95C246 105 234 109 218 109C188 109 152 107 126 104C119 98 119 84 126 78Z"/>
+  <!-- coral side panel -->
+  <path fill="#ff7a59" d="M132 96C162 100 202 102 240 98L239 104C202 108 162 106 131 102Z"/>
+  <!-- harness straps -->
+  <path fill="#254257" d="M160 56L168 56L168 108L160 107.4ZM208 56L216 56L216 109L208 109Z"/>
+  <!-- regulator hose from the valve to the mouth -->
+  <path fill="none" stroke="#56707f" stroke-width="2.6" stroke-linecap="round" d="M240 72C250 82 262 100 280 98"/>
+  <!-- head: hood, face, mask, regulator -->
+  <circle cx="266" cy="84" r="17" fill="#254257"/>
+  <path fill="#d99a76" d="M272 78C278 78 283 82 283 88C283 94 279 98 273 98C270 92 270 84 272 78Z"/>
+  <path fill="#254257" d="M270 73L286 74.5C288 74.7 289 76 289 78L289 86C289 88 288 89.3 286 89.5L270 91Z"/>
+  <path fill="#9fd0da" d="M273 76.5L285.5 77.6L285.5 86.4L273 87.5Z"/>
+  <path fill="none" stroke="#fff4dc" stroke-width="1.4" stroke-linecap="round" d="M276 79.5L282 80"/>
+  <path fill="none" stroke="#ff7a59" stroke-width="3.2" stroke-linecap="round" d="M270 81L250 79"/>
+  <circle cx="284" cy="96" r="5.6" fill="#6b8c9c"/>
+  <circle cx="284" cy="96" r="2.2" fill="#56707f"/>
+  <!-- near arm, reaching forward -->
+  <path fill="#4f7a91" d="M228 88C246 92 268 100 296 110L293 120C268 113 246 106 224 100C220 96 222 90 228 88Z"/>
+  <path fill="#ff7a59" d="M276 103.4L283 105.8L280.4 115.4L273.4 113.4Z"/>
+  <circle cx="299" cy="116" r="5.4" fill="#d99a76"/>
+</svg>
