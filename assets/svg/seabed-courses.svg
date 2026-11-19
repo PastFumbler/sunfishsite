@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 360" preserveAspectRatio="xMidYMax slice">
+  <!-- far dune -->
+  <path fill="#244356" d="M0 290C130 274 270 272 400 284C520 294 660 298 800 288C950 278 1100 266 1280 278C1400 285 1500 290 1600 282L1600 360L0 360Z"/>
+  <!-- far rocks -->
+  <path fill="#1c3d52" d="M1150 292C1154 262 1180 246 1212 248C1246 250 1270 268 1276 292Z"/>
+  <path fill="#24506a" d="M1150 292C1154 262 1180 246 1212 248C1246 250 1270 268 1276 292C1262 274 1240 262 1212 261S1164 272 1150 292Z"/>
+  <path fill="#1c3d52" d="M330 296C334 276 352 264 374 266C396 268 410 280 414 296Z"/>
+  <path fill="#24506a" d="M330 296C334 276 352 264 374 266C396 268 410 280 414 296C404 284 392 277 374 277S340 284 330 296Z"/>
+  <!-- far seagrass -->
+  <g transform="translate(1316 300) scale(.8)">
+    <g class="sf-sway" style="transform-origin:0px 0px;--sf-amp:4deg;--sf-dur:5.2s;--sf-delay:-2s" fill="#245a55">
+      <path d="M-9 2C-14 -20 -13 -42 -6 -60C-7 -40 -6 -18 -3 2Z"/><path d="M-3 2C-4 -26 1 -52 10 -72C7 -48 4 -22 3 2Z"/><path d="M3 2C7 -16 14 -32 23 -44C18 -30 13 -14 9 2Z"/><path d="M-12 2C-19 -12 -25 -24 -33 -32C-25 -26 -14 -14 -6 2Z"/>
+    </g>
+  </g>
+  <g transform="translate(286 304) scale(.7)">
+    <g class="sf-sway" style="transform-origin:0px 0px;--sf-amp:4deg;--sf-dur:4.6s" fill="#245a55">
+      <path d="M-9 2C-14 -20 -13 -42 -6 -60C-7 -40 -6 -18 -3 2Z"/><path d="M-3 2C-4 -26 1 -52 10 -72C7 -48 4 -22 3 2Z"/><path d="M3 2C7 -16 14 -32 23 -44C18 -30 13 -14 9 2Z"/>
+    </g>
+  </g>
+  <!-- chain: rises out of the frame and fades into the gloom -->
+  <g transform="translate(879.3 110.6) rotate(10)" fill="none" stroke-linecap="round">
+    <path stroke="#5c3a34" stroke-width="7" d="M0 -13L0 -35"/>
+    <ellipse cx="0" cy="-50" rx="9" ry="14.5" stroke="#7d4a3e" stroke-width="6"/>
+    <g opacity=".8"><path stroke="#5c3a34" stroke-width="7" d="M0 -62L0 -84"/></g>
+    <g opacity=".5"><ellipse cx="0" cy="-99" rx="9" ry="14.5" stroke="#7d4a3e" stroke-width="6"/></g>
+    <g opacity=".25"><path stroke="#5c3a34" stroke-width="7" d="M0 -111L0 -133"/></g>
+  </g>
+  <!-- admiralty anchor: one arm dug in, the other standing clear -->
+  <g transform="translate(748 298) rotate(35) scale(1.1)">
+    <!-- arms and flukes -->
+    <path fill="#7d4a3e" d="M-100 -70C-92 -22 -50 14 0 16C50 14 92 -22 100 -70L80 -66C72 -34 40 -8 0 -8C-40 -8 -72 -34 -80 -66Z"/>
+    <path fill="#7d4a3e" d="M-104 -112C-114 -95 -123 -76 -128 -56C-119 -64 -109 -68 -100 -70L-80 -66C-73 -68 -65 -71 -58 -76C-76 -84 -92 -97 -104 -112ZM104 -112C114 -95 123 -76 128 -56C119 -64 109 -68 100 -70L80 -66C73 -68 65 -71 58 -76C76 -84 92 -97 104 -112Z"/>
+    <path fill="#5c3a34" d="M-100 -70C-92 -22 -50 14 0 16C50 14 92 -22 100 -70L92 -68.5C85 -27 47 6 0 8C-47 6 -85 -27 -92 -68.5Z"/>
+    <path fill="#5c3a34" d="M-104 -112C-114 -95 -123 -76 -128 -56C-119 -64 -109 -68 -100 -70L-92 -68.5C-94 -83 -98 -98 -104 -112ZM104 -112C114 -95 123 -76 128 -56C119 -64 109 -68 100 -70L92 -68.5C94 -83 98 -98 104 -112Z"/>
+    <path fill="#a06a5a" d="M-104 -112C-92 -97 -76 -84 -58 -76L-63 -74C-78 -81 -91 -92 -101 -106ZM-80 -66C-72 -34 -40 -8 0 -8L0 -4.5C-42 -5 -70 -30 -76.5 -65.3ZM104 -112C92 -97 76 -84 58 -76L63 -74C78 -81 91 -92 101 -106Z"/>
+    <!-- shank -->
+    <path fill="#7d4a3e" d="M-12 6L-8 -194L8 -194L12 6Z"/>
+    <path fill="#5c3a34" d="M3 6L2 -194L8 -194L12 6Z"/>
+    <path fill="#a06a5a" d="M-12 6L-8 -194L-4.5 -194L-8 6Z"/>
+    <!-- stock with ball ends -->
+    <rect x="-58" y="-170" width="116" height="13" rx="6.5" fill="#7d4a3e"/>
+    <path fill="#5c3a34" d="M-56 -162.5L56 -162.5C56 -159 54 -157 51.5 -157L-51.5 -157C-54 -157 -56 -159 -56 -162.5Z"/>
+    <path fill="#a06a5a" d="M-52 -169.6L52 -169.6L52 -167.8L-52 -167.8Z"/>
+    <rect x="-12" y="-176" width="24" height="25" rx="4" fill="#5c3a34"/>
+    <circle cx="-60" cy="-163.5" r="11" fill="#7d4a3e"/><circle cx="60" cy="-163.5" r="11" fill="#7d4a3e"/>
+    <path fill="#5c3a34" d="M-71 -163.5A11 11 0 0 0 -49 -163.5ZM49 -163.5A11 11 0 0 0 71 -163.5Z"/>
+    <!-- ring -->
+    <circle cx="0" cy="-208" r="17" fill="none" stroke="#7d4a3e" stroke-width="7.5"/>
+    <path fill="none" stroke="#5c3a34" stroke-width="7.5" d="M-12 -196A17 17 0 0 0 17 -208"/>
+    <path fill="none" stroke="#a06a5a" stroke-width="2" stroke-linecap="round" d="M-19 -214A20 20 0 0 1 -6 -227"/>
+    <!-- encrusting patches -->
+    <g fill="#2f7a72">
+      <path d="M-8 -70C-10 -62 -6 -50 0 -48C5 -50 6 -60 3 -68C0 -74 -6 -76 -8 -70Z"/><path d="M0 -134C-3 -128 -1 -120 4 -119C8 -121 8 -130 5 -135C3 -137 1 -137 0 -134Z"/><path d="M-92 -46C-96 -38 -92 -28 -86 -24C-82 -28 -82 -38 -86 -46C-88 -50 -91 -50 -92 -46Z"/><path d="M-44 -168C-40 -172 -30 -172 -26 -168C-28 -164 -40 -163 -44 -168Z"/>
+    </g>
+    <g fill="#5c7550">
+      <path d="M-2 -98C-4 -93 -2 -88 3 -87C7 -89 7 -95 4 -99C2 -101 -1 -101 -2 -98Z"/><path d="M22 -166C26 -170 34 -169 37 -165C34 -161 25 -161 22 -166Z"/><path d="M-6 -22C-9 -16 -6 -8 0 -6C4 -8 4 -16 1 -22C-1 -25 -5 -25 -6 -22Z"/>
+    </g>
+  </g>
+  <!-- growth on the fluke and stock -->
+  <g class="sf-sway" style="transform-origin:699px 152px;--sf-amp:6deg;--sf-dur:3.8s" fill="#5c7550">
+    <path d="M695 153C692 139 696 125 704 115C703 127 702 141 701 153Z"/><path d="M699 154C702 143 710 133 720 127C714 137 708 147 705 155Z"/><path d="M692 151C686 143 683 133 684 123C688 133 692 143 697 151Z"/>
+  </g>
+  <g class="sf-sway" style="transform-origin:797px 103px;--sf-amp:6deg;--sf-dur:3.4s;--sf-delay:-.8s" fill="#2f7a72">
+    <path d="M793 104C790 92 792 80 798 72C798 84 799 94 799 104Z"/><path d="M798 104C801 94 807 86 815 82C810 90 805 98 803 105Z"/>
+  </g>
+  <g class="sf-sway" style="transform-origin:889px 168px;--sf-amp:5deg;--sf-dur:4.4s;--sf-delay:-1.5s" fill="#6a4d78">
+    <path d="M883 169C875 157 877 143 885 135C887 145 893 147 895 155C899 147 907 147 909 155C907 163 899 169 891 171Z"/>
+  </g>
+  <!-- sand -->
+  <path fill="#33566a" d="M0 302C140 290 300 294 460 300C540 303 620 298 690 293C740 289 790 290 830 293C870 296 930 296 1040 298C1150 301 1240 288 1360 294C1450 298 1530 302 1600 296L1600 360L0 360Z"/>
+  <path fill="#3a5d70" d="M620 298C650 293 700 290 760 290C720 293 670 296 620 301ZM120 296C180 291 250 292 300 295C240 295 180 297 120 300ZM1240 292C1290 289 1340 291 1380 295C1330 294 1290 294 1240 295Z"/>
+  <path fill="none" stroke="#2b4a5e" stroke-width="2" stroke-linecap="round" d="M560 306C590 302 620 303 650 306M900 304C930 300 965 301 990 305M200 308C240 304 270 305 300 308M1100 306C1140 303 1170 303 1200 306M1420 306C1450 303 1480 303 1500 306"/>
+  <!-- small fish -->
+  <g transform="translate(600 236) scale(1.2)">
+    <g class="sf-drift" style="--sf-dx:22px;--sf-dy:-4px;--sf-dur:11s">
+      <g class="sf-wag" style="transform-origin:-12px 0px;--sf-dur:.9s"><path fill="#5f7f92" d="M-10 0L-23 -8C-20 -3 -20 3 -23 8Z"/></g>
+      <path fill="#8fb0bf" d="M20 .5C16 -5 8 -8 0 -7.5C-7 -7 -12 -3.5 -16 0C-12 3.5 -7 7 0 7.5C8 8 16 5.5 20 .5Z"/>
+      <path fill="#5f7f92" d="M20 .5C16 -5 8 -8 0 -7.5C-7 -7 -12 -3.5 -16 0C-9 -2.5 -2 -3.5 5 -3S15 -1.5 20 .5Z"/>
+      <circle cx="12.5" cy="-.5" r="2.9" fill="#c9dde4"/><circle cx="12.5" cy="-.5" r="2" fill="#0b2233"/><circle cx="13.2" cy="-1.2" r=".6" fill="#fff"/>
+    </g>
+  </g>
+  <g transform="translate(984 222) scale(-1 1)">
+    <g class="sf-drift" style="--sf-dx:18px;--sf-dy:3px;--sf-dur:13s;--sf-delay:-4s">
+      <g class="sf-wag" style="transform-origin:-12px 0px;--sf-dur:1s"><path fill="#5f7f92" d="M-10 0L-23 -8C-20 -3 -20 3 -23 8Z"/></g>
+      <path fill="#8fb0bf" d="M20 .5C16 -5 8 -8 0 -7.5C-7 -7 -12 -3.5 -16 0C-12 3.5 -7 7 0 7.5C8 8 16 5.5 20 .5Z"/>
+      <path fill="#5f7f92" d="M20 .5C16 -5 8 -8 0 -7.5C-7 -7 -12 -3.5 -16 0C-9 -2.5 -2 -3.5 5 -3S15 -1.5 20 .5Z"/>
+      <circle cx="12.5" cy="-.5" r="2.9" fill="#c9dde4"/><circle cx="12.5" cy="-.5" r="2" fill="#0b2233"/><circle cx="11.8" cy="-1.2" r=".6" fill="#fff"/>
+    </g>
+  </g>
+  <!-- near seagrass -->
+  <g transform="translate(1068 322)">
+    <g class="sf-sway" style="transform-origin:0px 0px;--sf-amp:5deg;--sf-dur:4.4s;--sf-delay:-1s" fill="#2f6f66">
+      <path d="M-9 2C-14 -20 -13 -42 -6 -60C-7 -40 -6 -18 -3 2Z"/><path d="M-3 2C-4 -26 1 -52 10 -72C7 -48 4 -22 3 2Z"/><path d="M3 2C7 -16 14 -32 23 -44C18 -30 13 -14 9 2Z"/><path d="M-12 2C-19 -12 -25 -24 -33 -32C-25 -26 -14 -14 -6 2Z"/><path d="M6 2C12 -8 20 -16 30 -20C24 -14 17 -6 12 2Z"/>
+    </g>
+  </g>
+  <g transform="translate(150 322) scale(.9)">
+    <g class="sf-sway" style="transform-origin:0px 0px;--sf-amp:5deg;--sf-dur:5s;--sf-delay:-3s" fill="#2f6f66">
+      <path d="M-9 2C-14 -20 -13 -42 -6 -60C-7 -40 -6 -18 -3 2Z"/><path d="M-3 2C-4 -26 1 -52 10 -72C7 -48 4 -22 3 2Z"/><path d="M3 2C7 -16 14 -32 23 -44C18 -30 13 -14 9 2Z"/><path d="M-12 2C-19 -12 -25 -24 -33 -32C-25 -26 -14 -14 -6 2Z"/>
+    </g>
+  </g>
+  <g transform="translate(1470 322) scale(.85)">
+    <g class="sf-sway" style="transform-origin:0px 0px;--sf-amp:5deg;--sf-dur:4.8s;--sf-delay:-2.2s" fill="#2f6f66">
+      <path d="M-9 2C-14 -20 -13 -42 -6 -60C-7 -40 -6 -18 -3 2Z"/><path d="M-3 2C-4 -26 1 -52 10 -72C7 -48 4 -22 3 2Z"/><path d="M6 2C12 -8 20 -16 30 -20C24 -14 17 -6 12 2Z"/>
+    </g>
+  </g>
+  <!-- foreground sand: merges with the footer -->
+  <path fill="#2b4a5e" d="M0 318C200 310 420 314 640 320C840 325 1040 312 1240 316C1400 319 1500 322 1600 314L1600 360L0 360Z"/>
+</svg>

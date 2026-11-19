@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 360" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <!-- one propeller blade, hub at 0 0, pointing up -->
+    <g id="seabed-instructor-courses-blade">
+      <path fill="#6f6c50" d="M-6 -8C-14 -22 -30 -40 -28 -62C-26 -80 -8 -90 8 -84C24 -78 28 -58 22 -40C18 -28 10 -16 6 -8Z"/>
+      <path fill="#918c68" d="M6 -8C10 -16 18 -28 22 -40C28 -58 24 -78 8 -84C13 -72 14 -56 11 -42S6 -20 6 -8Z"/>
+      <path fill="#4d4f40" d="M-6 -8C-14 -22 -30 -40 -28 -62C-22 -46 -13 -30 -6 -8Z"/>
+    </g>
+    <!-- small bream, facing right -->
+    <g id="seabed-instructor-courses-fish">
+      <path fill="#56707f" d="M-14 0L-28 -10C-25 -4 -25 4 -28 10Z"/>
+      <path fill="#8fabb8" d="M28 0C20 -10 4 -12 -8 -7C-13 -5 -17 -2 -20 0C-17 2 -13 5 -8 7C4 12 20 10 28 0Z"/>
+      <path fill="#56707f" d="M28 0C20 -10 4 -12 -8 -7C-13 -5 -17 -2 -20 0C-10 -4 2 -5 12 -4S24 -2 28 0Z"/>
+      <path fill="#c3d6de" d="M-20 0C-17 2 -13 5 -8 7C4 12 20 10 28 0C22 4 12 6 2 5S-14 2 -20 0Z"/>
+      <circle cx="17" cy="-1.5" r="4" fill="#dbe9ee"/>
+      <circle cx="17" cy="-1.5" r="2.8" fill="#0b2233"/>
+      <circle cx="18" cy="-2.5" r=".8" fill="#fff"/>
+    </g>
+  </defs>
+  <!-- far sand ridge -->
+  <path fill="#244356" d="M0 284C120 270 260 278 400 272S700 266 860 276S1180 284 1330 272S1520 266 1600 276V360H0Z"/>
+  <!-- rocks, left and right -->
+  <path fill="#2e5468" d="M92 314C84 296 92 272 114 264C128 252 156 250 172 262C190 266 200 284 196 300C196 306 194 311 192 314Z"/>
+  <path fill="#3f6b80" d="M92 314C84 296 92 272 114 264C128 252 156 250 172 262C158 262 142 264 130 272S106 280 100 294S94 308 92 314Z"/>
+  <path fill="#1f3c4f" d="M172 262C190 266 200 284 196 300C196 306 194 311 192 314L152 314C170 308 184 296 182 282S178 268 172 262Z"/>
+  <path fill="#2e5468" d="M1258 314C1252 296 1262 276 1282 270C1298 260 1324 262 1336 274C1350 280 1356 296 1352 308L1350 314Z"/>
+  <path fill="#3f6b80" d="M1258 314C1252 296 1262 276 1282 270C1298 260 1324 262 1336 274C1322 272 1306 274 1294 282S1274 290 1268 300S1260 310 1258 314Z"/>
+  <path fill="#1f3c4f" d="M1336 274C1350 280 1356 296 1352 308L1350 314L1316 314C1330 308 1340 298 1340 288S1338 278 1336 274Z"/>
+  <!-- the stern, bow buried to the left, lifted a little at the stern -->
+  <g transform="rotate(-4 700 300)">
+    <!-- bent railing and mooring bitts -->
+    <path fill="none" stroke="#2f6580" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M772 66L772 40L850 38L852 64M850 38L934 37L948 50M812 65L812 39M892 63L892 38M934 37L935 62M772 53L850 51L934 50"/>
+    <path fill="#1c3d52" d="M690 68L690 52C690 47 704 47 704 52L704 68ZM716 68L716 52C716 47 730 47 730 52L730 68Z"/>
+    <!-- weed hanging from the rail -->
+    <g fill="none" stroke="#5d7350" stroke-width="3" stroke-linecap="round">
+      <path class="sf-sway" style="transform-origin:830px 51px;--sf-amp:7deg;--sf-dur:3.6s" d="M830 51C828 57 832 62 829 70"/>
+      <path class="sf-sway" style="transform-origin:868px 51px;--sf-amp:7deg;--sf-dur:3.6s;--sf-delay:-1.3s" d="M868 51C870 58 866 64 869 74"/>
+      <path class="sf-sway" style="transform-origin:910px 50px;--sf-amp:7deg;--sf-dur:3.6s;--sf-delay:-2.4s" d="M910 50C908 56 912 60 910 66"/>
+    </g>
+    <!-- hull -->
+    <path fill="#24506a" d="M436 70L958 62C970 62 976 71 970 82C952 108 918 120 884 123C852 126 818 124 794 131C783 134 778 143 778 155L778 252C778 270 771 284 758 291L436 297L424 262L444 232L428 196L450 160L432 118L446 92Z"/>
+    <!-- lit sheer strake -->
+    <path fill="#2f6580" d="M436 70L958 62C970 62 976 71 970 82C962 78 950 77 938 77L442.8 85Z"/>
+    <!-- shadow under the counter and along the bilge -->
+    <path fill="#1c3d52" d="M970 82C952 108 918 120 884 123C852 126 818 124 794 131C783 134 778 143 778 155C786 143 800 139 820 137S880 134 910 121S956 98 970 82Z"/>
+    <path fill="#1c3d52" d="M778 232L778 252C778 270 771 284 758 291L436 297L424 262L432 250C500 242 560 252 640 246S740 238 778 232Z"/>
+    <!-- remnants of the paint stripe -->
+    <path fill="#7d4a3e" d="M466 104L588 103.8L590 111.8L464 112ZM640 103.6L812 103.4L816 111.4L636 111.8ZM858 103.2L945 103L930 111.4L862 111.4Z"/>
+    <!-- plate seams -->
+    <path fill="none" stroke="#1c3d52" stroke-width="2" stroke-linecap="round" d="M530 118L530 236M626 118L626 240M722 118L722 232M456 176L770 172"/>
+    <!-- portholes -->
+    <g fill="#16303f" stroke="#2f6580" stroke-width="2.5">
+      <circle cx="800" cy="92" r="6.5"/><circle cx="842" cy="91.5" r="6.5"/><circle cx="884" cy="91" r="6.5"/>
+    </g>
+    <!-- rust on the plating -->
+    <path fill="#5c3a34" d="M548 148C552 138 566 140 574 134C584 128 598 134 600 144C608 148 608 160 600 166C590 172 572 170 560 166C550 162 544 156 548 148Z"/>
+    <path fill="#7d4a3e" d="M562 150C566 144 576 146 582 142C588 140 594 146 592 152C590 158 580 160 572 158C564 158 560 154 562 150Z"/>
+    <!-- encrusting growth -->
+    <path fill="#2a6f73" d="M486 250C492 240 506 244 514 238C524 232 538 238 538 248C546 250 548 260 540 264C530 270 508 270 496 266C486 262 480 256 486 250ZM596 80C602 74 612 78 620 76C630 74 640 80 638 88C636 96 622 98 610 96C600 96 592 88 596 80ZM738 150C742 142 754 146 760 152C766 158 760 166 750 166C742 166 734 158 738 150Z"/>
+    <path fill="#3d8a84" d="M498 250C502 246 510 248 510 253C510 258 502 260 498 257C495 255 495 252 498 250Z"/>
+    <path fill="#5a4468" d="M690 150C694 144 704 146 708 152C710 158 702 163 695 161C689 159 687 154 690 150Z"/>
+    <!-- shaft boss -->
+    <path fill="#24506a" d="M772 192C786 197 796 203 804 205L804 223C796 225 786 231 772 236Z"/>
+    <path fill="#1c3d52" d="M772 236C786 231 796 225 804 223L804 214C794 218 784 222 772 224Z"/>
+    <!-- rudder -->
+    <path fill="#1c3d52" d="M893 118L905 118L905 136L893 136Z"/>
+    <path fill="#2f6580" d="M870 133L926 129C932 129 935 133 935 139L930 275C930 285 924 290 914 290L880 288C873 288 869 283 869 276Z"/>
+    <path fill="#24506a" d="M869 276L870 133C878 156 880 200 880 232S884 272 914 290L880 288C873 288 869 283 869 276Z"/>
+    <path fill="none" stroke="#24506a" stroke-width="2" stroke-linecap="round" d="M886 176L933 174M886 224L931 223"/>
+    <path fill="#5c3a34" d="M898 146C904 140 916 144 920 150C922 158 912 162 904 160C898 158 894 152 898 146Z"/>
+    <path fill="#2a6f73" d="M894 246C900 238 912 242 918 240C926 242 928 252 922 258C914 264 900 262 894 256C892 252 892 248 894 246Z"/>
+    <!-- four-bladed propeller, seen from the quarter -->
+    <g transform="translate(808 214) scale(.66 1)">
+      <use href="#seabed-instructor-courses-blade" transform="rotate(42)"/>
+      <use href="#seabed-instructor-courses-blade" transform="rotate(132)"/>
+      <use href="#seabed-instructor-courses-blade" transform="rotate(222)"/>
+      <use href="#seabed-instructor-courses-blade" transform="rotate(312)"/>
+    </g>
+    <!-- encrusting growth on the blades -->
+    <path fill="#2a6f73" d="M832 150C838 146 846 150 846 157C845 164 836 166 831 162C827 158 828 153 832 150ZM772 252C777 248 786 251 786 257C786 263 778 265 773 262C769 259 769 255 772 252Z"/>
+    <path fill="#5a4468" d="M838 262C842 259 849 261 849 266C849 271 843 273 839 271C836 268 836 265 838 262Z"/>
+    <circle cx="782" cy="170" r="3.5" fill="#c9644f"/><circle cx="790" cy="176" r="2.5" fill="#c9644f"/>
+    <circle cx="826" cy="246" r="3" fill="#918c68"/><circle cx="820" cy="240" r="2" fill="#918c68"/>
+    <!-- hub and cap -->
+    <ellipse cx="808" cy="214" rx="12" ry="17" fill="#4d4f40"/>
+    <path fill="#6f6c50" d="M808 199C826 201 838 207 841 214C838 221 826 227 808 229C814 220 814 208 808 199Z"/>
+    <path fill="#918c68" d="M808 199C826 201 838 207 841 214C830 209 820 207 811 206Z"/>
+    <!-- sea fans on the deck -->
+    <g class="sf-sway" style="transform-origin:560px 68px;--sf-amp:4deg;--sf-dur:5s">
+      <path fill="none" stroke="#84609a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M560 70C559 56 561 42 560 22M560 52C552 46 546 38 544 26M560 46C567 40 573 34 575 22M551 43C547 40 541 38 534 38M568 39C573 38 579 38 586 40M560 34C556 30 553 26 552 20"/>
+    </g>
+    <g class="sf-sway" style="transform-origin:616px 67px;--sf-amp:5deg;--sf-dur:4.4s;--sf-delay:-1.5s">
+      <path fill="none" stroke="#b5604e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" d="M616 69C616 60 615 52 616 40M616 56C610 52 606 46 605 38M616 53C622 49 626 44 627 36"/>
+    </g>
+    <g class="sf-sway" style="transform-origin:668px 67px;--sf-amp:6deg;--sf-dur:4.8s;--sf-delay:-2.2s">
+      <path fill="none" stroke="#5d7350" stroke-width="3.5" stroke-linecap="round" d="M664 68C662 60 660 54 656 48M668 68C668 58 670 50 669 40M672 68C675 61 678 56 682 52"/>
+    </g>
+  </g>
+  <!-- main sand -->
+  <path fill="#33566a" d="M0 302C160 290 330 298 480 292C580 288 700 284 780 292C850 298 920 302 1000 296C1140 288 1300 290 1440 296C1500 298 1560 292 1600 294V360H0Z"/>
+  <path fill="#3a5d70" d="M110 308C170 298 250 298 310 306C250 303 170 303 110 308ZM500 298C560 290 660 290 720 294C660 294 560 295 500 298ZM1040 302C1110 294 1200 294 1270 302C1200 299 1110 299 1040 302ZM1400 304C1450 298 1520 298 1570 302C1520 301 1450 302 1400 304Z"/>
+  <!-- shadow below the stern -->
+  <path fill="#244356" d="M770 302C800 296 900 296 950 300C900 306 800 306 770 302Z"/>
+  <!-- torn plate lying on the sand -->
+  <path fill="#1c3d52" d="M300 314L318 294L388 288L402 302L384 314Z"/>
+  <path fill="#2f6580" d="M318 294L388 288L402 302L396 302L384 293L322 298Z"/>
+  <!-- weed at the foot of the hull and by the rocks -->
+  <g transform="translate(596 314)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-.6s" d="M-6 0C-8 -18 -14 -34 -22 -46C-10 -36 -2 -20 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-2s" d="M-2 0C-3 -22 0 -42 6 -58C8 -40 7 -20 5 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-3.1s" fill="#2f5d55" d="M2 0C6 -16 14 -28 24 -36C18 -24 12 -12 8 0Z"/>
+  </g>
+  <g transform="translate(1000 316)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-1.1s" fill="#2f5d55" d="M-5 0C-7 -14 -11 -24 -18 -34C-8 -26 -2 -14 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-2.8s" d="M-1 0C-2 -16 1 -30 6 -42C7 -28 6 -14 4 0Z"/>
+  </g>
+  <g transform="translate(1310 316)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-1.4s" d="M-6 0C-9 -20 -16 -38 -26 -52C-12 -40 -3 -22 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-.3s" fill="#2f5d55" d="M-2 0C-3 -26 1 -50 9 -70C10 -48 8 -24 5 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-2.6s" d="M2 0C7 -18 16 -32 28 -42C20 -28 13 -14 8 0Z"/>
+  </g>
+  <g transform="translate(206 316)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-2.2s" d="M-5 0C-7 -18 -12 -32 -20 -44C-9 -34 -2 -18 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-.9s" fill="#2f5d55" d="M-1 0C-2 -22 2 -40 8 -56C9 -38 7 -18 5 0Z"/>
+  </g>
+  <!-- small fish circling the propeller -->
+  <g transform="translate(1004 150) scale(-1 1)"><use href="#seabed-instructor-courses-fish" class="sf-drift" style="--sf-dx:34px;--sf-dy:8px;--sf-dur:9s"/></g>
+  <g transform="translate(1046 212) scale(-.8 .8)"><use href="#seabed-instructor-courses-fish" class="sf-drift" style="--sf-dx:28px;--sf-dy:-10px;--sf-dur:11s;--sf-delay:-4s"/></g>
+  <g transform="translate(676 196) scale(.85)"><use href="#seabed-instructor-courses-fish" class="sf-drift" style="--sf-dx:30px;--sf-dy:-6px;--sf-dur:10s;--sf-delay:-2s"/></g>
+  <g transform="translate(968 52) scale(-.7 .7)"><use href="#seabed-instructor-courses-fish" class="sf-drift" style="--sf-dx:36px;--sf-dy:6px;--sf-dur:13s;--sf-delay:-7s"/></g>
+  <!-- near sand, ending in the solid strip that meets the footer -->
+  <path fill="#2b4a5e" d="M0 322C180 312 380 320 560 316S900 310 1080 318S1420 322 1600 314V360H0Z"/>
+</svg>

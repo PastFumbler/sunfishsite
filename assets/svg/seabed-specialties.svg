@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 360" preserveAspectRatio="xMidYMax slice">
+  <!-- far dune -->
+  <path fill="#244356" d="M0 280C140 286 280 294 420 290C560 286 680 276 820 280C960 284 1100 294 1240 290C1380 286 1500 278 1600 284L1600 360L0 360Z"/>
+  <!-- far rocks -->
+  <path fill="#24506a" d="M1130 294C1130 276 1146 262 1168 262C1188 262 1198 270 1210 272C1224 274 1234 284 1236 294Z"/>
+  <path fill="#2f6580" d="M1130 294C1130 276 1146 262 1168 262C1188 262 1198 270 1210 272C1198 274 1186 272 1170 273S1138 282 1130 294Z"/>
+  <path fill="#24506a" d="M380 296C382 282 396 272 414 272C432 272 444 282 448 296Z"/>
+  <!-- far seagrass -->
+  <g transform="translate(330 302) scale(.75)">
+    <g class="sf-sway" style="transform-origin:0px 0px;--sf-amp:4deg;--sf-dur:5.2s;--sf-delay:-2s" fill="#245a55">
+      <path d="M-9 2C-14 -20 -13 -42 -6 -60C-7 -40 -6 -18 -3 2Z"/><path d="M-3 2C-4 -26 1 -52 10 -72C7 -48 4 -22 3 2Z"/><path d="M3 2C7 -16 14 -32 23 -44C18 -30 13 -14 9 2Z"/><path d="M-12 2C-19 -12 -25 -24 -33 -32C-25 -26 -14 -14 -6 2Z"/>
+    </g>
+  </g>
+  <!-- broken amphora: the lower half still planted -->
+  <g transform="translate(574 306) rotate(5) scale(1.12)">
+    <path fill="#35282b" d="M-29 -72L-25 -94L-15 -82L-5 -100L7 -86L15 -102L25 -86L29 -72Z"/>
+    <path fill="#8a6a58" d="M-30 -72L-22 -82L-13 -70L-3 -86L7 -72L17 -84L30 -72C30 -46 16 -22 6 -8L5 0L-5 0L-6 -8C-16 -22 -30 -46 -30 -72Z"/>
+    <path fill="#64493f" d="M30 -72C30 -46 16 -22 6 -8C12 -28 18 -48 19 -72L17 -84Z"/>
+    <path fill="#ab8c74" d="M-23 -66C-24 -54 -21 -42 -16 -32C-19 -44 -20 -54 -19 -66Z"/>
+    <path fill="#6f8f8c" d="M-8 -52C-4 -56 4 -55 6 -50C6 -45 -2 -42 -7 -45C-10 -47 -10 -50 -8 -52Z"/>
+  </g>
+  <!-- tall amphora, upright -->
+  <g transform="translate(694 306) rotate(-7) scale(1.2)">
+    <path fill="none" stroke="#8a6a58" stroke-width="5.5" stroke-linecap="round" d="M-8 -138C-18 -142 -25 -136 -25 -126C-25 -116 -24 -108 -22 -98M8 -138C18 -142 25 -136 25 -126C25 -116 24 -108 22 -98"/>
+    <path fill="#8a6a58" d="M-11 -150L11 -150C13 -150 13 -144 11 -144L8 -143C8 -130 8 -120 9 -112C12 -104 30 -96 30 -72C30 -46 16 -22 6 -8L5 0L-5 0L-6 -8C-16 -22 -30 -46 -30 -72C-30 -96 -12 -104 -9 -112C-8 -120 -8 -130 -8 -143L-11 -144C-13 -144 -13 -150 -11 -150Z"/>
+    <path fill="#64493f" d="M9 -112C12 -104 30 -96 30 -72C30 -46 16 -22 6 -8C12 -28 19 -50 19 -72S13 -100 9 -112Z"/>
+    <path fill="#ab8c74" d="M-23 -84C-26 -70 -23 -52 -17 -40C-20 -54 -21 -68 -19 -84ZM-11 -150L11 -150C12 -150 12.5 -148.5 12 -147.5L-12 -147.5C-12.5 -148.5 -12 -150 -11 -150Z"/>
+    <path fill="none" stroke="#64493f" stroke-width="1.6" stroke-linecap="round" d="M-27 -62C-10 -57 10 -57 27 -62M-22 -40C-8 -36 8 -36 22 -40"/>
+    <g fill="#6f8f8c">
+      <path d="M-18 -92C-14 -98 -4 -97 -2 -91C-1 -85 -9 -81 -15 -84C-19 -86 -20 -89 -18 -92Z"/><path d="M-4 -134C-5 -128 -3 -122 2 -122C5 -124 5 -131 3 -135C1 -137 -3 -137 -4 -134Z"/><circle cx="7" cy="-76" r="2.8"/><circle cx="12" cy="-70" r="1.8"/><circle cx="-5" cy="-50" r="2.2"/>
+    </g>
+  </g>
+  <!-- round-bellied amphora leaning on it -->
+  <g transform="translate(782 306) rotate(-15) scale(1.12)">
+    <path fill="none" stroke="#8a6a58" stroke-width="5.5" stroke-linecap="round" d="M-9 -112C-20 -116 -28 -108 -28 -98C-28 -92 -27 -88 -25 -84M9 -112C20 -116 28 -108 28 -98C28 -92 27 -88 25 -84"/>
+    <path fill="#8a6a58" d="M-12 -122L12 -122C14 -122 14 -116 12 -116L9 -115C9 -108 10 -102 12 -98C22 -92 36 -80 36 -58C36 -34 20 -14 8 -6L6 0L-6 0L-8 -6C-20 -14 -36 -34 -36 -58C-36 -80 -22 -92 -12 -98C-10 -102 -9 -108 -9 -115L-12 -116C-14 -116 -14 -122 -12 -122Z"/>
+    <path fill="#64493f" d="M12 -98C22 -92 36 -80 36 -58C36 -34 20 -14 8 -6C16 -22 24 -40 24 -58S18 -88 12 -98Z"/>
+    <path fill="#ab8c74" d="M-28 -70C-31 -58 -28 -44 -22 -34C-25 -46 -26 -58 -24 -70ZM-12 -122L12 -122C13 -122 13.5 -120.5 13 -119.5L-13 -119.5C-13.5 -120.5 -13 -122 -12 -122Z"/>
+    <path fill="none" stroke="#64493f" stroke-width="1.6" stroke-linecap="round" d="M-34 -52C-12 -46 12 -46 34 -52M-20 -92C-8 -89 8 -89 20 -92"/>
+    <g fill="#5c7550">
+      <path d="M-18 -74C-14 -80 -4 -80 -1 -74C0 -68 -8 -64 -14 -66C-18 -68 -20 -71 -18 -74Z"/><circle cx="10" cy="-30" r="3.2"/><circle cx="3" cy="-26" r="1.8"/>
+    </g>
+  </g>
+  <!-- amphora lying on its side, an octopus at home inside -->
+  <g transform="translate(858 298) rotate(80) scale(1.12)">
+    <path fill="none" stroke="#8a6a58" stroke-width="5.5" stroke-linecap="round" d="M-8 -138C-18 -142 -25 -136 -25 -126C-25 -116 -24 -108 -22 -98"/>
+    <path fill="#8a6a58" d="M-11 -150L11 -150C13 -150 13 -144 11 -144L8 -143C8 -130 8 -120 9 -112C12 -104 30 -96 30 -72C30 -46 16 -22 6 -8C5.5 -3 4 1 0 1C-4 1 -5.5 -3 -6 -8C-16 -22 -30 -46 -30 -72C-30 -96 -12 -104 -9 -112C-8 -120 -8 -130 -8 -143L-11 -144C-13 -144 -13 -150 -11 -150Z"/>
+    <path fill="#64493f" d="M9 -112C12 -104 30 -96 30 -72C30 -46 16 -22 6 -8C12 -28 19 -50 19 -72S13 -100 9 -112Z"/>
+    <path fill="#ab8c74" d="M-23 -84C-26 -70 -23 -52 -17 -40C-20 -54 -21 -68 -19 -84Z"/>
+    <path fill="none" stroke="#64493f" stroke-width="1.6" stroke-linecap="round" d="M-27 -62C-10 -57 10 -57 27 -62"/>
+    <ellipse cx="0" cy="-150" rx="10.5" ry="4.5" fill="#35282b"/>
+    <g fill="#6f8f8c">
+      <path d="M-22 -74C-24 -66 -20 -58 -14 -58C-10 -62 -11 -72 -15 -78C-18 -80 -21 -78 -22 -74Z"/><circle cx="-9" cy="-46" r="2.8"/><circle cx="-14" cy="-100" r="2.4"/>
+    </g>
+  </g>
+  <!-- growth on the lying amphora -->
+  <g class="sf-sway" style="transform-origin:944px 262px;--sf-amp:6deg;--sf-dur:3.8s;--sf-delay:-1s" fill="#5c7550">
+    <path d="M939 264C936 252 938 240 944 232C944 244 945 254 946 264Z"/><path d="M945 264C948 254 954 246 962 242C957 250 952 258 950 265Z"/><path d="M937 263C931 256 928 248 928 240C932 248 936 256 941 263Z"/>
+  </g>
+  <!-- octopus arm curling out of the mouth -->
+  <g transform="translate(31 0)">
+    <g class="sf-sway" style="transform-origin:994px 269px;--sf-amp:4deg;--sf-dur:4.6s">
+      <path fill="#a85a48" d="M992 277C1002 279 1010 279.5 1018 278.5C1028 277 1036 274.5 1042 270C1049 264.5 1053 257 1052 249C1051 240 1047 233 1041 231.5C1035 230 1029 232.5 1028.5 237.5C1028 240.5 1029.2 242.5 1031 243C1031 240.5 1031.8 238.8 1034 238C1038.5 236.5 1043 239.5 1044 248.5C1044.5 254 1040 259.5 1034.5 262.5C1029 265 1022 266.5 1016 267C1008 267.5 1000 264.5 992 262Z"/>
+      <g fill="#d6a48f"><circle cx="1005" cy="274.5" r="1.9"/><circle cx="1017" cy="274" r="1.9"/><circle cx="1028" cy="271.5" r="1.8"/><circle cx="1038" cy="266" r="1.7"/><circle cx="1045.5" cy="257" r="1.5"/><circle cx="1047.5" cy="247" r="1.3"/></g>
+    </g>
+  </g>
+  <!-- sand -->
+  <path fill="#33566a" d="M0 296C140 302 300 304 460 300C540 298 600 296 680 298C760 300 820 302 900 298C980 294 1040 296 1120 300C1260 306 1420 298 1600 296L1600 360L0 360Z"/>
+  <path fill="#3a5d70" d="M560 299C620 296 700 296 760 299C700 300 620 301 560 303ZM880 299C930 295 990 294 1040 296C990 297 930 299 880 302ZM150 300C210 298 280 300 330 302C270 303 210 303 150 304ZM1300 302C1360 299 1420 298 1470 299C1410 300 1360 302 1300 305Z"/>
+  <path fill="none" stroke="#2b4a5e" stroke-width="2" stroke-linecap="round" d="M470 308C500 305 530 305 560 308M1090 310C1120 307 1150 307 1180 310M240 312C280 309 310 309 340 312M1380 310C1410 307 1440 307 1470 310M730 310C760 307 800 307 830 310"/>
+  <!-- its neck and a few shards, lying where they fell -->
+  <g transform="translate(628 304) rotate(66) scale(1.12)">
+    <path fill="none" stroke="#8a6a58" stroke-width="5.5" stroke-linecap="round" d="M-8 -22C-18 -26 -25 -20 -25 -10C-25 -4 -24 0 -22 6"/>
+    <path fill="#8a6a58" d="M-11 -34L11 -34C13 -34 13 -28 11 -28L8 -27C8 -16 9 -6 13 2L4 -4L-3 6L-10 -2L-8 -27L-11 -28C-13 -28 -13 -34 -11 -34Z"/>
+    <path fill="#64493f" d="M8 -27C8 -16 9 -6 13 2L4 -4C4 -12 4 -20 3 -27Z"/>
+    <ellipse cx="0" cy="-34" rx="10.5" ry="3.5" fill="#35282b"/>
+  </g>
+  <path fill="#8a6a58" d="M664 310L674 299C678 303 680 307 680 312Z"/>
+  <path fill="#64493f" d="M520 308L530 300L538 309Z"/>
+  <!-- second arm resting on the sand -->
+  <path fill="#a85a48" d="M1021 276C1027 284 1031 293 1041 298C1049 302 1059 301 1063 296C1065 293 1063 290 1060 291C1057 295 1049 295 1044 291C1038 286 1035 277 1029 270Z"/>
+  <g fill="#d6a48f"><circle cx="1032" cy="286" r="1.7"/><circle cx="1040" cy="293.5" r="1.6"/><circle cx="1050" cy="296.5" r="1.4"/></g>
+  <!-- small fish -->
+  <g transform="translate(880 190) scale(1.1)">
+    <g class="sf-drift" style="--sf-dx:22px;--sf-dy:-4px;--sf-dur:11s">
+      <g class="sf-wag" style="transform-origin:-12px 0px;--sf-dur:.9s"><path fill="#5f7f92" d="M-10 0L-23 -8C-20 -3 -20 3 -23 8Z"/></g>
+      <path fill="#8fb0bf" d="M20 .5C16 -5 8 -8 0 -7.5C-7 -7 -12 -3.5 -16 0C-12 3.5 -7 7 0 7.5C8 8 16 5.5 20 .5Z"/>
+      <path fill="#5f7f92" d="M20 .5C16 -5 8 -8 0 -7.5C-7 -7 -12 -3.5 -16 0C-9 -2.5 -2 -3.5 5 -3S15 -1.5 20 .5Z"/>
+      <circle cx="12.5" cy="-.5" r="2.9" fill="#c9dde4"/><circle cx="12.5" cy="-.5" r="2" fill="#0b2233"/><circle cx="13.2" cy="-1.2" r=".6" fill="#fff"/>
+    </g>
+  </g>
+  <g transform="translate(590 150) scale(-1 1)">
+    <g class="sf-drift" style="--sf-dx:18px;--sf-dy:4px;--sf-dur:13s;--sf-delay:-5s">
+      <g class="sf-wag" style="transform-origin:-12px 0px;--sf-dur:1s"><path fill="#5f7f92" d="M-10 0L-23 -8C-20 -3 -20 3 -23 8Z"/></g>
+      <path fill="#8fb0bf" d="M20 .5C16 -5 8 -8 0 -7.5C-7 -7 -12 -3.5 -16 0C-12 3.5 -7 7 0 7.5C8 8 16 5.5 20 .5Z"/>
+      <path fill="#5f7f92" d="M20 .5C16 -5 8 -8 0 -7.5C-7 -7 -12 -3.5 -16 0C-9 -2.5 -2 -3.5 5 -3S15 -1.5 20 .5Z"/>
+      <circle cx="12.5" cy="-.5" r="2.9" fill="#c9dde4"/><circle cx="12.5" cy="-.5" r="2" fill="#0b2233"/><circle cx="11.8" cy="-1.2" r=".6" fill="#fff"/>
+    </g>
+  </g>
+  <!-- seagrass tuft -->
+  <g transform="translate(1104 322)">
+    <g class="sf-sway" style="transform-origin:0px 0px;--sf-amp:5deg;--sf-dur:4.4s;--sf-delay:-1s" fill="#2f6f66">
+      <path d="M-9 2C-14 -20 -13 -42 -6 -60C-7 -40 -6 -18 -3 2Z"/><path d="M-3 2C-4 -26 1 -52 10 -72C7 -48 4 -22 3 2Z"/><path d="M3 2C7 -16 14 -32 23 -44C18 -30 13 -14 9 2Z"/><path d="M-12 2C-19 -12 -25 -24 -33 -32C-25 -26 -14 -14 -6 2Z"/><path d="M6 2C12 -8 20 -16 30 -20C24 -14 17 -6 12 2Z"/>
+    </g>
+  </g>
+  <g transform="translate(500 322) scale(.8)">
+    <g class="sf-sway" style="transform-origin:0px 0px;--sf-amp:5deg;--sf-dur:4s;--sf-delay:-2.5s" fill="#2f6f66">
+      <path d="M-9 2C-14 -20 -13 -42 -6 -60C-7 -40 -6 -18 -3 2Z"/><path d="M-3 2C-4 -26 1 -52 10 -72C7 -48 4 -22 3 2Z"/><path d="M3 2C7 -16 14 -32 23 -44C18 -30 13 -14 9 2Z"/>
+    </g>
+  </g>
+  <g transform="translate(212 322) scale(.9)">
+    <g class="sf-sway" style="transform-origin:0px 0px;--sf-amp:5deg;--sf-dur:5s;--sf-delay:-3s" fill="#2f6f66">
+      <path d="M-9 2C-14 -20 -13 -42 -6 -60C-7 -40 -6 -18 -3 2Z"/><path d="M-3 2C-4 -26 1 -52 10 -72C7 -48 4 -22 3 2Z"/><path d="M3 2C7 -16 14 -32 23 -44C18 -30 13 -14 9 2Z"/><path d="M-12 2C-19 -12 -25 -24 -33 -32C-25 -26 -14 -14 -6 2Z"/>
+    </g>
+  </g>
+  <g transform="translate(1400 322) scale(.85)">
+    <g class="sf-sway" style="transform-origin:0px 0px;--sf-amp:5deg;--sf-dur:4.8s;--sf-delay:-2.2s" fill="#2f6f66">
+      <path d="M-9 2C-14 -20 -13 -42 -6 -60C-7 -40 -6 -18 -3 2Z"/><path d="M-3 2C-4 -26 1 -52 10 -72C7 -48 4 -22 3 2Z"/><path d="M6 2C12 -8 20 -16 30 -20C24 -14 17 -6 12 2Z"/>
+    </g>
+  </g>
+  <!-- foreground sand: merges with the footer -->
+  <path fill="#2b4a5e" d="M0 316C200 322 420 318 640 314C840 310 1040 318 1240 322C1400 321 1500 318 1600 314L1600 360L0 360Z"/>
+</svg>

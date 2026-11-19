@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 160">
+  <!-- tail: rounded, yellow trailing margin -->
+  <g class="sf-wag" style="transform-origin:68px 83px;--sf-amp:5deg;--sf-dur:2.6s">
+    <path fill="#5a4233" d="M82 70C68 68 52 60 40 56C26 52 14 66 14 83C14 100 26 114 40 110C52 106 68 98 82 96Z"/>
+    <path fill="#d9b45c" d="M40 56C26 52 14 66 14 83C14 100 26 114 40 110C29 108 19 97 19 83C19 69 29 58 40 56Z"/>
+    <path fill="none" stroke="#3f2c22" stroke-width="1.3" stroke-linecap="round" d="M28 72C38 76 48 78 58 79M26 85C37 85 48 85 58 84M30 98C40 94 49 91 58 89"/>
+  </g>
+  <!-- dorsal fin: spines in front, soft lobe behind -->
+  <path fill="#5a4233" d="M212 50L203 24L198 31L192 17L187 25L181 13L176 21L170 11L165 19L159 11L154 19L148 12L143 20L137 14L132 22L127 17L122 25C114 14 100 12 92 18C82 26 78 42 80 56L82 70L212 54Z"/>
+  <path fill="#d9b45c" d="M122 25C114 14 100 12 92 18C82 26 78 42 80 56C82 44 86 30 94 21.5C101 16.5 113 17.5 122 25Z"/>
+  <path fill="none" stroke="#3f2c22" stroke-width="1.3" stroke-linecap="round" d="M192 21L197 40M170 15L173 35M148 16L149 37M127 21L127 40M108 22C104 30 101 39 99 48M96 27C93 34 91 43 90 50"/>
+  <!-- anal and pelvic fins -->
+  <path fill="#5a4233" d="M122 116C120 132 110 147 96 147C86 146 80 136 82 120L84 100Z"/>
+  <path fill="#d9b45c" d="M113.5 137.5C109 143.3 103 147 96 147C86 146 80 136 82 120C84 130 89 138.5 96.5 141C102.5 142.5 109 141 113.5 137.5Z"/>
+  <path fill="#5a4233" d="M200 124C196 140 186 151 172 153C168 147 172 137 178 124Z"/>
+  <!-- body -->
+  <path fill="#8b6b4f" d="M258 80C250 68 240 58 226 51C204 40 172 36 146 39C116 43 88 56 66 66C61 74 61 90 66 98C88 106 114 122 144 128C174 133 208 130 232 121C246 116 258 106 265 94C267 90 263 83 258 80Z"/>
+  <!-- darker back -->
+  <path fill="#5a4233" d="M258 80C250 68 240 58 226 51C204 40 172 36 146 39C116 43 88 56 66 66C84 70 104 60 126 60S170 64 194 60S234 66 246 72C251 74 255 77 258 80Z"/>
+  <!-- paler belly -->
+  <path fill="#e6d3a0" d="M66 98C88 106 114 122 144 128C174 133 208 130 232 121C220 118 206 117 190 117S150 112 126 108S84 100 66 98Z"/>
+  <!-- pale blotches -->
+  <g fill="#e6d3a0">
+    <path d="M108 74C110 68 122 66 130 70C136 74 132 82 124 84C114 86 106 80 108 74Z"/>
+    <path d="M132 88C135 82 148 82 153 87C156 93 148 98 140 97C134 96 130 92 132 88Z"/>
+    <ellipse cx="96" cy="84" rx="7" ry="4.5" transform="rotate(-15 96 84)"/>
+    <ellipse cx="150" cy="71" rx="6" ry="3.5" transform="rotate(8 150 71)"/>
+    <ellipse cx="178" cy="74" rx="7" ry="4" transform="rotate(-10 178 74)"/>
+    <ellipse cx="112" cy="98" rx="7" ry="4"/>
+    <circle cx="130" cy="104" r="2.6"/>
+    <circle cx="214" cy="96" r="2.6"/>
+    <ellipse cx="82" cy="85" rx="4.5" ry="3.5"/>
+    <circle cx="198" cy="72" r="3.2"/>
+    <ellipse cx="226" cy="86" rx="5" ry="3" transform="rotate(-25 226 86)"/>
+    <ellipse cx="226" cy="108" rx="6" ry="3" transform="rotate(-15 226 108)"/>
+  </g>
+  <g fill="#8b6b4f">
+    <ellipse cx="150" cy="50" rx="10" ry="4"/>
+    <ellipse cx="184" cy="49" rx="8" ry="3.5" transform="rotate(6 184 49)"/>
+    <ellipse cx="116" cy="53" rx="8" ry="3.5" transform="rotate(-10 116 53)"/>
+    <ellipse cx="92" cy="61" rx="5" ry="2.8" transform="rotate(-18 92 61)"/>
+    <ellipse cx="216" cy="57" rx="5" ry="3" transform="rotate(20 216 57)"/>
+  </g>
+  <!-- gill cover and pectoral fin -->
+  <path fill="none" stroke="#3f2c22" stroke-width="2" stroke-linecap="round" d="M214 58C203 72 201 98 209 117"/>
+  <g class="sf-fin" style="transform-origin:198px 101px;--sf-dur:1.6s;--sf-delay:-.6s">
+    <path fill="#5a4233" d="M200 98C192 90 178 84 166 88C156 92 154 106 160 114C170 120 190 114 200 104Z"/>
+    <path fill="#d9b45c" d="M166 88C156 92 154 106 160 114C157 106 158 96 166 88Z"/>
+    <path fill="none" stroke="#3f2c22" stroke-width="1.3" stroke-linecap="round" d="M190 98C182 95 174 95 167 97M190 104C182 105 174 107 168 108"/>
+  </g>
+  <!-- thick lips and mouth -->
+  <path fill="#e6d3a0" d="M260 80C263 82 264.5 84.5 264 87C255 90 245 95 236 101C233 101.5 231.5 99 233 97C241 90 250 84 260 80Z"/>
+  <path fill="#e6d3a0" d="M264 89C267.5 91 267.5 95 264 98C256 103 247 105 239 104.5C235.5 104 235 101.5 236.5 100.5C245 95.5 254 91.5 264 89Z"/>
+  <path fill="#0b2233" d="M264 87C255 90 245 95 236 101C246 97.5 255 93.5 264 89.5Z"/>
+  <!-- eye -->
+  <circle cx="238" cy="68" r="6.2" fill="#e6d3a0"/>
+  <circle cx="238" cy="68" r="4.3" fill="#0b2233"/>
+  <circle cx="239.5" cy="66.5" r="1.3" fill="#fff"/>
+</svg>

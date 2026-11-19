@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 360" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <linearGradient id="seabed-about-ray" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a8dbe0" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#a8dbe0" stop-opacity=".17"/>
+      <stop offset="1" stop-color="#a8dbe0" stop-opacity=".05"/>
+    </linearGradient>
+    <!-- small bream, facing right -->
+    <g id="seabed-about-fish">
+      <path fill="#56707f" d="M-14 0L-28 -10C-25 -4 -25 4 -28 10Z"/>
+      <path fill="#8fabb8" d="M28 0C20 -10 4 -12 -8 -7C-13 -5 -17 -2 -20 0C-17 2 -13 5 -8 7C4 12 20 10 28 0Z"/>
+      <path fill="#56707f" d="M28 0C20 -10 4 -12 -8 -7C-13 -5 -17 -2 -20 0C-10 -4 2 -5 12 -4S24 -2 28 0Z"/>
+      <path fill="#c3d6de" d="M-20 0C-17 2 -13 5 -8 7C4 12 20 10 28 0C22 4 12 6 2 5S-14 2 -20 0Z"/>
+      <circle cx="17" cy="-1.5" r="4" fill="#dbe9ee"/>
+      <circle cx="17" cy="-1.5" r="2.8" fill="#0b2233"/>
+      <circle cx="18" cy="-2.5" r=".8" fill="#fff"/>
+    </g>
+  </defs>
+  <!-- far sand ridge -->
+  <path fill="#244356" d="M0 280C160 270 320 282 480 276S780 268 940 276S1240 286 1400 276S1560 272 1600 276V360H0Z"/>
+  <!-- shafts of dim light -->
+  <path class="sf-glow" style="--sf-dur:6s" fill="url(#seabed-about-ray)" d="M676 0L792 0L936 304L748 304Z"/>
+  <path class="sf-glow" style="--sf-dur:7s;--sf-delay:-3s" fill="url(#seabed-about-ray)" d="M540 0L582 0L672 304L598 304Z"/>
+  <!-- outlying rocks and a far drum -->
+  <path fill="#2e5468" d="M1270 314C1264 296 1274 278 1294 274C1316 270 1336 282 1340 300L1340 314Z"/>
+  <path fill="#3f6b80" d="M1270 314C1264 296 1274 278 1294 274C1286 280 1280 290 1278 300S1274 310 1270 314Z"/>
+  <path fill="#1f3c4f" d="M1294 274C1316 270 1336 282 1340 300L1340 314L1312 314C1324 308 1328 298 1324 290S1306 278 1294 274Z"/>
+  <g transform="rotate(8 280 300)">
+    <path fill="#4f6e82" d="M236 262L330 262L330 318L236 318Z"/>
+    <path fill="#7391a2" d="M236 262L330 262L330 274L236 274Z"/>
+    <path fill="none" stroke="#3d5a6e" stroke-width="2.5" stroke-linecap="round" d="M240 286L326 286M240 298L326 298"/>
+  </g>
+  <!-- standing column stump -->
+  <path fill="#7391a2" d="M904 310L904 204L918 196L930 203L946 188L968 198L968 310Z"/>
+  <path fill="#9bb5c1" d="M904 310L904 204L916 197.2L916 310Z"/>
+  <path fill="#4f6e82" d="M954 191.6L968 198L968 310L954 310Z"/>
+  <path fill="none" stroke="#4f6e82" stroke-width="2.5" stroke-linecap="round" d="M928 212L928 300M941 204L941 300"/>
+  <!-- short drum standing behind -->
+  <path fill="#7391a2" d="M676 246L734 246L734 310L676 310Z"/>
+  <path fill="#4f6e82" d="M722 246L734 246L734 310L722 310Z"/>
+  <ellipse cx="705" cy="246" rx="29" ry="8" fill="#9bb5c1"/>
+  <path fill="none" stroke="#4f6e82" stroke-width="2.5" stroke-linecap="round" d="M690 260L690 300M705 262L705 300"/>
+  <!-- fallen drum -->
+  <g transform="rotate(-4 610 300)">
+    <path fill="#7391a2" d="M560 240L664 240L664 306L560 306C552 306 548 292 548 273C548 254 552 240 560 240Z"/>
+    <path fill="#9bb5c1" d="M560 240L664 240L664 252L553 252C555 245 557 240 560 240Z"/>
+    <path fill="#4f6e82" d="M550 288L664 288L664 306L560 306C555 306 552 298 550 288Z"/>
+    <path fill="none" stroke="#4f6e82" stroke-width="2.5" stroke-linecap="round" d="M552 264L660 264M552 276L660 276"/>
+    <ellipse cx="664" cy="273" rx="13" ry="33" fill="#9bb5c1"/>
+    <ellipse cx="664" cy="273" rx="7.5" ry="21" fill="none" stroke="#7391a2" stroke-width="2.5"/>
+    <ellipse cx="664" cy="273" rx="2.5" ry="6" fill="#3d5a6e"/>
+  </g>
+  <!-- plinth -->
+  <path fill="#7391a2" d="M744 284C744 281 746 280 749 280L851 280C854 280 856 281 856 284L856 312L744 312Z"/>
+  <path fill="#4f6e82" d="M832 280L851 280C854 280 856 281 856 284L856 312L832 312Z"/>
+  <path fill="#7391a2" d="M756 264L844 264L844 281L756 281Z"/>
+  <path fill="#9bb5c1" d="M756 264L844 264L844 269L756 269Z"/>
+  <path fill="#4f6e82" d="M826 269L844 269L844 281L826 281Z"/>
+  <!-- the statue -->
+  <g transform="translate(56 18.5) scale(.93)">
+    <path fill="#7391a2" d="M834 164C848 164 860 168 862 178L866 220L858 214L856 228L848 221L845 236L836 226Z"/>
+    <path fill="#4f6e82" d="M850 168C857 170 861 173 862 178L866 220L858 214L856 228L851 224Z"/>
+    <path fill="#7391a2" d="M793 86C792 94 786 97 778 99C768 102 761 110 760 124C758 142 757 158 760 172C762 184 764 190 767 196C764 220 761 242 758 264L843 264C841 240 838 216 835 196C846 190 852 176 850 160C848 140 844 118 838 110C834 103 828 100 822 99C814 97 808 94 807 86Z"/>
+    <path fill="#4f6e82" d="M843 264C841 240 838 216 835 196C846 190 852 176 850 160C848 140 844 118 838 110C834 103 828 100 822 99C830 110 832 126 830 142S822 180 824 200S828 244 826 264Z"/>
+    <path fill="#9bb5c1" d="M778 99C768 102 761 110 760 124C758 142 757 158 760 172C762 184 764 190 767 196C764 220 761 242 758 264L770 264C772 242 776 220 776 198S768 160 768 140S772 108 778 99Z"/>
+    <!-- cloak across the chest and the folded arm -->
+    <path fill="#9bb5c1" d="M774 101C792 110 820 126 846 148C849 156 849 164 846 172C820 152 790 136 761 128C762 116 766 106 774 101Z"/>
+    <path fill="#7391a2" d="M800 142C808 138 818 140 822 146C824 152 818 157 810 156C803 155 798 148 800 142Z"/>
+    <path fill="none" stroke="#4f6e82" stroke-width="2.5" stroke-linecap="round" d="M786 204C784 224 782 244 781 260M801 200C801 222 801 242 801 260M816 204C818 224 819 244 820 260M770 134C786 140 802 148 816 158"/>
+    <!-- neck, head and hair -->
+    <g transform="rotate(-6 800 86)">
+      <path fill="#7391a2" d="M793 88L793 78L807 78L807 88Z"/>
+      <ellipse cx="800" cy="68" rx="12.5" ry="15.5" fill="#9bb5c1"/>
+      <path fill="#7391a2" d="M803 53C810 56 814 64 812 74C810 80 806 83 801 83.5C806 78 808 70 807 63S805 56 803 53Z"/>
+      <path fill="#4f6e82" d="M787 66C785 55 792 49 801 49C811 49 817 56 815 67C812 61 806 58 800 58S790 61 787 66Z"/>
+      <circle cx="813" cy="54" r="6.5" fill="#4f6e82"/>
+    </g>
+    <!-- moss on the shoulder and hair, weed on the elbow -->
+    <path fill="#5d7350" d="M760 124C761 110 768 102 778 99C784 99 788 101 790 104C782 104 774 108 770 114S764 124 760 124ZM788 62C787 54 794 49 801 49C806 49 811 51 813 55C806 53 798 54 794 57S790 62 788 62Z"/>
+    <path class="sf-sway" style="transform-origin:850px 176px;--sf-amp:6deg;--sf-dur:4.2s" fill="none" stroke="#5d7350" stroke-width="3" stroke-linecap="round" d="M850 176C852 186 848 194 851 206"/>
+  </g>
+  <!-- soft overgrowth on the stones -->
+  <path fill="#5d7350" d="M904 208L904 204L918 196L930 203L946 188L956 192C950 198 942 196 938 202S926 210 918 206S908 212 904 208ZM556 240L640 240C636 248 626 246 618 250S600 246 590 250S564 250 556 240Z"/>
+  <path fill="#2a6f73" d="M744 284C744 281 746 280 749 280L790 280C786 288 776 286 768 290S750 290 744 284ZM676 246C684 240 700 238 712 240C708 250 698 248 692 252S680 252 676 246Z"/>
+  <g fill="none" stroke="#5d7350" stroke-width="3" stroke-linecap="round">
+    <path class="sf-sway" style="transform-origin:936px 200px;--sf-amp:6deg;--sf-dur:4.6s;--sf-delay:-2s" d="M936 200C934 190 938 182 935 172"/>
+    <path class="sf-sway" style="transform-origin:924px 202px;--sf-amp:6deg;--sf-dur:4.6s;--sf-delay:-.8s" d="M924 202C926 194 922 188 924 180"/>
+  </g>
+  <!-- main sand -->
+  <path fill="#33566a" d="M0 298C140 292 300 300 460 296C600 292 700 300 800 298C900 296 1000 290 1120 296C1260 302 1420 292 1600 296V360H0Z"/>
+  <path fill="#3a5d70" d="M80 304C140 298 220 298 280 304C220 302 140 302 80 304ZM380 302C430 296 500 296 540 300C500 300 430 300 380 302ZM1130 304C1200 296 1290 296 1360 304C1290 301 1200 301 1130 304Z"/>
+  <path fill="#244356" d="M740 304C770 300 850 300 880 304C850 309 770 309 740 304Z"/>
+  <!-- fallen capital -->
+  <g transform="translate(1024 322) rotate(9)">
+    <path fill="#7391a2" d="M-22 0L-22 -34L22 -34L22 0Z"/>
+    <path fill="none" stroke="#4f6e82" stroke-width="2.5" stroke-linecap="round" d="M-8 -30L-8 -4M6 -30L6 -4"/>
+    <path fill="#9bb5c1" d="M-38 -56L38 -56C32 -44 26 -38 22 -34L-22 -34C-26 -38 -32 -44 -38 -56Z"/>
+    <path fill="#7391a2" d="M-42 -72L42 -72L42 -56L-42 -56Z"/>
+    <path fill="#9bb5c1" d="M-42 -72L42 -72L42 -67L-42 -67Z"/>
+    <path fill="#4f6e82" d="M26 -67L42 -67L42 -56L38 -56C32 -44 26 -38 22 -34L22 0L12 0L12 -34C16 -40 22 -48 26 -56Z"/>
+  </g>
+  <!-- seagrass tufts -->
+  <g transform="translate(872 316)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-2.2s" d="M-5 0C-7 -18 -12 -32 -20 -44C-9 -34 -2 -18 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-.9s" fill="#2f5d55" d="M-1 0C-2 -22 2 -40 8 -56C9 -38 7 -18 5 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-3s" d="M3 0C7 -14 14 -24 22 -30C16 -20 11 -10 8 0Z"/>
+  </g>
+  <g transform="translate(536 316)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-1.4s" d="M-6 0C-9 -20 -16 -38 -26 -52C-12 -40 -3 -22 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-.3s" fill="#2f5d55" d="M-2 0C-3 -26 1 -50 9 -70C10 -48 8 -24 5 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-2.6s" d="M2 0C7 -18 16 -32 28 -42C20 -28 13 -14 8 0Z"/>
+  </g>
+  <g transform="translate(1310 316)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-.5s" fill="#2f5d55" d="M-5 0C-7 -16 -12 -28 -20 -38C-9 -30 -2 -16 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-1.9s" d="M-1 0C-2 -20 2 -36 8 -50C9 -34 7 -16 5 0Z"/>
+  </g>
+  <g transform="translate(214 318)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-2.5s" d="M-5 0C-7 -16 -12 -28 -20 -38C-9 -30 -2 -16 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-1.2s" fill="#2f5d55" d="M-1 0C-2 -20 2 -36 8 -50C9 -34 7 -16 5 0Z"/>
+  </g>
+  <!-- small fish -->
+  <g transform="translate(676 150) scale(.9)"><use href="#seabed-about-fish" class="sf-drift" style="--sf-dx:26px;--sf-dy:-6px;--sf-dur:14s"/></g>
+  <g transform="translate(1000 112) scale(-.75 .75)"><use href="#seabed-about-fish" class="sf-drift" style="--sf-dx:24px;--sf-dy:6px;--sf-dur:16s;--sf-delay:-6s"/></g>
+  <!-- near sand, ending in the solid strip that meets the footer -->
+  <path fill="#2b4a5e" d="M0 318C220 314 420 322 640 316S980 312 1160 318S1460 322 1600 316V360H0Z"/>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <!-- far front flipper -->
+  <path fill="#4d5e36" d="M232 86C242 104 254 124 266 136C270 141 265 146 259 143C242 134 224 114 216 92Z"/>
+  <!-- rear flipper -->
+  <g class="sf-wag" style="transform-origin:78px 90px;--sf-amp:6deg;--sf-dur:3.2s;--sf-delay:-1.2s">
+    <path fill="#7a9a54" d="M88 88C76 104 52 116 30 120C20 122 14 115 21 110C34 104 46 96 57 86Z"/>
+    <g fill="#4d5e36" stroke="#4d5e36" stroke-width="2" stroke-linejoin="round">
+      <path d="M58 99L66 94L68 100L60 105Z"/><path d="M42 108L51 103L53 109L44 113Z"/><path d="M27 113L35 110L36 115L28 117Z"/>
+    </g>
+  </g>
+  <!-- plastron -->
+  <path fill="#fff4dc" d="M246 84C232 100 196 111 152 111C114 111 82 103 64 90Z"/>
+  <!-- neck and head -->
+  <path fill="#7a9a54" d="M236 60C250 54 262 50 273 49C289 47 304 54 308 66C310 72 310 77 306 81C300 85 290 87 282 87C268 89 254 93 240 98Z"/>
+  <path fill="#fff4dc" d="M240 98C254 93 268 89 282 87C290 87 300 85 306 81C296 79 284 79 272 81C258 83 246 89 240 93Z"/>
+  <g fill="#4d5e36" stroke="#4d5e36" stroke-width="2" stroke-linejoin="round">
+    <path d="M275 54L286 53L289 59L280 63L273 60Z"/><path d="M293 55L301 60L302 65L296 65L292 60Z"/><path d="M263 56L269 55L269 62L263 65Z"/>
+  </g>
+  <path fill="none" stroke="#4d5e36" stroke-width="1.4" stroke-linecap="round" d="M308 75C304 77 300 78 296 78"/>
+  <circle cx="290" cy="70" r="5.2" fill="#fff4dc"/>
+  <circle cx="290" cy="70" r="3.6" fill="#0b2233"/>
+  <circle cx="291.2" cy="68.8" r="1.1" fill="#fff"/>
+  <!-- near front flipper -->
+  <g class="sf-wag" style="transform-origin:222px 86px;--sf-amp:5deg;--sf-dur:3.2s">
+    <path fill="#7a9a54" d="M240 78C244 98 232 120 210 139C190 156 164 169 143 174C135 176 131 170 137 166C158 152 178 134 190 112C195 102 198 92 200 82Z"/>
+    <g fill="#4d5e36" stroke="#4d5e36" stroke-width="2" stroke-linejoin="round">
+      <path d="M224 100L234 98L233 109L225 115Z"/><path d="M212 121L222 115L221 126L211 134Z"/><path d="M196 137L206 131L204 141L193 149Z"/><path d="M177 151L187 146L185 154L173 160Z"/><path d="M158 162L167 158L164 165L154 169Z"/>
+      <path d="M206 98L214 96L213 108L205 112Z"/><path d="M194 120L203 116L200 128L191 132Z"/><path d="M178 138L186 134L182 144L174 146Z"/>
+    </g>
+  </g>
+  <!-- carapace -->
+  <path fill="#4d5e36" d="M252 84C254 68 240 44 214 34C184 23 136 24 100 44C80 55 64 72 52 90C86 99 152 105 206 99C226 97 244 92 252 84Z"/>
+  <!-- marginal rim -->
+  <path fill="#b3a55f" d="M52 90C86 99 152 105 206 99C226 97 244 92 252 84C244 86 226 89 206 90.5C152 96 96 93 52 90Z"/>
+  <path fill="none" stroke="#4d5e36" stroke-width="1.6" stroke-linecap="round" d="M84 93L83 97M108 94L107 100M132 95L132 102M156 95L156 102M180 93L181 101M204 91L206 98M226 88L228 94"/>
+  <!-- scutes -->
+  <g fill="#93874a" stroke="#93874a" stroke-width="2" stroke-linejoin="round">
+    <path d="M200 50L214 44L229 52L242 76L236 84L198 87Z"/>
+    <path d="M156 48L174 41L192 48L191 87L155 89Z"/>
+    <path d="M114 52L131 44L149 48L148 89L112 88Z"/>
+    <path d="M80 79.5L94 67L108 59L107 87L78 85.5Z"/>
+    <path d="M178 32L211 37L212 41L196 45L177 38Z"/>
+    <path d="M134 34L171 31L172 37L152 44L133 40Z"/>
+    <path d="M100 48L127 37L128 41L111 51L97 55Z"/>
+    <path d="M93 53L96 58L80 74L70 79L67 78L77 67Z"/>
+  </g>
+  <!-- scute highlights -->
+  <path fill="#b3a55f" d="M203 52L214 47.5L219 50L206 56ZM159 51L174 45L179 47L162 55.5ZM117 54L131 47.5L136 48.5L120 58.5ZM84.5 78L94.5 69.5L99 67.5L90 76Z"/>
+</svg>

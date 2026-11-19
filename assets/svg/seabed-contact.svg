@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 360" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <!-- small bream, facing right -->
+    <g id="seabed-contact-fish">
+      <path fill="#56707f" d="M-14 0L-28 -10C-25 -4 -25 4 -28 10Z"/>
+      <path fill="#8fabb8" d="M28 0C20 -10 4 -12 -8 -7C-13 -5 -17 -2 -20 0C-17 2 -13 5 -8 7C4 12 20 10 28 0Z"/>
+      <path fill="#56707f" d="M28 0C20 -10 4 -12 -8 -7C-13 -5 -17 -2 -20 0C-10 -4 2 -5 12 -4S24 -2 28 0Z"/>
+      <path fill="#c3d6de" d="M-20 0C-17 2 -13 5 -8 7C4 12 20 10 28 0C22 4 12 6 2 5S-14 2 -20 0Z"/>
+      <circle cx="17" cy="-1.5" r="4" fill="#dbe9ee"/>
+      <circle cx="17" cy="-1.5" r="2.8" fill="#0b2233"/>
+      <circle cx="18" cy="-2.5" r=".8" fill="#fff"/>
+    </g>
+  </defs>
+  <!-- far sand ridge -->
+  <path fill="#244356" d="M0 278C130 284 280 270 430 276S740 286 900 278S1210 268 1370 276S1540 282 1600 276V360H0Z"/>
+  <!-- outlying rocks -->
+  <path fill="#2e5468" d="M196 314C190 296 200 276 222 272C246 268 266 282 270 300L270 314Z"/>
+  <path fill="#3f6b80" d="M196 314C190 296 200 276 222 272C214 278 208 288 206 298S200 310 196 314Z"/>
+  <path fill="#1f3c4f" d="M222 272C246 268 266 282 270 300L270 314L240 314C254 308 258 296 254 288S236 276 222 272Z"/>
+  <path fill="#2e5468" d="M262 314C260 302 268 292 282 290C296 288 308 298 310 310L310 314Z"/>
+  <path fill="#3f6b80" d="M262 314C260 302 268 292 282 290C276 296 270 304 262 314Z"/>
+  <path fill="#2e5468" d="M1316 314C1310 292 1322 270 1348 266C1374 262 1396 278 1400 298L1400 314Z"/>
+  <path fill="#3f6b80" d="M1316 314C1310 292 1322 270 1348 266C1338 274 1330 284 1328 296S1322 310 1316 314Z"/>
+  <path fill="#1f3c4f" d="M1348 266C1374 262 1396 278 1400 298L1400 314L1366 314C1380 306 1384 294 1378 284S1362 270 1348 266Z"/>
+  <!-- small anchor standing behind -->
+  <g transform="translate(626 298) rotate(25)">
+    <path fill="#2f6580" d="M-90 -56L-70 -94L-52 -54C-62 -50 -78 -50 -90 -56ZM90 -56L70 -94L52 -54C62 -50 78 -50 90 -56Z"/>
+    <path fill="#2f6580" d="M-74 -66C-70 -22 -36 4 0 4C36 4 70 -22 74 -66L62 -62C58 -30 30 -10 0 -10C-30 -10 -58 -30 -62 -62Z"/>
+    <path fill="#1c3d52" d="M0 4C36 4 70 -22 74 -66L68 -64C64 -26 34 -2 0 -3Z"/>
+    <path fill="#447a92" d="M-90 -56L-70 -94L-66 -84L-80 -55Z"/>
+    <path fill="#2f6580" d="M-6 -4L-4.5 -186L4.5 -186L6 -4Z"/>
+    <path fill="#447a92" d="M-6 -4L-4.5 -186L-1 -186L-1.5 -4Z"/>
+    <path fill="#2f6580" d="M-44 -178L44 -178C49 -178 49 -168 44 -168L-44 -168C-49 -168 -49 -178 -44 -178Z"/>
+    <circle cx="-47" cy="-173" r="6.5" fill="#2f6580"/><circle cx="47" cy="-173" r="6.5" fill="#1c3d52"/>
+    <circle cx="0" cy="-198" r="11" fill="none" stroke="#2f6580" stroke-width="5"/>
+    <path fill="#2a6f73" d="M-8 -110C-4 -116 6 -114 7 -108C8 -102 0 -98 -5 -100C-9 -102 -10 -106 -8 -110ZM-66 -40C-62 -46 -54 -44 -53 -38C-52 -32 -60 -30 -64 -32C-67 -34 -68 -37 -66 -40Z"/>
+  </g>
+  <!-- rope knotted to the ring, falling behind the amphora -->
+  <g fill="none" stroke-linecap="round">
+    <path stroke="#57574a" stroke-width="7.5" d="M714 130C716 152 732 176 758 204"/>
+    <path stroke="#7d785a" stroke-width="4.5" d="M714 129C716 151 732 175 758 203"/>
+  </g>
+  <circle cx="713" cy="129" r="6" fill="#7d785a"/>
+  <!-- the amphora, lying on its side -->
+  <g transform="translate(642 262) rotate(-5)">
+    <!-- handles -->
+    <path fill="none" stroke="#5c3a34" stroke-width="11" stroke-linecap="round" d="M300 17C298 44 282 58 262 54C248 50 240 44 234 38"/>
+    <path fill="none" stroke="#7d4a3e" stroke-width="11" stroke-linecap="round" d="M300 -17C298 -44 282 -58 262 -54C248 -50 240 -44 234 -38"/>
+    <path fill="none" stroke="#9c6654" stroke-width="4" stroke-linecap="round" d="M298 -26C295 -45 282 -56 264 -54"/>
+    <!-- body, neck and rim -->
+    <path fill="#7d4a3e" d="M0 -6C6 -8 12 -8 16 -10C50 -22 90 -60 150 -64C196 -66 232 -52 246 -32C252 -22 258 -17 268 -17L308 -17C314 -17 316 -24 322 -24L330 -24L330 24L322 24C316 24 314 17 308 17L268 17C258 17 252 22 246 32C232 52 196 66 150 64C90 60 50 22 16 10C12 8 6 8 0 6Z"/>
+    <path fill="#9c6654" d="M16 -10C50 -22 90 -60 150 -64C196 -66 232 -52 246 -32C226 -44 196 -52 160 -50S84 -38 56 -24S26 -12 16 -10Z"/>
+    <path fill="#5c3a34" d="M16 10C50 22 90 60 150 64C196 66 232 52 246 32C226 42 196 48 160 46S84 34 56 22S26 12 16 10Z"/>
+    <path fill="#5c3a34" d="M254 22C258 18 262 17 268 17L308 17C314 17 316 24 322 24L330 24L330 8L262 8Z"/>
+    <path fill="none" stroke="#5c3a34" stroke-width="2.5" stroke-linecap="round" d="M224 -50C232 -18 232 18 224 50M208 -57C217 -20 217 20 208 57"/>
+    <ellipse cx="330" cy="0" rx="9" ry="25" fill="#9c6654"/>
+    <ellipse cx="331" cy="0" rx="5.5" ry="18" fill="#3a2a2e"/>
+    <!-- encrustation -->
+    <path fill="#2a6f73" d="M96 -34C102 -44 116 -40 124 -44C134 -44 140 -34 134 -28C124 -22 106 -22 98 -26C94 -28 94 -32 96 -34ZM170 30C176 24 188 26 192 32C194 40 184 44 176 42C170 40 166 34 170 30Z"/>
+    <path fill="#5a4468" d="M186 -40C190 -44 198 -42 198 -37C198 -32 191 -30 187 -33C184 -35 184 -38 186 -40Z"/>
+    <circle cx="62" cy="-8" r="3.5" fill="#b07a66"/><circle cx="70" cy="-2" r="2.5" fill="#b07a66"/><circle cx="60" cy="2" r="2" fill="#b07a66"/>
+  </g>
+  <!-- main sand -->
+  <path fill="#33566a" d="M0 300C150 294 300 302 460 298C580 294 680 298 780 296C900 294 1020 300 1140 296C1280 292 1440 300 1600 294V360H0Z"/>
+  <path fill="#3a5d70" d="M70 306C130 300 210 300 270 306C210 304 130 304 70 306ZM1010 304C1070 298 1150 298 1210 302C1150 302 1070 302 1010 304ZM1420 304C1470 298 1530 298 1580 302C1530 302 1470 302 1420 304Z"/>
+  <!-- shadow and rope end on the sand -->
+  <path fill="#244356" d="M680 304C730 298 890 298 950 302C890 310 730 310 680 304Z"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="#57574a" stroke-width="7.5" d="M872 302C856 312 826 316 798 310C772 304 752 304 734 310C724 313 716 317 708 316"/>
+    <path stroke="#7d785a" stroke-width="4.5" d="M872 301C856 311 826 315 798 309C772 303 752 303 734 309C724 312 716 316 708 315"/>
+    <path stroke="#7d785a" stroke-width="2.5" d="M708 315L697 311M708 315L696 316M708 315L699 321"/>
+  </g>
+  <!-- seagrass tufts -->
+  <g transform="translate(1080 318)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-1.4s" d="M-6 0C-9 -20 -16 -38 -26 -52C-12 -40 -3 -22 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-.3s" fill="#2f5d55" d="M-2 0C-3 -26 1 -50 9 -70C10 -48 8 -24 5 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-2.6s" d="M2 0C7 -18 16 -32 28 -42C20 -28 13 -14 8 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-3.3s" fill="#2f5d55" d="M-8 0C-14 -12 -22 -22 -34 -28C-22 -22 -12 -12 -4 0Z"/>
+  </g>
+  <g transform="translate(566 318)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-2.2s" d="M-5 0C-7 -18 -12 -32 -20 -44C-9 -34 -2 -18 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-.9s" fill="#2f5d55" d="M-1 0C-2 -22 2 -40 8 -56C9 -38 7 -18 5 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-3s" d="M3 0C7 -14 14 -24 22 -30C16 -20 11 -10 8 0Z"/>
+  </g>
+  <g transform="translate(250 318)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-.5s" fill="#2f5d55" d="M-5 0C-7 -16 -12 -28 -20 -38C-9 -30 -2 -16 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-1.9s" d="M-1 0C-2 -20 2 -36 8 -50C9 -34 7 -16 5 0Z"/>
+  </g>
+  <g transform="translate(1410 318)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-2.5s" d="M-5 0C-7 -16 -12 -28 -20 -38C-9 -30 -2 -16 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-1.2s" fill="#2f5d55" d="M-1 0C-2 -20 2 -36 8 -50C9 -34 7 -16 5 0Z"/>
+  </g>
+  <!-- little fish by the amphora mouth -->
+  <g transform="translate(1040 228) scale(-.9 .9)"><use href="#seabed-contact-fish" class="sf-drift" style="--sf-dx:22px;--sf-dy:4px;--sf-dur:8s"/></g>
+  <!-- near sand, ending in the solid strip that meets the footer -->
+  <path fill="#2b4a5e" d="M0 320C200 314 420 320 620 316S960 320 1140 316S1440 314 1600 320V360H0Z"/>
+</svg>

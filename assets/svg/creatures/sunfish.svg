@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 440">
+  <!-- clavus: the scalloped rudder that replaces a tail -->
+  <path fill="#7c96a6" d="M106 147L95.2 144.7A18.5 18.5 0 0 0 74 159.3A22 22 0 0 0 59.3 186.2A24.6 24.6 0 0 0 54 220A24.6 24.6 0 0 0 59.3 253.8A22 22 0 0 0 74 280.7A18.5 18.5 0 0 0 95.2 295.3L106 293Z"/>
+  <path fill="none" stroke="#56707f" stroke-width="1.6" stroke-linecap="round" d="M76 161L87 168M62 187L77 192.5M57 220L74 220M62 253L77 247.5M76 279L87 272"/>
+  <!-- dorsal fin -->
+  <g class="sf-wag" style="transform-origin:150px 146px;--sf-amp:4deg;--sf-dur:2.8s">
+    <path fill="#7c96a6" d="M196 134C190 100 168 44 138 14C132 8 122 10 119 19C112 62 108 112 110 162Z"/>
+    <path fill="none" stroke="#56707f" stroke-width="1.6" stroke-linecap="round" d="M134 30C140 62 148 96 152 124M126 46C126 78 128 106 130 132M146 46C158 72 168 98 174 122"/>
+  </g>
+  <!-- anal fin -->
+  <g class="sf-wag" style="transform-origin:150px 294px;--sf-amp:4deg;--sf-dur:2.8s;--sf-delay:-2.8s">
+    <path fill="#7c96a6" d="M194 306C188 338 168 388 142 414C135 421 124 420 121 410C113 372 108 326 110 278Z"/>
+    <path fill="none" stroke="#56707f" stroke-width="1.6" stroke-linecap="round" d="M136 400C141 370 148 340 152 316M127 386C127 358 128 332 130 308M147 386C158 362 167 340 173 318"/>
+  </g>
+  <!-- body disc -->
+  <path fill="#b1c7d2" d="M339 221C342 200 333 173 309 155C287 139 256 123 220 121C180 119 134 129 98 150C85 182 85 258 98 290C134 311 180 322 220 320C256 319 289 307 311 289C331 273 341 252 338 233Z"/>
+  <!-- darker back -->
+  <path fill="#7c96a6" d="M339 221C342 200 333 173 309 155C287 139 256 123 220 121C180 119 134 129 98 150C114 166 140 160 168 167S228 181 258 173S296 172 312 182C326 190 334 204 339 221Z"/>
+  <!-- paler belly -->
+  <path fill="#dbe9ee" d="M98 290C134 311 180 322 220 320C256 319 289 307 311 289C331 273 341 252 338 233C330 254 310 270 288 275S240 272 212 276S150 268 126 278C114 283 104 287 98 290Z"/>
+  <!-- mottled patches -->
+  <g fill="#dbe9ee">
+    <path d="M137 205C139 196 152 192 163 195C171 198 172 207 165 212C156 218 135 215 137 205Z"/>
+    <path d="M172 234C175 225 190 222 202 226C212 230 213 241 204 246C193 251 169 246 172 234Z"/>
+    <ellipse cx="128" cy="248" rx="11" ry="8"/>
+    <ellipse cx="120" cy="200" rx="8" ry="6"/>
+    <circle cx="196" cy="198" r="5"/>
+    <ellipse cx="242" cy="260" rx="11" ry="6" transform="rotate(-8 242 260)"/>
+    <ellipse cx="160" cy="256" rx="7" ry="5"/>
+    <ellipse cx="288" cy="250" rx="7" ry="5" transform="rotate(-30 288 250)"/>
+    <ellipse cx="228" cy="192" rx="9" ry="6" transform="rotate(-20 228 192)"/>
+    <ellipse cx="108" cy="228" rx="5" ry="7"/>
+    <circle cx="176" cy="212" r="3.5"/>
+    <circle cx="140" cy="228" r="4"/>
+    <ellipse cx="208" cy="260" rx="6" ry="4"/>
+  </g>
+  <g fill="#b1c7d2">
+    <ellipse cx="158" cy="146" rx="10" ry="5" transform="rotate(-10 158 146)"/>
+    <ellipse cx="204" cy="140" rx="12" ry="6"/>
+    <ellipse cx="250" cy="148" rx="9" ry="5" transform="rotate(15 250 148)"/>
+    <ellipse cx="124" cy="155" rx="6" ry="3.5" transform="rotate(-25 124 155)"/>
+    <ellipse cx="288" cy="160" rx="6" ry="4" transform="rotate(35 288 160)"/>
+  </g>
+  <!-- gill opening and pectoral fin -->
+  <path fill="none" stroke="#56707f" stroke-width="2" stroke-linecap="round" d="M278 217C283 226 283 239 278 248"/>
+  <g class="sf-fin" style="transform-origin:266px 233px;--sf-dur:1.4s;--sf-delay:-.5s">
+    <path fill="#7c96a6" d="M268 233C266 222 252 208 236 207C222 207 214 218 218 230C222 242 238 250 254 247C262 245 268 240 268 233Z"/>
+    <path fill="none" stroke="#56707f" stroke-width="1.4" stroke-linecap="round" d="M258 231C248 224 238 219 228 218M258 237C248 236 238 235 229 232"/>
+  </g>
+  <!-- mouth -->
+  <ellipse cx="334" cy="227" rx="7" ry="9" fill="#dbe9ee"/>
+  <ellipse cx="337" cy="227" rx="2.8" ry="4.6" fill="#0b2233"/>
+  <!-- eye -->
+  <circle cx="303" cy="202" r="9" fill="#dbe9ee"/>
+  <circle cx="303" cy="202" r="6.2" fill="#0b2233"/>
+  <circle cx="305.2" cy="199.8" r="1.8" fill="#fff"/>
+</svg>

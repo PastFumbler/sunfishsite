@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 360" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <!-- small bream, facing right -->
+    <g id="seabed-dive-centre-fish">
+      <path fill="#56707f" d="M-14 0L-28 -10C-25 -4 -25 4 -28 10Z"/>
+      <path fill="#8fabb8" d="M28 0C20 -10 4 -12 -8 -7C-13 -5 -17 -2 -20 0C-17 2 -13 5 -8 7C4 12 20 10 28 0Z"/>
+      <path fill="#56707f" d="M28 0C20 -10 4 -12 -8 -7C-13 -5 -17 -2 -20 0C-10 -4 2 -5 12 -4S24 -2 28 0Z"/>
+      <path fill="#c3d6de" d="M-20 0C-17 2 -13 5 -8 7C4 12 20 10 28 0C22 4 12 6 2 5S-14 2 -20 0Z"/>
+      <circle cx="17" cy="-1.5" r="4" fill="#dbe9ee"/>
+      <circle cx="17" cy="-1.5" r="2.8" fill="#0b2233"/>
+      <circle cx="18" cy="-2.5" r=".8" fill="#fff"/>
+    </g>
+  </defs>
+  <!-- far sand ridge -->
+  <path fill="#244356" d="M0 276C140 286 280 272 440 278S760 284 900 274S1200 266 1360 278S1540 284 1600 280V360H0Z"/>
+  <!-- outlying rocks -->
+  <path fill="#2e5468" d="M236 314C230 298 240 280 260 276C282 272 300 284 304 300L304 314Z"/>
+  <path fill="#3f6b80" d="M236 314C230 298 240 280 260 276C252 282 246 290 244 300S240 310 236 314Z"/>
+  <path fill="#1f3c4f" d="M260 276C282 272 300 284 304 300L304 314L276 314C288 308 292 298 288 290S272 280 260 276Z"/>
+  <path fill="#2e5468" d="M1296 314C1290 294 1302 272 1326 268C1350 264 1372 278 1376 298L1376 314Z"/>
+  <path fill="#3f6b80" d="M1296 314C1290 294 1302 272 1326 268C1316 276 1308 286 1306 298S1300 310 1296 314Z"/>
+  <path fill="#1f3c4f" d="M1326 268C1350 264 1372 278 1376 298L1376 314L1344 314C1358 306 1362 294 1356 284S1340 272 1326 268Z"/>
+  <path fill="#2e5468" d="M1366 314C1364 302 1372 292 1386 290C1400 288 1412 298 1414 310L1414 314Z"/>
+  <path fill="#3f6b80" d="M1366 314C1364 302 1372 292 1386 290C1380 296 1374 304 1366 314Z"/>
+  <!-- the group of rounded rocks -->
+  <path fill="#2e5468" d="M700 312C694 280 702 240 726 224C748 210 778 218 790 240C798 258 798 290 796 312Z"/>
+  <path fill="#3f6b80" d="M700 312C694 280 702 240 726 224C748 210 778 218 790 240C774 230 752 230 736 242S710 280 706 296S702 306 700 312Z"/>
+  <path fill="#2e5468" d="M756 312C744 262 752 190 790 146C820 112 880 96 926 114C968 132 990 186 988 240C987 270 982 296 976 312Z"/>
+  <path fill="#3f6b80" d="M756 312C744 262 752 190 790 146C820 112 880 96 926 114C898 114 862 126 838 152S800 206 788 248S766 296 756 312Z"/>
+  <path fill="#1f3c4f" d="M926 114C968 132 990 186 988 240C987 270 982 296 976 312L904 312C936 290 956 250 956 208S944 142 926 114Z"/>
+  <path fill="#2e5468" d="M936 312C930 280 940 236 968 216C992 200 1028 206 1044 232C1056 254 1054 290 1050 312Z"/>
+  <path fill="#3f6b80" d="M936 312C930 280 940 236 968 216C992 200 1028 206 1044 232C1026 220 1002 220 984 232S954 270 946 290S938 306 936 312Z"/>
+  <path fill="#1f3c4f" d="M1044 232C1056 254 1054 290 1050 312L1006 312C1024 296 1034 276 1034 256S1040 240 1044 232Z"/>
+  <path fill="#2e5468" d="M1034 314C1030 296 1040 276 1060 272C1080 268 1098 282 1100 300L1100 314Z"/>
+  <path fill="#3f6b80" d="M1034 314C1030 296 1040 276 1060 272C1080 268 1098 282 1100 300C1090 290 1076 284 1062 286S1042 302 1034 314Z"/>
+  <!-- growth on the rocks -->
+  <path fill="#5d7350" d="M846 106C852 96 868 100 878 96C892 92 910 98 914 110C902 112 890 108 878 112S854 114 846 106Z"/>
+  <path fill="#7a8c5a" d="M860 102C866 98 876 100 882 98C888 98 892 102 890 104C882 104 872 104 860 102Z"/>
+  <path fill="#2a6f73" d="M846 226C852 216 866 222 874 218C884 218 888 230 880 236C870 242 852 240 846 234C844 230 844 228 846 226ZM990 262C996 256 1008 258 1012 266C1014 274 1004 280 996 278C988 276 986 268 990 262Z"/>
+  <circle cx="974" cy="236" r="5" fill="#c9644f"/><circle cx="984" cy="230" r="3.5" fill="#c9644f"/><circle cx="982" cy="242" r="3" fill="#c9644f"/>
+  <g class="sf-sway" style="transform-origin:894px 100px;--sf-amp:4deg;--sf-dur:5s">
+    <path fill="none" stroke="#84609a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M894 102C893 88 895 74 894 54M894 84C886 78 880 70 878 58M894 78C901 72 907 66 909 54M885 75C881 72 875 70 868 70M902 71C907 70 913 70 920 72"/>
+  </g>
+  <!-- main sand -->
+  <path fill="#33566a" d="M0 296C150 304 300 292 460 296C580 300 660 300 760 296C860 292 1000 296 1100 300C1240 304 1400 292 1600 298V360H0Z"/>
+  <path fill="#3a5d70" d="M60 304C120 298 200 298 260 304C200 302 120 302 60 304ZM400 302C450 296 520 296 560 300C520 300 450 300 400 302ZM1120 306C1190 298 1280 298 1350 306C1280 303 1190 303 1120 306Z"/>
+  <!-- shadows on the sand -->
+  <path fill="#244356" d="M640 310C680 304 780 304 830 308C780 314 680 314 640 310ZM548 308C570 304 620 304 640 308C620 312 570 312 548 308Z"/>
+  <!-- coil of old rope -->
+  <g fill="none" stroke-linecap="round">
+    <path stroke="#57574a" stroke-width="8" d="M628 302C650 308 672 314 704 312"/>
+    <path stroke="#7d785a" stroke-width="5" d="M628 301C650 307 672 313 704 311"/>
+    <ellipse cx="592" cy="302" rx="40" ry="10" stroke="#57574a" stroke-width="9"/>
+    <ellipse cx="592" cy="301" rx="40" ry="10" stroke="#7d785a" stroke-width="5.5"/>
+    <ellipse cx="590" cy="294" rx="37" ry="9.5" stroke="#57574a" stroke-width="9"/>
+    <ellipse cx="590" cy="293" rx="37" ry="9.5" stroke="#7d785a" stroke-width="5.5"/>
+    <ellipse cx="593" cy="286" rx="35" ry="9" stroke="#57574a" stroke-width="9"/>
+    <ellipse cx="593" cy="285" rx="35" ry="9" stroke="#938d6a" stroke-width="5.5"/>
+  </g>
+  <!-- stockless anchor leaning on the rocks -->
+  <g transform="translate(712 304) rotate(24) scale(1.1)">
+    <!-- flukes -->
+    <path fill="#7d4a3e" d="M-64 -30L-70 -112C-71 -124 -61 -131 -55 -120L-22 -44ZM64 -30L70 -112C71 -124 61 -131 55 -120L22 -44Z"/>
+    <path fill="#9a6352" d="M-64 -30L-70 -112C-71 -124 -61 -131 -55 -120L-46 -36ZM22 -44L55 -120C58 -126 62 -127 66 -124L44 -36Z"/>
+    <!-- crown -->
+    <path fill="#5c3a34" d="M-70 -36C-72 -12 -50 0 -24 0L24 0C50 0 72 -12 70 -36C52 -46 30 -50 0 -50C-30 -50 -52 -46 -70 -36Z"/>
+    <path fill="#7d4a3e" d="M-70 -36C-52 -46 -30 -50 0 -50C30 -50 52 -46 70 -36C48 -39 26 -41 0 -41S-48 -39 -70 -36Z"/>
+    <!-- shank -->
+    <path fill="#7d4a3e" d="M-9 -34L-6.5 -196C-6.5 -203 6.5 -203 6.5 -196L9 -34Z"/>
+    <path fill="#9a6352" d="M-9 -34L-6.5 -196C-6.5 -200 -4 -202 -1 -202L-2 -34Z"/>
+    <circle cx="0" cy="-32" r="15" fill="#7d4a3e"/>
+    <circle cx="0" cy="-32" r="5.5" fill="#5c3a34"/>
+    <!-- shackle -->
+    <circle cx="0" cy="-213" r="12.5" fill="none" stroke="#5c3a34" stroke-width="6"/>
+    <!-- encrustation -->
+    <path fill="#2a6f73" d="M-62 -84C-58 -90 -50 -88 -48 -82C-46 -76 -54 -72 -59 -74C-63 -76 -64 -80 -62 -84Z"/>
+    <path fill="#5a4468" d="M-6 -120C-3 -124 4 -123 5 -118C6 -113 0 -110 -4 -112C-7 -114 -8 -117 -6 -120Z"/>
+    <circle cx="44" cy="-74" r="3" fill="#b07a66"/><circle cx="50" cy="-66" r="2" fill="#b07a66"/>
+  </g>
+  <!-- broken chain on the shackle -->
+  <g class="sf-sway" style="transform-origin:808px 100px;--sf-amp:4deg;--sf-dur:4.6s">
+    <g fill="none" stroke="#5c3a34" stroke-width="4" stroke-linecap="round">
+      <ellipse cx="808" cy="110" rx="5" ry="8"/><path d="M808 118L808 132"/><ellipse cx="808" cy="140" rx="5" ry="8"/><path d="M808 148L808 162"/><ellipse cx="808" cy="170" rx="5" ry="8"/>
+    </g>
+  </g>
+  <!-- sand banked over the crown -->
+  <path fill="#33566a" d="M650 330C672 306 716 301 754 307C772 310 786 318 796 330Z"/>
+  <!-- pebbles -->
+  <path fill="#2e5468" d="M868 320C866 308 876 300 888 301C900 302 906 310 905 320ZM1006 320C1005 310 1012 305 1020 306C1028 307 1032 312 1031 320Z"/>
+  <path fill="#3f6b80" d="M868 320C866 308 876 300 888 301C880 304 873 310 868 320ZM1006 320C1005 310 1012 305 1020 306C1015 308 1010 312 1006 320Z"/>
+  <!-- seagrass tufts -->
+  <g transform="translate(1120 318)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-1.4s" d="M-6 0C-9 -20 -16 -38 -26 -52C-12 -40 -3 -22 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-.3s" fill="#2f5d55" d="M-2 0C-3 -26 1 -50 9 -70C10 -48 8 -24 5 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-2.6s" d="M2 0C7 -18 16 -32 28 -42C20 -28 13 -14 8 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-3.3s" fill="#2f5d55" d="M-8 0C-14 -12 -22 -22 -34 -28C-22 -22 -12 -12 -4 0Z"/>
+  </g>
+  <g transform="translate(530 318)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-2.2s" d="M-5 0C-7 -18 -12 -32 -20 -44C-9 -34 -2 -18 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-.9s" fill="#2f5d55" d="M-1 0C-2 -22 2 -40 8 -56C9 -38 7 -18 5 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-3s" d="M3 0C7 -14 14 -24 22 -30C16 -20 11 -10 8 0Z"/>
+  </g>
+  <g transform="translate(286 318)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-.5s" fill="#2f5d55" d="M-5 0C-7 -16 -12 -28 -20 -38C-9 -30 -2 -16 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-1.9s" d="M-1 0C-2 -20 2 -36 8 -50C9 -34 7 -16 5 0Z"/>
+  </g>
+  <g transform="translate(1392 318)" fill="#3f7462">
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-2.5s" d="M-5 0C-7 -16 -12 -28 -20 -38C-9 -30 -2 -16 1 0Z"/>
+    <path class="sf-sway" style="transform-origin:0 0;--sf-delay:-1.2s" fill="#2f5d55" d="M-1 0C-2 -20 2 -36 8 -50C9 -34 7 -16 5 0Z"/>
+  </g>
+  <!-- small fish -->
+  <g transform="translate(1010 120) scale(-1 1)"><use href="#seabed-dive-centre-fish" class="sf-drift" style="--sf-dx:36px;--sf-dy:8px;--sf-dur:10s"/></g>
+  <g transform="translate(596 196) scale(.8)"><use href="#seabed-dive-centre-fish" class="sf-drift" style="--sf-dx:30px;--sf-dy:-8px;--sf-dur:12s;--sf-delay:-5s"/></g>
+  <!-- near sand, ending in the solid strip that meets the footer -->
+  <path fill="#2b4a5e" d="M0 316C200 322 400 312 600 318S940 322 1120 314S1440 312 1600 320V360H0Z"/>
+</svg>

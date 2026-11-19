@@ -1,0 +1,3514 @@
+@charset "UTF-8";
+/* ==========================================================================
+   Sunfish Divers: design system
+   --------------------------------------------------------------------------
+   01 Tokens            07 Panels and tone        13 Inner-page components
+   02 Base              08 Photos                 14 Forms and map
+   03 Typography        09 Header and menu        15 Scenes and footer
+   04 Layout            10 Home: hero             16 Reveal
+   05 Small parts       11 Home: zones            17 Reduced motion and print
+   06 Buttons           12 Home: seabed info      18 (ocean engine, appended)
+                                                  19 Mobile action bar (phones)
+
+   Rules of the house
+   - Motion uses transform / opacity (and the individual translate / rotate
+     properties) only. Nothing else is animated or transitioned: colours,
+     backgrounds and borders change at once. (The two `visibility 0s` entries
+     are delayed switches that take a faded-out layer out of the page.)
+   - Static offsets and tilts use `translate` / `rotate`, never `transform`,
+     so they never fight with the .reveal float-up.
+   - Text never sits on bare water, except large display headings and the
+     self-backed chips (.depth-mark, .scroll-cue, photo captions).
+   - Tone: everything reads its colours from the tone variables below.
+     Default is light; [data-tone="dark"] (set by js/ocean.js) flips them.
+   ========================================================================== */
+
+/* ==========================================================================
+   01 Tokens
+   ========================================================================== */
+:root {
+  /* water column */
+  --depth-0: #7fdbe6;
+  --depth-5: #2bb3c9;
+  --depth-12: #1286a8;
+  --depth-20: #0b5c85;
+  --depth-30: #083a5e;
+  --depth-42: #04182b;
+
+  /* brand */
+  --coral: #ff7a59;
+  --coral-soft: #ff9478;
+  --sand: #f4d58d;
+  --sand-soft: #f9e4b3;
+  --ink: #0b2233;
+  --seabed: #2b4a5e;
+  --seabed-deep: #12293b;
+  --foam: #f2fbfd;
+  --aqua: #7fdbe6;
+  --teal: #1d8fa3;
+  --teal-deep: #0a5a70;
+
+  /* type */
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --font-body: "Figtree", "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
+
+  --step--1: clamp(0.84rem, 0.82rem + 0.1vw, 0.9rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --step-1: clamp(1.15rem, 1.08rem + 0.35vw, 1.375rem);
+  --step-2: clamp(1.35rem, 1.22rem + 0.65vw, 1.75rem);
+  --step-3: clamp(1.7rem, 1.42rem + 1.4vw, 2.5rem);
+  --step-4: clamp(2.15rem, 1.6rem + 2.75vw, 3.75rem);
+  --step-5: clamp(2.5rem, 1.55rem + 4.6vw, 4.85rem);
+
+  /* spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  /* notches and home indicators (the pages set viewport-fit=cover): 0 on ordinary screens */
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --gutter: max(clamp(1rem, 4vw, 2.5rem), var(--safe-l), var(--safe-r));
+  --col: 70rem;                                   /* 1120px content column */
+  --section-gap: clamp(4.5rem, 11vw, 9rem);       /* open water between sections */
+  --panel-pad: clamp(1.35rem, 1rem + 1.9vw, 2.5rem);
+  --wave-h: clamp(2.75rem, 7vw, 6.5rem);          /* height of a .wave-divider */
+  --header-h: 4.5rem;
+  --header-offset: var(--header-h);               /* 0 when the header is in flow (no JS) */
+  --hud-space: 0rem;                              /* room kept free on the right for the depth HUD */
+  --pill-clear: 0rem;                             /* phones: extra inset that keeps bare text clear of the depth pill */
+  --bar-space: 0rem;                              /* phones: room the action bar takes at the foot of the screen (section 19) */
+
+  /* shape */
+  --r-sm: 0.875rem;
+  --r-md: 1.25rem;
+  --r-lg: 2rem;
+  --r-xl: 2.75rem;
+  --r-pill: 999px;
+
+  /* shadow */
+  --shadow-1: 0 1px 2px rgba(4, 24, 43, 0.08), 0 14px 34px -20px rgba(4, 24, 43, 0.45);
+  --shadow-2: 0 2px 4px rgba(4, 24, 43, 0.08), 0 32px 70px -34px rgba(4, 24, 43, 0.6);
+
+  /* motion */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-wave: cubic-bezier(0.7, 0, 0.2, 1);
+
+  /* layers */
+  --z-ocean: 0;      /* fixed water */
+  --z-life: 1;       /* creature layer */
+  --z-content: 2;    /* main + footer: sea life passes BEHIND the glass */
+  --z-hud: 40;
+  --z-header: 50;
+  --z-menu: 60;
+  --z-skip: 100;
+}
+
+/* Tone variables. Light is the default (and the no-JS state). */
+:root,
+[data-tone="light"] {
+  --fg: #0b2233;
+  --fg-muted: #2d4a5c;
+  --fg-accent: #0a5a70;                 /* links, eyebrows */
+  --surface: rgba(255, 255, 255, 0.74); /* glass */
+  --surface-solid: rgba(241, 250, 252, 0.96);
+  --surface-2: rgba(11, 34, 51, 0.065); /* tint for parts inside a panel */
+  --line: rgba(11, 34, 51, 0.16);
+  --panel-border: rgba(255, 255, 255, 0.72);
+  --chip-bg: rgba(255, 255, 255, 0.8);
+  --chip-fg: #0b2233;
+  --pill-bg: #0b2233;                   /* small solid pills (depth numbers) */
+  --pill-fg: #ffffff;
+  --ghost-line: rgba(11, 34, 51, 0.5);
+  --field-bg: rgba(255, 255, 255, 0.86);
+  --field-border: rgba(11, 34, 51, 0.62);   /* at least 3:1 against the light panel around the field */
+  --error: #a3311a;
+  --success: #0b6148;
+  --success-bg: rgba(15, 125, 90, 0.12);
+  --focus: #0b2233;
+}
+[data-tone="dark"],
+.section--seabed-info,                 /* home: lies on the sand, so it is dark with or without the engine */
+.site-footer {
+  --fg: #eef8fb;
+  --fg-muted: #c1d9e3;
+  --fg-accent: #f4d58d;
+  --surface: rgba(14, 46, 70, 0.8);     /* 0.8: muted text stays above 4.5:1 even over a pale creature */
+  --surface-solid: rgba(12, 42, 64, 0.97);
+  --surface-2: rgba(255, 255, 255, 0.075);
+  --line: rgba(255, 255, 255, 0.18);
+  --panel-border: rgba(255, 255, 255, 0.17);
+  --chip-bg: rgba(4, 24, 43, 0.74);
+  --chip-fg: #ffffff;
+  --pill-bg: #f4d58d;
+  --pill-fg: #0b2233;
+  --ghost-line: rgba(255, 255, 255, 0.55);
+  --field-bg: rgba(255, 255, 255, 0.09);
+  --field-border: rgba(255, 255, 255, 0.5);
+  --error: #ffb9a6;
+  --success: #93e6c5;
+  --success-bg: rgba(147, 230, 197, 0.12);
+  --focus: #f4d58d;
+}
+
+@media (min-width: 48em) and (max-width: 87.49em) {
+  :root { --hud-space: 4.5rem; }
+}
+@media (max-width: 47.99em) {
+  :root {
+    --header-h: 4rem;
+    --pill-clear: max(0rem, 2.25rem - var(--gutter));
+    --step--1: 0.875rem;                          /* small print that uses --step--1 is never under 14 px on a phone (capital-letter labels, eyebrows and chips set their own size) */
+    --section-gap: 3.75rem;                       /* 4.5rem before: a little less open water between sections, the dive stays the same */
+  }
+}
+/* a phone held sideways (or any very short window): a slimmer bar, so the page keeps most of the height */
+@media (max-height: 30em) and (orientation: landscape) {
+  :root { --header-h: 3.25rem; }
+}
+/* narrowest phones: the two display sizes step down so headings keep to three or four lines */
+@media (max-width: 22.49em) {
+  :root { --step-5: 2.1rem; --step-4: 1.95rem; }
+}
+
+/* ==========================================================================
+   02 Base
+   ========================================================================== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  min-height: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 1.25rem);
+  /* Static surface-to-shallow water. This is what shows before / without
+     js/ocean.js; the engine's fixed .ocean layer covers it afterwards. */
+  background: #2bb3c9 linear-gradient(180deg, #7fdbe6 0%, #55c8d8 26%, #2bb3c9 60%, #1e9bb9 100%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-wrap: break-word;
+  /* no background: the water is the html gradient or the .ocean layer */
+}
+
+.ocean {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-ocean);
+  pointer-events: none;
+}
+
+main,
+.site-footer {
+  position: relative;
+  z-index: var(--z-content);
+}
+main { display: block; overflow-x: clip; }
+main:focus { outline: none; }
+
+img,
+svg,
+iframe { max-width: 100%; }
+img { height: auto; }
+[hidden] { display: none !important; }
+
+/* zero-specificity resets, so component and panel rhythm rules always win */
+:where(h1, h2, h3, h4, p, figure, blockquote, dl, dd) { margin: 0; }
+:where(ul[class], ol[class]) { margin: 0; padding: 0; list-style: none; }
+
+a {
+  color: var(--fg-accent);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.22em;
+}
+a:hover { text-decoration-thickness: 0.14em; }
+
+button,
+input,
+select,
+textarea { font: inherit; color: inherit; }
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 0.35rem;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+::selection { background: var(--sand); color: var(--ink); }
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: var(--z-skip);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--r-pill);
+  background: var(--ink);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 0 0 3px var(--sand);
+  transform: translateY(-250%);
+  transition: transform 0.2s var(--ease-out);
+}
+.skip-link:focus { transform: none; outline: none; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   03 Typography
+   ========================================================================== */
+h1, h2, h3,
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 100;
+  font-optical-sizing: auto;
+  line-height: 1.08;
+  letter-spacing: -0.018em;
+  text-wrap: balance;
+}
+h1 { font-size: var(--step-5); line-height: 1.02; letter-spacing: -0.028em; }
+h2 { font-size: var(--step-3); }
+h3 { font-size: var(--step-2); line-height: 1.15; }
+h4 { font-size: var(--step-0); font-weight: 700; line-height: 1.3; }
+
+/* big headings that sit directly on the water */
+.display { font-size: var(--step-4); line-height: 1.03; letter-spacing: -0.026em; color: var(--fg); }
+.display em,
+h1 em { font-style: italic; font-weight: 500; letter-spacing: -0.02em; }
+[data-tone-auto] { color: var(--fg); }
+/* Headings on the water take the tone that reads better against the plain
+   water over their whole way up the screen (js/ocean.js, applyTones). On top
+   of that, white headings carry a soft dark halo, and an ink heading that the
+   engine marks with data-halo (its contrast comes close to 3:1 while it is at
+   the foot of the screen, between about 9 and 12 m) carries a soft light one.
+   The halo only helps; the tone is chosen without counting on it. Not for
+   anything on glass or with a background of its own. */
+[data-tone-auto][data-tone="dark"] { text-shadow: 0 1px 2px rgba(4, 24, 43, 0.45), 0 0 0.5em rgba(4, 24, 43, 0.3); }
+[data-tone-auto][data-tone="light"][data-halo] { text-shadow: 0 0 2px rgba(214, 244, 249, 0.55), 0 0 0.5em rgba(214, 244, 249, 0.4); }
+.panel[data-tone-auto],
+.panel [data-tone-auto],
+[data-tone-auto] :is(.panel, .depth-mark, .btn, .chip) { text-shadow: none; }
+
+p { text-wrap: pretty; }
+.lead { font-size: var(--step-1); line-height: 1.5; }
+.eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-accent);
+}
+.note { font-size: var(--step--1); color: var(--fg-muted); }
+.muted { color: var(--fg-muted); }
+strong, b { font-weight: 700; }
+
+/* plain lists inside prose keep soft bullets */
+ul:not([class]),
+ol:not([class]) { margin: 0; padding-left: 1.2em; }
+ul:not([class]) li::marker { color: var(--coral); }
+ul:not([class]) li + li,
+ol:not([class]) li + li { margin-top: 0.35em; }
+
+/* ==========================================================================
+   04 Layout
+   ========================================================================== */
+.wrap {
+  width: min(100% - 2 * var(--gutter) - var(--hud-space), var(--col));
+  margin-left: max(var(--gutter), (100% - var(--col)) / 2);
+  margin-right: auto;
+}
+@media (max-width: 47.99em), (min-width: 87.5em) {
+  .wrap { margin-inline: auto; }
+}
+.wrap--narrow { --col: 48rem; }
+
+.section {
+  position: relative;
+  padding-block: var(--section-gap);
+}
+.section--tight { padding-block: calc(var(--section-gap) * 0.55); }
+.section--flush-top { padding-top: 0; }
+.section--flush-bottom { padding-bottom: 0; }
+
+/* heading block that opens a section: chip + display heading (+ intro panel) */
+.section-head {
+  max-width: 46rem;
+  margin-bottom: clamp(1.5rem, 4vw, 2.75rem);
+}
+.section-head > .display,
+.section-head > h2 { margin-top: 0.9rem; }
+.section-head > .panel { margin-top: 1.5rem; }
+.section-head--right { margin-left: auto; }
+.section-head--center { margin-inline: auto; text-align: center; }
+/* phones: the depth gauge is a slim pill on the right edge. Panels keep their
+   text clear of it with their own padding; headings that sit directly on the
+   water step in by --pill-clear instead (0 on wider screens) */
+[data-tone-auto] > :is(h1, h2, .display) { padding-right: var(--pill-clear); }
+.section-head--center > :is(h2, .display) { padding-left: var(--pill-clear); }
+
+/* vertical rhythm helpers */
+.flow > * + * { margin-block-start: var(--flow, 1rem); }
+.stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--stack, 1.5rem); }
+.stack--lg { --stack: clamp(2rem, 6vw, 4.5rem); }
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cluster, 0.75rem 1rem);
+}
+
+/* two columns from 56em up; children are usually panels */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: start;
+}
+/* a photo as a direct child stays modest and hugs the outer edge */
+.split > .photo { justify-self: end; width: min(72%, var(--photo-max, 20rem)); margin-right: var(--pill-clear); }
+@media (min-width: 56em) {
+  .split > .photo { width: min(100%, var(--photo-max, 22rem)); }
+  .split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .split--wide-left { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .split--wide-right { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .split--flip > :first-child { order: 2; }
+  .split > .split__drop { margin-top: clamp(2rem, 6vw, 5rem); }   /* stagger one side */
+}
+/* a panorama is the exception: it runs under both columns as one wide strip */
+.split > .photo--pano { grid-column: 1 / -1; justify-self: center; width: min(100% - var(--pill-clear), 60rem); }
+/* a phone held sideways shows about 300 px under the header: a tall photo is kept smaller than that */
+@media (max-height: 30em) and (orientation: landscape) and (max-width: 55.99em) {
+  .split > .photo:not(.photo--pano) { width: min(40%, 13.5rem); }
+}
+
+/* ==========================================================================
+   05 Small parts: icons, depth marks, tags, facts, checklists, links, waves
+   ========================================================================== */
+.icon {
+  width: 1.25em;
+  height: 1.25em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -0.22em;
+}
+.icon--fill { fill: currentColor; stroke: none; }
+
+/* soft blob that carries an icon */
+.icon-badge {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 42% 58% 55% 45% / 48% 44% 56% 52%;
+  background: var(--sand);
+  color: var(--ink);
+}
+.icon-badge .icon { width: 1.55rem; height: 1.55rem; }
+.icon-badge--sm { width: 2.5rem; height: 2.5rem; }
+.icon-badge--sm .icon { width: 1.25rem; height: 1.25rem; }
+.icon-badge--lg { width: 4rem; height: 4rem; }
+.icon-badge--lg .icon { width: 2.1rem; height: 2.1rem; stroke-width: 1.6; }
+.icon-badge--coral { background: var(--coral); }
+.icon-badge--aqua { background: var(--aqua); }
+
+/* "12 m  THE CAVES": the depth read-out beside a heading */
+.depth-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  max-width: 100%;
+  padding: 0.3rem 0.95rem 0.3rem 0.3rem;
+  border-radius: var(--r-pill);
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.depth-mark__m {
+  display: inline-block;
+  padding: 0.34rem 0.7rem 0.38rem;
+  border-radius: var(--r-pill);
+  background: var(--pill-bg);
+  color: var(--pill-fg);
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  font-variant-numeric: lining-nums tabular-nums;
+  white-space: nowrap;
+}
+
+.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.36em 0.85em;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--fg);
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.tag--sand { background: var(--sand); border-color: transparent; color: var(--ink); }
+.tag--coral { background: var(--coral); border-color: transparent; color: var(--ink); }
+.tag .icon { width: 1.05em; height: 1.05em; }
+
+/* big number + small label */
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem clamp(1.25rem, 4vw, 2.25rem);
+}
+.facts li { display: grid; gap: 0.2rem; min-width: 5.5rem; }
+.facts__value {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 100;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: lining-nums;
+}
+.facts__value small { font-size: 0.5em; font-weight: 600; letter-spacing: 0; }
+.facts__label { font-size: var(--step--1); color: var(--fg-muted); line-height: 1.35; max-width: 12ch; }
+
+.checklist { display: grid; gap: 0.7rem; }
+.checklist li {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  gap: 0.7rem;
+  align-items: start;
+}
+.checklist li::before {
+  content: "";
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-top: 0.05em;
+  border-radius: 50%;
+  background: var(--sand) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6.5 12.5 3.6 3.6 7.4-8' fill='none' stroke='%230b2233' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 1.05rem no-repeat;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-weight: 700;
+  color: var(--fg-accent);
+}
+.text-link { position: relative; }
+.text-link::after { content: ""; position: absolute; inset: -0.6rem 0; }   /* tap area about 44 px tall, same look */
+/* phones: two text links that wrap onto rows of their own stand far enough apart for their tap areas not to overlap */
+@media (max-width: 47.99em) {
+  .cluster > .text-link { margin-block: 0.3rem; }
+}
+.text-link .icon { transition: transform 0.25s var(--ease-out); }
+.text-link:hover .icon { transform: translateX(4px); }
+
+/* soft ripple between sections; inline svg, aria-hidden */
+.wave-divider {
+  height: var(--wave-h);
+  color: #fff;
+  pointer-events: none;
+}
+.wave-divider svg { display: block; width: 100%; height: 100%; }
+.wave-divider--flip svg { transform: scaleX(-1); }
+
+/* ==========================================================================
+   06 Buttons
+   ========================================================================== */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  min-height: 3rem;
+  padding: 0.7em 1.5em;
+  border: 1.5px solid transparent;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: translate 0.25s var(--ease-out);
+}
+.btn:hover { translate: 0 -2px; }
+.btn:active { translate: 0 0; }
+.btn:focus-visible { outline-offset: 4px; border-radius: var(--r-pill); }
+.btn .icon { transition: transform 0.25s var(--ease-out); }
+.btn:hover .icon { transform: translateX(3px); }
+/* narrow phones: a little less padding at the sides, so the longer labels stay on one line */
+@media (max-width: 24.99em) {
+  .btn { padding-inline: 1.1em; gap: 0.4em; }
+}
+
+.btn--primary {
+  background: var(--coral);
+  color: var(--ink);
+  box-shadow: 0 12px 26px -14px rgba(255, 122, 89, 0.95);
+}
+.btn--primary:hover { background: var(--coral-soft); }
+.btn--secondary {
+  background: var(--sand);
+  color: var(--ink);
+  box-shadow: 0 12px 26px -16px rgba(244, 213, 141, 0.9);
+}
+.btn--secondary:hover { background: var(--sand-soft); }
+.btn--ghost { border-color: var(--ghost-line); color: var(--fg); }
+.btn--ghost:hover { background: var(--surface-2); border-color: var(--fg); }
+
+.btn--sm { min-height: 2.75rem; padding: 0.55em 1.15em; font-size: 0.95rem; }
+.btn--lg { min-height: 3.5rem; padding: 0.85em 1.8em; font-size: var(--step-1); }
+.btn--block { display: flex; width: 100%; }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; box-shadow: none; translate: none; }
+
+/* ==========================================================================
+   07 Panels and tone
+   ========================================================================== */
+.panel {
+  position: relative;
+  padding: var(--panel-pad);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--r-lg);
+  background: var(--surface-solid);          /* solid fallback */
+  color: var(--fg);
+  box-shadow: var(--shadow-1);
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .panel {
+    background: var(--surface);
+    -webkit-backdrop-filter: blur(16px) saturate(1.35);
+    backdrop-filter: blur(16px) saturate(1.35);
+  }
+}
+/* Phones: a panel fills most of the screen, and frosting that much water on
+   every scroll frame is the heaviest thing a small graphics chip is asked to do
+   here. So under 700 px the glass is a little denser and is not blurred: what
+   passes behind shows through as a faint tint, and the text gains contrast. */
+@media (max-width: 43.74em) {
+  :root,
+  [data-tone="light"] { --surface: rgba(248, 253, 254, 0.9); }
+  [data-tone="dark"],
+  .section--seabed-info,
+  .site-footer { --surface: rgba(13, 43, 66, 0.92); }
+  .panel {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+[data-tone="dark"] { color-scheme: dark; }
+
+/* default prose rhythm inside a panel (zero specificity: easy to override) */
+:where(.panel) > * + * { margin-block-start: var(--flow, 1rem); }
+:where(.panel) > :is(h2, h3) + * { margin-block-start: 0.65rem; }
+:where(.panel) > :is(h2, h3) + :is(ul, ol, dl, div) { margin-block-start: 1.15rem; }
+:where(.panel) > :is(h2, h3) + form { margin-block-start: 1.5rem; }
+:where(.panel) > .eyebrow + * { margin-block-start: 0.5rem; }
+:where(.panel) > .btn,
+:where(.panel) > .cluster,
+:where(.panel) > .facts { margin-block-start: 1.5rem; }
+
+/* width and side: panels are narrower than the column so water stays visible */
+.panel--left,
+.panel--right,
+.panel--center { max-width: var(--panel-max, 38rem); }
+.panel--left { margin-right: auto; }
+.panel--right { margin-left: auto; }
+.panel--center { margin-inline: auto; }
+.panel--narrow { --panel-max: 28rem; }
+.panel--wide { --panel-max: 50rem; }
+.panel--compact { --panel-pad: clamp(1.1rem, 0.9rem + 1vw, 1.5rem); border-radius: var(--r-md); }
+
+/* tinted box for parts INSIDE a panel (never nest .panel in .panel) */
+.subpanel {
+  padding: clamp(1rem, 0.8rem + 1vw, 1.5rem);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+}
+.subpanel > * + * { margin-block-start: 0.75rem; }
+/* an email address in a note or a tinted box moves to the next line whole; it is never cut at its hyphen */
+:is(.subpanel, .note) a[href^="mailto:"] { white-space: nowrap; }
+
+/* ==========================================================================
+   08 Photos (placeholder first: the tinted box and file name sit behind the
+   image; js/ocean.js adds .is-missing when the file is not there yet)
+   ========================================================================== */
+.photo {
+  --ratio: 4 / 3;
+  position: relative;
+  display: grid;
+  margin: 0;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--r-md);
+  background: #0c4f63;
+}
+.photo::before {
+  content: attr(data-file);
+  content: attr(data-file) / "";     /* drawn, but silent for screen readers (the img carries the alt text) */
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;                  /* a long file name on a small tile is clipped: the label never makes the frame taller than the photo */
+  aspect-ratio: var(--ratio);
+  padding: 3rem 0.9rem 0.9rem;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23fff4dc' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8.5A2.5 2.5 0 0 1 6.5 6h1.6l1.2-1.8h5.4L15.9 6h1.6A2.5 2.5 0 0 1 20 8.5v8A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5z'/%3E%3Ccircle cx='12' cy='12.5' r='3.3'/%3E%3C/g%3E%3C/svg%3E") center calc(50% - 1.1rem) / 1.9rem no-repeat,
+    radial-gradient(120% 90% at 15% 0%, rgba(127, 219, 230, 0.35), transparent 60%),
+    linear-gradient(140deg, #0c4f63, #14708a);
+  color: #fff4dc;
+  font-family: var(--font-mono);
+  font-size: clamp(0.62rem, 0.56rem + 0.25vw, 0.76rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.photo::after {
+  content: "";
+  grid-area: 1 / 1;
+  z-index: 0;
+  margin: 0.5rem;
+  border: 1.5px dashed rgba(255, 244, 220, 0.45);
+  border-radius: inherit;
+  pointer-events: none;
+}
+.photo > img {
+  grid-area: 1 / 1;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--ratio);
+  object-fit: cover;
+  object-position: var(--photo-pos, 50% 50%);   /* which part of the photo survives the crop: set style="--photo-pos: 30% 50%" on the figure */
+  color: transparent;            /* keeps the alt text from printing over the label */
+  font-size: 0;
+}
+.photo.is-missing > img { opacity: 0; }
+.photo > figcaption {
+  grid-area: 1 / 1;
+  z-index: 2;
+  align-self: end;
+  justify-self: start;
+  max-width: calc(100% - 1.4rem);
+  margin: 0.7rem;
+  padding: 0.42rem 0.9rem;
+  border-radius: 1.1rem;
+  background: rgba(6, 26, 42, 0.84);
+  color: #fff;
+  font-size: var(--step--1);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.photo--wide { --ratio: 16 / 9; }
+.photo--landscape { --ratio: 3 / 2; }
+.photo--square { --ratio: 1; }
+.photo--portrait { --ratio: 4 / 5; }
+.photo--tall { --ratio: 3 / 4; }
+.photo--pano { --ratio: 2 / 1; }               /* a wide interior or view: phones crop it to 2:1, wider screens show the full 3:1 strip */
+@media (min-width: 48em) {
+  .photo--pano { --ratio: 3 / 1; }
+}
+.photo--arch { border-radius: 999px 999px var(--r-lg) var(--r-lg); }
+.photo--arch::before { padding-top: 5rem; background-position: center calc(50% - 0.2rem), 0 0, 0 0; }
+.photo--round { --ratio: 1; border-radius: 50%; }
+.photo--lift { box-shadow: var(--shadow-2); }
+.photo--print { border: 0.4rem solid rgba(255, 255, 255, 0.92); box-shadow: var(--shadow-2); }
+.photo--tilt-l { rotate: -2deg; }
+.photo--tilt-r { rotate: 2deg; }
+/* fill the height of the parent (media side of a feature card) */
+.photo--fill { height: 100%; grid-template-rows: minmax(var(--photo-min, 14rem), 1fr); }
+.photo--fill::before { aspect-ratio: auto; height: 100%; }
+.photo--fill > img { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; }   /* out of flow: the loaded file never sets the height */
+
+/* three photos in a row, each with a caption chip: one column on phones,
+   three from 36em, so the row never breaks 2 + 1 */
+.gallery {
+  display: grid;
+  gap: clamp(0.9rem, 2.2vw, 1.75rem);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+.gallery > .photo { box-shadow: var(--shadow-2); }
+@media (min-width: 36em) {
+  .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+/* phones: three tall photos in a column were two screens of pictures. Here the
+   first runs across as a landscape and the other two share the row below, so
+   all three are on one screen. The wide one is cut from the middle of its file;
+   to keep another part, set style="--photo-pos: 50% 70%" on that figure. */
+@media (max-width: 35.99em) {
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+  .gallery > .photo:first-child { grid-column: 1 / -1; --ratio: 3 / 2; }
+  .gallery > .photo:not(:first-child) > figcaption { max-width: calc(100% - 0.8rem); margin: 0.4rem; padding: 0.32rem 0.6rem; }
+}
+@media (min-width: 48em) {
+  .gallery { padding-bottom: 2.5rem; }
+  .gallery > :nth-child(3n + 1) { rotate: -1.4deg; }
+  .gallery > :nth-child(3n + 2) { translate: 0 2.5rem; rotate: 0.8deg; }
+  .gallery > :nth-child(3n + 3) { rotate: 1.6deg; translate: 0 0.75rem; }
+}
+
+/* ==========================================================================
+   09 Header and menu
+   ========================================================================== */
+.site-header {
+  --hdr-fg: var(--ink);
+  --focus: currentColor;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-header);
+  color: var(--hdr-fg);
+}
+.site-header__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.6rem, 1.6vw, 1.25rem);
+  width: min(100% - 2 * var(--gutter), 84rem);
+  height: var(--header-h);
+  margin-inline: auto;
+}
+/* the glass: two stacked layers (light / dark) so the bar can follow the depth.
+   They live on pseudo-elements so backdrop-filter never becomes the containing
+   block of the fixed full-screen menu. */
+.site-header__inner::before,
+.site-header__inner::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0.55rem calc(var(--gutter) * -0.5);
+  border-radius: var(--r-pill);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.site-header__inner::before {
+  background: rgba(244, 251, 253, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 16px 34px -22px rgba(4, 24, 43, 0.6);
+}
+.site-header__inner::after {
+  background: rgba(7, 32, 51, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 34px -22px rgba(0, 0, 0, 0.7);
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header__inner::before {
+    background: rgba(255, 255, 255, 0.76);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+  }
+  .site-header__inner::after {
+    background: rgba(6, 30, 48, 0.7);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+  }
+}
+.site-header.is-scrolled .site-header__inner::before { opacity: 1; }
+
+/* Depth-aware bar: light glass + ink text above the tone switch depth, dark
+   glass + white text below. js/ocean.js toggles .is-deep when the gauge crosses
+   that depth (a class flip, not a per-frame custom property, so scrolling does
+   not restyle the header). The text colour changes at once; the two glass
+   layers cross-fade with opacity. Without the engine the bar stays light. */
+.site-header.is-deep { --hdr-fg: #ffffff; }
+.site-header.is-scrolled.is-deep .site-header__inner::before { opacity: 0; }
+.site-header.is-scrolled.is-deep .site-header__inner::after { opacity: 1; }
+
+/* logo: the sunfish emblem of the real logo on a white tile + the text wordmark.
+   The logo artwork has a white background, so it always sits on white: the tile
+   reads the same over pale surface water, on light glass and on dark glass. */
+.logo {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;                         /* 44 px tap height, whatever the size of the tile */
+  margin-right: auto;
+  color: inherit;
+  text-decoration: none;
+}
+.logo__tile {
+  display: block;
+  flex: none;
+  height: 2.75rem;
+  padding: 0.2rem 0.3rem;
+  border-radius: 0.8rem;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(11, 34, 51, 0.1), 0 6px 14px -8px rgba(4, 24, 43, 0.6);
+}
+.logo__mark { display: block; width: auto; height: 100%; }
+/* the full logo (footer): the same white tile, larger */
+.logo--full {
+  display: block;
+  min-height: 0;
+  width: 7.5rem;
+  padding: 0.55rem 0.6rem 0.5rem;
+  border-radius: var(--r-md);
+  background: #fff;
+  box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.7);
+}
+.logo--full > img { display: block; width: 100%; height: auto; }
+.logo__text {
+  font-family: var(--font-display);
+  font-size: 1.32rem;
+  font-weight: 600;
+  font-variation-settings: "SOFT" 100;
+  line-height: 1;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+}
+.logo__text em { font-style: italic; font-weight: 500; }
+
+.site-header__cta { position: relative; z-index: 2; flex: none; }
+
+.site-nav a {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+}
+.site-nav .btn--primary { color: var(--ink); }   /* the menu button keeps dark ink on coral (white would fail contrast) */
+/* little wave under the current / hovered link */
+.site-nav__list a::after {
+  content: "";
+  position: absolute;
+  left: 0.7rem;
+  right: 0.7rem;
+  bottom: 0.1rem;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.25s ease, transform 0.25s var(--ease-out);
+}
+@supports ((mask-image: url("")) or (-webkit-mask-image: url(""))) {
+  .site-nav__list a::after {
+    height: 6px;
+    border-radius: 0;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='6' viewBox='0 0 16 6'%3E%3Cpath d='M0 3c2 0 2-2 4-2s2 2 4 2 2 2 4 2 2-2 4-2' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E") 0 50% / 16px 6px repeat-x;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='6' viewBox='0 0 16 6'%3E%3Cpath d='M0 3c2 0 2-2 4-2s2 2 4 2 2 2 4 2 2-2 4-2' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E") 0 50% / 16px 6px repeat-x;
+  }
+}
+.site-nav__list a:hover::after { opacity: 0.55; transform: none; }
+.site-nav__list a[aria-current="page"]::after { opacity: 1; transform: none; }
+
+.menu-toggle {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: none;
+  height: 2.75rem;
+  padding: 0 1rem 0 1.1rem;
+  border: 1.5px solid currentColor;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.menu-toggle:focus-visible { border-radius: var(--r-pill); }
+.menu-toggle__icon {
+  position: relative;
+  display: block;
+  width: 1.2rem;
+  height: 0.875rem;
+}
+.menu-toggle__icon span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.35s var(--ease-out), opacity 0.2s ease;
+}
+.menu-toggle__icon span:nth-child(1) { top: 0; }
+.menu-toggle__icon span:nth-child(2) { top: 50%; margin-top: -1px; }
+.menu-toggle__icon span:nth-child(3) { bottom: 0; }
+html.menu-open .menu-toggle__icon span:nth-child(1) { transform: translateY(0.375rem) rotate(45deg); }
+html.menu-open .menu-toggle__icon span:nth-child(2) { opacity: 0; transform: scaleX(0.2); }
+html.menu-open .menu-toggle__icon span:nth-child(3) { transform: translateY(-0.375rem) rotate(-45deg); }
+
+/* ---- desktop: nine links in a row ---- */
+@media (min-width: 78em) {
+  .menu-toggle { display: none; }
+  .site-nav__list { display: flex; align-items: center; }
+  .site-nav__list a {
+    display: block;
+    padding: 0.7rem 0.62rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .site-nav__list a::after { left: 0.62rem; right: 0.62rem; bottom: 0.2rem; }
+  .site-nav__extra { display: none; }
+}
+
+/* ---- below: toggle + full-screen menu that opens like a wave ---- */
+@media (max-width: 77.99em) {
+  .site-header__cta { order: 3; }
+  .site-nav {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    visibility: hidden;
+    pointer-events: none;
+    color: #fff;
+    transition: visibility 0s linear 0.85s;
+  }
+  /* two curtains of water with a wave for a hem: aqua first, deep blue after */
+  .site-nav::before,
+  .site-nav::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -12%;
+    width: 124%;
+    height: calc(100% + 7rem);
+    transform: translate3d(0, -101%, 0);
+    transition: transform 0.7s var(--ease-wave);
+    will-change: transform;
+  }
+  .site-nav::before {
+    z-index: 0;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 112' preserveAspectRatio='none'%3E%3Cpath fill='%232bb3c9' d='M0 0h1440v52c-150 44-300 60-480 28S640 8 460 26 150 104 0 66z'/%3E%3C/svg%3E") left bottom / 100% 7.05rem no-repeat,
+      linear-gradient(#2bb3c9, #2bb3c9) left top / 100% calc(100% - 7rem) no-repeat;
+    transform: translate3d(-7%, -101%, 0);
+    transition-delay: 0.1s;
+  }
+  .site-nav::after {
+    z-index: 1;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 112' preserveAspectRatio='none'%3E%3Cpath fill='%23052642' d='M0 0h1440v70c-170-40-330-52-500-14S620 110 440 96 140 28 0 58z'/%3E%3C/svg%3E") left bottom / 100% 7.05rem no-repeat,
+      linear-gradient(180deg, #0b5c85 0%, #083a5e 52%, #052642 100%) left top / 100% calc(100% - 7rem) no-repeat;
+    transform: translate3d(7%, -101%, 0);
+  }
+  html.menu-open .site-nav {
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+  html.menu-open .site-nav::before { transform: translate3d(0, 0, 0); transition-delay: 0s; }
+  html.menu-open .site-nav::after { transform: translate3d(0, 0, 0); transition-delay: 0.12s; }
+
+  /* the list scrolls in the space below the bar, so on a short phone the links
+     never run under the logo and the Menu button; a soft fade marks the edge */
+  .site-nav__inner {
+    position: absolute;
+    inset: var(--header-h) 0 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.25rem, 4vh, 2.25rem);
+    padding: clamp(0.75rem, 3vh, 2rem) var(--gutter) calc(2rem + var(--safe-b));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0, #000 0.75rem);
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0, #000 0.75rem);
+  }
+  @media (max-width: 47.99em) {
+    .site-nav__inner { gap: clamp(1rem, 3.5vh, 2.25rem); padding-bottom: calc(1.5rem + var(--safe-b)); }   /* "Book a dive" shows without scrolling on a 568 px tall phone */
+  }
+  .site-nav__list { counter-reset: nav; width: min(100%, 34rem); margin-inline: auto; }
+  .site-nav__list li,
+  .site-nav__extra {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  html.menu-open .site-nav__list li,
+  html.menu-open .site-nav__extra {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.5s ease, transform 0.6s var(--ease-out);
+    transition-delay: calc(0.34s + var(--i, 0) * 0.045s);
+  }
+  .site-nav__list li:nth-child(1) { --i: 0; }
+  .site-nav__list li:nth-child(2) { --i: 1; }
+  .site-nav__list li:nth-child(3) { --i: 2; }
+  .site-nav__list li:nth-child(4) { --i: 3; }
+  .site-nav__list li:nth-child(5) { --i: 4; }
+  .site-nav__list li:nth-child(6) { --i: 5; }
+  .site-nav__list li:nth-child(7) { --i: 6; }
+  .site-nav__list li:nth-child(8) { --i: 7; }
+  .site-nav__list li:nth-child(9) { --i: 8; }
+  .site-nav__extra { --i: 10; }
+
+  .site-nav__list a {
+    counter-increment: nav;
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    min-height: 2.75rem;                         /* never under 44 px, however short the screen */
+    padding: clamp(0.3rem, 1.1vh, 0.6rem) 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, min(1.1rem + 2.4vh, 8.2vw), 2.2rem);   /* 8.2vw: "Instructor Courses" stays on one line at 360 px */
+    font-weight: 600;
+    font-variation-settings: "SOFT" 100;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+  .site-nav__list a::before {
+    content: counter(nav, decimal-leading-zero);
+    flex: none;
+    width: 1.6rem;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--sand);
+    font-variant-numeric: tabular-nums;
+  }
+  .site-nav__list a::after { left: 2.5rem; right: auto; width: 3.5rem; bottom: -0.05rem; }
+  .site-nav__list a[aria-current="page"] { color: var(--sand); }
+  .site-nav a:focus-visible { outline-color: var(--sand); }
+
+  .site-nav__extra {
+    display: grid;
+    gap: 1rem;
+    width: min(100%, 34rem);
+    margin-inline: auto;
+    padding-bottom: 0.5rem;
+  }
+  .site-nav__extra .btn { justify-self: start; }
+  .site-nav__contact { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; font-weight: 600; }
+  .site-nav__contact a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0.35rem 0; color: #fff; }
+
+  /* while the menu is open the bar turns white-on-water and the page holds still */
+  html.menu-open { overflow: hidden; }
+  html.menu-open .site-header { --hdr-fg: #fff; z-index: var(--z-menu); }
+  html.menu-open .site-header .site-header__inner::before,
+  html.menu-open .site-header .site-header__inner::after { opacity: 0; }
+  html.menu-open .site-header__cta { visibility: hidden; }
+}
+@media (max-width: 29.99em) {
+  .site-header__cta { display: none; }
+  .logo__tile { height: 2.5rem; }
+  .logo__text { font-size: 1.2rem; }
+}
+/* a phone held sideways: nine links in two columns with "Book a dive" beside the
+   contact lines, so the whole menu fits a 360 px tall screen */
+@media (max-width: 77.99em) and (max-height: 30em) and (min-width: 34em) {
+  .site-nav__inner { gap: 0.5rem; padding-top: 0.5rem; padding-bottom: calc(0.5rem + var(--safe-b)); }
+  .site-nav__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(5, auto);
+    grid-auto-flow: column;
+    column-gap: 2rem;
+    width: min(100%, 42rem);
+  }
+  .site-nav__list a { padding: 0; align-items: center; font-size: 1.5rem; }
+  .site-nav__extra { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1.5rem; width: min(100%, 42rem); padding-bottom: 0; }
+  .site-nav__extra .btn { min-height: 2.9rem; padding-block: 0.5em; font-size: var(--step-0); }
+}
+@media (max-height: 30em) and (orientation: landscape) {
+  .site-header__inner::before,
+  .site-header__inner::after { inset-block: 0.3rem; }
+  .logo__tile { height: 2.25rem; padding: 0.15rem 0.25rem; border-radius: 0.65rem; }
+  .logo__text { font-size: 1.15rem; }
+  .menu-toggle { height: 2.4rem; }
+  .menu-toggle::after { content: ""; position: absolute; inset: -0.2rem 0; }   /* tap height stays 44 px */
+  .site-header__cta { min-height: 2.4rem; }
+  .site-header__cta::after { content: ""; position: absolute; inset: -0.2rem 0; }
+}
+/* the bar is tightest just where "Book a dive" joins the menu button, and on
+   the narrowest phones: the logo steps down so the wordmark keeps clear */
+@media (min-width: 30em) and (max-width: 34.99em) {
+  .logo__tile { height: 2.5rem; }
+  .logo__text { font-size: 1.2rem; }
+}
+@media (max-width: 22.49em) {
+  .logo { gap: 0.4rem; }
+  .logo__tile { height: 2.25rem; padding: 0.15rem; border-radius: 0.65rem; }
+  .logo__text { font-size: 1.1rem; }
+}
+
+/* ---- no JavaScript, or the engine never arrived: header in flow, links wrap ---- */
+.no-js,
+.no-engine { --header-offset: 0rem; }
+.no-js .site-header,
+.no-engine .site-header { position: relative; }
+@media (max-width: 77.99em) {
+  .no-js .menu-toggle,
+  .no-engine .menu-toggle,
+  .no-js .site-nav::before,
+  .no-engine .site-nav::before,
+  .no-js .site-nav::after,
+  .no-engine .site-nav::after,
+  .no-js .site-nav__extra,
+  .no-engine .site-nav__extra { display: none; }
+  .no-js .site-header__inner,
+  .no-engine .site-header__inner { flex-wrap: wrap; height: auto; padding-block: 0.75rem 0.25rem; row-gap: 0.35rem; }
+  .no-js .site-nav,
+  .no-engine .site-nav {
+    position: static;
+    order: 5;
+    flex-basis: 100%;
+    overflow: visible;
+    visibility: visible;
+    pointer-events: auto;
+    color: inherit;
+  }
+  .no-js .site-nav__inner,
+  .no-engine .site-nav__inner { position: static; display: block; height: auto; padding: 0; overflow: visible; -webkit-mask-image: none; mask-image: none; }
+  .no-js .site-nav__list,
+  .no-engine .site-nav__list { display: flex; flex-wrap: wrap; gap: 0 0.15rem; width: auto; margin: 0 -0.6rem; }
+  .no-js .site-nav__list li,
+  .no-engine .site-nav__list li { opacity: 1; transform: none; }
+  .no-js .site-nav__list a,
+  .no-engine .site-nav__list a {
+    display: block;
+    min-height: 0;
+    padding: 0.75rem 0.6rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+  .no-js .site-nav__list a::before,
+  .no-engine .site-nav__list a::before { content: none; }
+  .no-js .site-nav__list a::after,
+  .no-engine .site-nav__list a::after { left: 0.6rem; right: 0.6rem; width: auto; bottom: 0.15rem; }
+  .no-js .site-nav__list a[aria-current="page"],
+  .no-engine .site-nav__list a[aria-current="page"] { color: inherit; }
+}
+
+/* ==========================================================================
+   10 Home: surface hero
+   ========================================================================== */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  --zone-top: calc(var(--header-offset) + clamp(1.5rem, 5vh, 3.5rem));
+  --zone-bottom: clamp(6rem, 14vh, 8.5rem);
+  min-height: calc(100vh - var(--header-h) + var(--header-offset));
+  min-height: calc(100svh - var(--header-h) + var(--header-offset));
+  padding-block: var(--zone-top) var(--zone-bottom);
+}
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.75rem, 4vw, 3rem);
+  align-items: center;
+}
+.hero__title {
+  max-width: 15ch;
+  margin-top: 1.1rem;
+  color: var(--fg);
+}
+.hero__panel {
+  max-width: 33rem;
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+.hero__photo {
+  justify-self: end;
+  width: min(64%, 16rem);
+  margin-top: -0.5rem;
+  rotate: 2deg;
+}
+@media (min-width: 56em) {
+  .hero__grid { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
+  .hero__photo { width: min(100%, 22rem); margin-top: 1.5rem; rotate: none; }
+}
+@media (max-height: 30em) and (orientation: landscape) and (max-width: 55.99em) {
+  .hero__photo { width: min(40%, 13rem); }       /* a phone held sideways: the photo fits the screen */
+}
+/* phones: the heading and the first button belong on the first screen */
+@media (max-width: 47.99em) {
+  .hero { --zone-top: calc(var(--header-offset) + clamp(0.75rem, 3.5vh, 2rem)); }
+  .hero__title { margin-top: 0.9rem; }
+  .hero__panel { margin-top: clamp(1.1rem, 3vh, 1.75rem); }
+}
+/* short phones (an iPhone SE, a small Android): in the hero panels the buttons
+   follow the opening line and the second paragraph comes after them, so the
+   main action is on the first screen. The order in the page source is unchanged. */
+@media (max-width: 47.99em) and (max-height: 41.99em) {
+  .hero__panel,
+  .page-hero__intro { display: flex; flex-direction: column; --panel-pad: 1.15rem; }
+  :is(.hero__panel, .page-hero__intro) > .lead { font-size: 1.08rem; }
+  :is(.hero__panel, .page-hero__intro) > .cluster { order: 1; margin-block-start: 1rem; }
+  :is(.hero__panel, .page-hero__intro) > :not(.lead):not(.cluster):not(.eyebrow) { order: 2; }   /* an eyebrow stays above the opening line */
+}
+
+.scroll-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.4rem 1.15rem 0.4rem 0.4rem;
+  border-radius: var(--r-pill);
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.scroll-cue__dot {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--pill-bg);
+  color: var(--pill-fg);
+}
+.scroll-cue__dot .icon { animation: cue-bob 1.5s var(--ease-in-out) infinite alternate; }
+@keyframes cue-bob {
+  from { transform: translateY(-3px); }
+  to { transform: translateY(3px); }
+}
+.hero .scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1.5rem, 5vh, 3rem);
+  translate: -50% 0;
+}
+
+/* ==========================================================================
+   11 Home: zones, teasers, trust strip
+   ========================================================================== */
+.zone {
+  position: relative;
+  padding-block: var(--zone-top, var(--section-gap)) var(--zone-bottom, var(--section-gap));
+}
+/* the wreck teaser stands right above the wreck scene; the gap plus the open water at the top of the
+   scene (about a quarter of its height) is where the dark silhouettes swim */
+.zone[data-zone="wreck"] { --zone-top: clamp(2.5rem, 6vw, 4rem); --zone-bottom: clamp(2.5rem, 6vw, 4.5rem); }
+
+/* ---- depth calibration (home) ----------------------------------------------
+   The gauge itself is exact: js/ocean.js ties depth to the zone sections, so
+   it reads 5 / 12 / 20 / 30 m when each section reaches the header, on every
+   screen size, and runs evenly in between (depthAt() and hudMeasure()).
+   These heights set the pace of the descent, so that a metre is about the
+   same stretch of scrolling in every zone. The part of the page below the top
+   of the wreck zone (--tail: wreck teaser, wreck scene, seabed info, footer)
+   has a fixed height, so the zones above it get a min-height in proportion
+   to their share of the 42 m. The spare height is open water under each
+   teaser, which is where the sea life swims.
+   --tail-rest = measured height of wreck zone + seabed info + footer; re-measure
+   and update it here if that content changes a lot. On small screens the zones
+   are kept shorter than their full share (the wreck would start at about 29 m
+   of plain scroll progress on tablets and 27 m on phones) so the page does not
+   grow too long; there the descent is a little quicker above 30 m. */
+:root {
+  --tail-rest: 124rem;
+  --k-surface: 0.4522;
+  --k-reef: 0.5994;
+  --k-caves: 0.6819;
+  --k-blue: 0.8555;
+  --tail: calc(clamp(380px, 50vw, 860px) + var(--tail-rest));
+  --descent: calc(var(--tail) - 100vh + 5.5rem);
+}
+@media (max-width: 63.99em) {
+  :root { --tail-rest: 153rem; --k-surface: 0.3925; --k-reef: 0.5202; --k-caves: 0.5919; --k-blue: 0.78; }   /* blue: open water under the trust strip for the sunfish */
+}
+@media (max-width: 43.99em) {
+  :root { --tail-rest: 186rem; --k-surface: 0.35; --k-reef: 0.4417; --k-caves: 0.5; --k-blue: 0.52;   /* blue: room for the sunfish to cross */ }
+}
+@media (max-width: 29.99em) {
+  :root { --tail-rest: 197rem; }
+}
+/* a phone held sideways: the screen is short and the content stands side by side, so the same
+   share of the descent would be two to three screens of open water in each zone */
+@media (max-height: 30em) and (orientation: landscape) {
+  :root { --descent: calc((var(--tail) - 100vh + 5.5rem) * 0.72); }
+}
+.zone[data-zone="surface"] { min-height: max(calc(100vh - var(--header-h) + var(--header-offset)), calc(var(--descent) * var(--k-surface) + 5.5rem - var(--wave-h))); }
+.zone[data-zone="reef"] { min-height: calc(var(--descent) * var(--k-reef) - var(--wave-h)); }
+.zone[data-zone="caves"] { min-height: calc(var(--descent) * var(--k-caves) - var(--wave-h)); }
+.zone[data-zone="blue"] { min-height: calc(var(--descent) * var(--k-blue) - var(--wave-h)); }
+.zone-head { max-width: 44rem; }
+.zone-head .display { margin-top: 0.95rem; }
+
+/* teaser = heading on the water + glass panel + one tilted photo.
+   --left hugs the left of the column, --right the right; the other side
+   stays open water. */
+.teaser {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(0.75rem, 2.4vw, 2rem);
+  row-gap: clamp(1.25rem, 3vw, 2rem);
+  align-items: start;
+}
+.teaser > .zone-head { grid-column: 1 / -1; }
+.teaser__photo {
+  grid-column: 4 / -1;
+  grid-row: 2;
+  --ratio: 5 / 4;
+  rotate: 2deg;
+  box-shadow: var(--shadow-2);
+}
+.teaser__panel {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  z-index: 1;
+  margin-top: -3.25rem;
+}
+.teaser--right .teaser__photo { grid-column: 1 / span 9; rotate: -2deg; }
+.teaser__photo > figcaption { align-self: start; }
+/* phones: the caption chip sits at the top, because the panel overlaps the foot
+   of the photo. When the top of a photo carries its subject (a shop sign), add
+   .photo--cap-low: the chip then sits just above the panel instead. */
+.teaser__photo.photo--cap-low > figcaption { align-self: end; margin-bottom: 2.75rem; }
+/* phones: three quarters of the column at 5:4, with the chip over the top and
+   the panel over the foot, left a strip of picture. Nearly the full width at
+   4:3 shows the subject, and the chip fits on one line. */
+@media (max-width: 47.99em) {
+  .teaser__photo { grid-column: 2 / -1; --ratio: 4 / 3; }
+  .teaser--right .teaser__photo { grid-column: 1 / span 11; }
+}
+/* ...and held sideways, half the column, so that the photo is not taller than the screen */
+@media (max-width: 47.99em) and (max-height: 30em) and (orientation: landscape) {
+  .teaser__photo { grid-column: 7 / -1; }
+  .teaser--right .teaser__photo { grid-column: 1 / span 6; }
+}
+
+@media (min-width: 48em) {
+  .teaser__photo { --ratio: 4 / 5; margin-top: clamp(2rem, 5vw, 4.5rem); }
+  .teaser__photo > figcaption { align-self: end; }
+  .teaser__photo.photo--cap-low > figcaption { margin-bottom: 0.7rem; }
+  .teaser__panel { grid-row: 2; margin-top: 0; }
+
+  .teaser--left > .zone-head { grid-column: 1 / span 9; }
+  .teaser--left .teaser__panel { grid-column: 1 / span 7; }
+  .teaser--left .teaser__photo { grid-column: 8 / span 4; }
+
+  .teaser--right > .zone-head { grid-column: 2 / -1; }
+  .teaser--right .teaser__photo { grid-column: 2 / span 4; }
+  .teaser--right .teaser__panel { grid-column: 6 / -1; }
+}
+@media (min-width: 64em) {
+  .teaser--left .teaser__panel { grid-column: 1 / span 6; }
+  .teaser--left .teaser__photo { grid-column: 7 / span 3; }
+
+  .teaser--right > .zone-head { grid-column: 4 / -1; }
+  .teaser--right .teaser__photo { grid-column: 4 / span 3; }
+  .teaser--right .teaser__panel { grid-column: 7 / -1; }
+}
+
+/* the course path: small steps that read left to right */
+.pathline { display: flex; flex-wrap: wrap; gap: 0.5rem 0.4rem; align-items: center; }
+.pathline li { display: inline-flex; align-items: center; gap: 0.4rem; }
+.pathline li + li::before {
+  content: "";
+  width: 0.9rem;
+  height: 0.9rem;
+  flex: none;
+  opacity: 0.6;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* five short proofs in one wide panel */
+.trust-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem 1.25rem;
+  margin-top: clamp(2.5rem, 7vw, 5rem);
+}
+.trust-strip > * + * { margin-block-start: 0; }
+.trust-strip__item { display: grid; gap: 0.4rem; align-content: start; }
+.trust-strip__item:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.trust-strip__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.trust-strip__value {
+  font-family: var(--font-display);
+  font-size: var(--step-4);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 100;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-variant-numeric: lining-nums;
+  color: var(--fg-accent);
+}
+.trust-strip__text {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 100;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.trust-strip__item .icon-badge { margin-bottom: 0.2rem; }
+@media (min-width: 40em) {
+  .trust-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .trust-strip__item:last-child:nth-child(odd) { grid-column: auto; }
+}
+/* phones: the three years stand side by side on one line (labels above, years
+   on a shared baseline), and the two proofs in words follow as rows with the
+   icon beside the text. Two uneven columns of five did not line up. */
+@media (max-width: 39.99em) {
+  .trust-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 0.75rem; }
+  .trust-strip__item { align-content: end; gap: 0.35rem; }
+  .trust-strip__label { font-size: 0.7rem; letter-spacing: 0.08em; }
+  .trust-strip__value { font-size: clamp(1.7rem, 9vw, 2.15rem); }
+  .trust-strip__item:nth-child(n + 4) {
+    grid-column: 1 / -1;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    align-content: center;
+    gap: 0.8rem;
+    padding-top: 0.8rem;
+  }
+  .trust-strip__item:nth-child(4) { margin-top: 1.1rem; border-top: 1px solid var(--line); }
+  .trust-strip__item .icon-badge { margin-bottom: 0; }
+  .trust-strip__text { font-size: 1.1rem; }
+}
+@media (min-width: 64em) {
+  .trust-strip { grid-template-columns: repeat(3, minmax(max-content, 0.8fr)) repeat(2, minmax(0, 1.1fr)); gap: 2rem; }
+  .trust-strip__label { white-space: nowrap; }   /* one line each, so the three years share a baseline */
+}
+
+/* ==========================================================================
+   12 Home: seabed info (Instagram strip, opening hours, contact)
+   ========================================================================== */
+.visit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.25rem, 2.6vw, 2rem);
+  align-items: start;
+}
+/* The seabed itself: this section comes after the wreck scene and lies on the
+   sand. Its background is exactly the scene's bottom strip and the footer's top
+   edge (--seabed), so wreck, sand and footer are one surface. Faint ripple marks
+   (tones from the scene's sand shading) fade out towards both ends. */
+.section--seabed-info {
+  isolation: isolate;
+  margin-top: -1px;                           /* no seam under the scene */
+  padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2.5rem, 6vw, 4.5rem);
+  background: var(--seabed);
+  color: var(--fg);
+  color-scheme: dark;
+}
+.section--seabed-info::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='220' viewBox='0 0 520 220'%3E%3Cg fill='none' stroke-linecap='round' stroke-width='3'%3E%3Cpath stroke='%2333566a' d='M24 38c26-8 52-8 78 0s52 8 78 0'/%3E%3Cpath stroke='%23244356' d='M292 96c22-7 44-7 66 0s44 7 66 0'/%3E%3Cpath stroke='%2333566a' d='M118 168c18-6 36-6 54 0s36 6 54 0'/%3E%3Cpath stroke='%23244356' d='M404 196c14-5 28-5 42 0'/%3E%3C/g%3E%3C/svg%3E") 50% 0 / 520px 220px;
+  opacity: 0.7;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 12%, #000 62%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 12%, #000 62%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+}
+@media (min-width: 44em) {
+  .visit { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .visit__contact { grid-column: 1 / -1; }
+}
+/* phones: the three panels are stacked, so the sand runs on for a long way. The
+   ripple marks carry on to the footer, soft dunes break up the flat colour (both
+   ends keep the exact seabed colour), and the panels are set a little tighter. */
+@media (max-width: 43.74em) {
+  .section--seabed-info {
+    padding-block: 2.25rem 2.5rem;
+    background:
+      radial-gradient(120% 9rem at 12% 24rem, rgba(58, 93, 112, 0.55), rgba(58, 93, 112, 0) 70%),
+      radial-gradient(130% 10rem at 92% 47rem, rgba(36, 67, 86, 0.6), rgba(36, 67, 86, 0) 70%),
+      radial-gradient(120% 9rem at 8% 68rem, rgba(58, 93, 112, 0.5), rgba(58, 93, 112, 0) 70%),
+      var(--seabed);
+  }
+  .section--seabed-info::before {
+    opacity: 0.9;
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 4%, #000 93%, rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 4%, #000 93%, rgba(0, 0, 0, 0) 100%);
+  }
+  .section--seabed-info .section-head { margin-bottom: 1.25rem; }
+  .visit { gap: 1rem; }
+  .visit > .panel { --panel-pad: 1.2rem; }
+  .visit .insta__head + .insta { margin-block-start: 0.9rem; }
+  /* (opening hours: one line per season on phones, see .hours below) */
+  .visit .contact-list { gap: 0.85rem; }
+  /* the footer of the home page comes straight after these panels: on phones it
+     does not repeat the opening hours and the contact lines a second time */
+  [data-page="home"] .site-footer__grid > div:not(.site-footer__brand) { display: none; }
+}
+/* Three panels side by side only from 78em: below that the contact column is too
+   narrow for the email address on one line, so the two-column layout with the
+   full-width contact panel carries on. The contact track is a little wider than
+   the hours track for the same reason. */
+@media (min-width: 78em) {
+  .visit { grid-template-columns: minmax(0, 4.7fr) minmax(0, 3.5fr) minmax(0, 3.8fr); }
+  .visit > .panel { --panel-pad: clamp(1.25rem, 0.9rem + 1vw, 1.75rem); }
+  .visit__insta { margin-top: 2.5rem; }
+  .visit__contact { grid-column: auto; }
+  .visit .contact-list--grid { grid-template-columns: minmax(0, 1fr); gap: 1.1rem; }
+}
+
+.insta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.5rem, 1.6vw, 1rem);
+}
+.insta__tile {
+  display: block;
+  text-decoration: none;
+  border-radius: var(--r-md);
+  transition: translate 0.3s var(--ease-out);
+}
+.insta__tile:hover { translate: 0 -4px; }
+.insta__tile:focus-visible { border-radius: var(--r-md); }
+.insta__tile .photo { --ratio: 1; }
+.insta__tile .photo::before { padding: 2.4rem 0.5rem 0.5rem; background-size: 1.5rem, auto, auto; background-position: center calc(50% - 1.3rem), 0 0, 0 0; }
+.insta__head { display: grid; gap: 0.4rem; justify-items: start; }
+.insta__head + .insta { margin-block-start: 1.25rem; }
+
+/* opening hours: season on the left, hours on the right */
+.hours { display: grid; gap: 0.3rem; container-type: inline-size; }
+.hours li {
+  display: grid;
+  align-items: baseline;
+  gap: 0.1rem 1rem;
+  padding: 0.7rem 1rem;
+  border-radius: 0.95rem;
+}
+.hours li:nth-child(odd) { background: var(--surface-2); }
+.hours__season { font-weight: 600; }
+.hours__time {
+  font-family: var(--font-display);
+  font-size: 1.1em;
+  font-weight: 600;
+  font-variant-numeric: lining-nums tabular-nums;
+  white-space: nowrap;
+}
+.hours--plain li { padding-inline: 0; background: none; }
+@container (min-width: 27rem) {
+  .hours li { grid-template-columns: minmax(0, 1fr) auto; }
+}
+/* phones: season and hours share a line on every page (home, dive centre,
+   contact), as plain rows with a hairline between them. Three tinted boxes of
+   two lines each took a third of a screen. */
+@media (max-width: 43.74em) {
+  .hours { gap: 0; container-type: normal; }
+  .hours li,
+  .hours li:nth-child(odd) { grid-template-columns: minmax(0, 1fr) auto; gap: 0.75rem; padding: 0.6rem 0; border-radius: 0; background: none; }
+  .hours li + li { border-top: 1px solid var(--line); }
+  .hours__season { font-size: 0.9rem; }
+  .hours__time { font-size: 0.95rem; }
+}
+/* narrowest phones: "1 October to 31 October" and its hours do not fit one line at
+   a readable size, so every row is the season with its hours underneath */
+@media (max-width: 22.49em) {
+  .hours li,
+  .hours li:nth-child(odd) { grid-template-columns: minmax(0, 1fr); gap: 0.05rem; padding: 0.5rem 0; }
+}
+
+/* contact list: icon, small label, value */
+.contact-list { display: grid; gap: 1.1rem; }
+.contact-list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: center;
+}
+.contact-list__label {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+@media (max-width: 47.99em) {
+  .contact-list__label { font-size: 0.8rem; }   /* phones: Phone, WhatsApp, Email a little larger */
+}
+.contact-list__value { display: block; font-weight: 600; line-height: 1.4; }
+.contact-list a { color: var(--fg); }
+/* the whole row (label line included) answers a tap: about 50 px tall on phones */
+.contact-list a.contact-list__value { position: relative; }
+.contact-list a.contact-list__value::after { content: ""; position: absolute; inset: -1.25rem 0 -0.4rem; }
+.contact-list a:hover { color: var(--fg-accent); }
+@media (min-width: 40em) {
+  .contact-list--grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem 2rem; }
+}
+
+/* ==========================================================================
+   13 Inner-page components
+   ========================================================================== */
+
+/* ---- page hero: chip + h1 on the water + intro panel ---- */
+.page-hero {
+  position: relative;
+  padding: calc(var(--header-offset) + clamp(2.5rem, 9vh, 6rem)) 0 clamp(1rem, 4vw, 3rem);
+}
+.page-hero__title { max-width: 16ch; margin-top: 1.1rem; color: var(--fg); }
+@media (max-width: 47.99em) {
+  .page-hero { padding-top: calc(var(--header-offset) + clamp(1rem, 5vh, 3rem)); }
+  .page-hero__title { margin-top: 0.9rem; }
+  .page-hero__intro { margin-top: clamp(1.1rem, 3vh, 1.75rem); }
+}
+.page-hero__intro { max-width: 38rem; margin-top: clamp(1.5rem, 3vw, 2.25rem); }
+
+/* ---- card grid (dive sites) ---- */
+.card-grid {
+  --grid-gap: clamp(1rem, 2.2vw, 1.75rem);
+  display: grid;
+  gap: var(--grid-gap);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+}
+@media (min-width: 38em) and (max-width: 63.99em) {
+  /* two columns; an odd last card is centred instead of left alone on its row */
+  .card-grid--stagger { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .card-grid--stagger > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - var(--grid-gap) / 2);
+  }
+}
+@media (min-width: 64em) {
+  /* three columns, the middle one hangs lower */
+  .card-grid--stagger { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-bottom: 2.75rem; }
+  .card-grid--stagger > :nth-child(3n + 2) { translate: 0 2.75rem; }
+}
+/* a phone held sideways: three across, so that a whole card fits the screen */
+@media (min-width: 38em) and (max-width: 63.99em) and (max-height: 30em) and (orientation: landscape) {
+  .card-grid--stagger { --grid-gap: 0.85rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .card-grid--stagger > :last-child:nth-child(odd) { grid-column: auto; justify-self: stretch; width: auto; }
+  .card-grid--stagger .card__body { gap: 0.45rem; padding: 0.8rem 0.95rem 0.95rem; }
+  .card-grid--stagger .card__title { font-size: 1.2rem; }
+}
+/* phones: two columns of small cards (photo, name, tag) instead of nine screen-wide
+   cards in a row, which was three and a half screens of scrolling. An odd last
+   card runs across both columns with its photo beside its text. As soon as any
+   card is given a paragraph of description, the grid goes back to one card per
+   row so the text has room (browsers without :has() keep the two columns). */
+@media (max-width: 37.99em) {
+  .card-grid--stagger { --grid-gap: 0.75rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .card-grid--stagger > .card { border-radius: var(--r-md); }
+  .card-grid--stagger .card__body { gap: 0.45rem; padding: 0.75rem 0.85rem 0.9rem; }
+  .card-grid--stagger .card__title { font-size: 1.15rem; }
+  .card-grid--stagger .tag { padding: 0.25em 0.7em; font-size: 0.875rem; }
+  .card-grid--stagger > .card:last-child:nth-child(odd) { grid-column: 1 / -1; flex-direction: row; }
+  .card-grid--stagger > .card:last-child:nth-child(odd) > .photo { flex: 0 0 calc(50% - var(--grid-gap) / 2); }
+  .card-grid--stagger > .card:last-child:nth-child(odd) > .card__body { justify-content: center; }
+  @media (max-width: 22.49em) {
+    .card-grid--stagger .card__body { padding-inline: 0.7rem; }
+    .card-grid--stagger .card__title { font-size: 1.02rem; }      /* "Konnos Point" on one line at 320 px */
+  }
+  .card-grid--stagger:has(.card__body > p) { grid-template-columns: minmax(0, 1fr); }
+  .card-grid--stagger:has(.card__body > p) > .card:last-child:nth-child(odd) { flex-direction: column; }
+  .card-grid--stagger:has(.card__body > p) > .card:last-child:nth-child(odd) > .photo { flex: none; }
+  .card-grid--stagger:has(.card__body > p) .card__body { padding: 1.1rem; }
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+.card > * + * { margin-block-start: 0; }
+.card > .photo { border-radius: 0; }
+.card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: clamp(1.1rem, 2.4vw, 1.5rem);
+}
+.card__title { font-size: var(--step-2); }
+.card__text { color: var(--fg-muted); }
+.card__foot { margin-top: auto; padding-top: 0.5rem; }
+.card__depth {                               /* small depth pill on a card */
+  align-self: flex-start;
+  padding: 0.28rem 0.7rem 0.32rem;
+  border-radius: var(--r-pill);
+  background: var(--pill-bg);
+  color: var(--pill-fg);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* ---- feature cards with tags (wrecks) ---- */
+.feature-cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(2.5rem, 7vw, 5.5rem); }
+.feature-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 0;
+  overflow: hidden;
+}
+.feature-card > * + * { margin-block-start: 0; }
+.feature-card__media { min-width: 0; }
+.feature-card__media > .photo { border-radius: 0; }
+.feature-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1rem;
+  min-width: 0;
+  padding: var(--panel-pad);
+}
+.feature-card__title { font-size: var(--step-3); }
+/* photo beside the text from 52em, and on a phone held sideways (where a photo across the full width would be taller than the screen) */
+@media (min-width: 52em), (min-width: 36em) and (max-height: 30em) and (orientation: landscape) {
+  .feature-card { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+  .feature-card__media > .photo { height: 100%; grid-template-rows: minmax(18rem, 1fr); }
+  .feature-card__media > .photo::before { aspect-ratio: auto; height: 100%; }
+  /* out of flow, so the card is as tall as its text (or 18rem) whatever the
+     shape of the photo that loads: no layout shift when lazy images arrive */
+  .feature-card__media > .photo > img { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; }
+  .feature-card--flip .feature-card__media { order: 2; }
+  .feature-cards > :nth-child(odd) { margin-right: clamp(0rem, 8vw, 7rem); }
+  .feature-cards > :nth-child(even) { margin-left: clamp(0rem, 8vw, 7rem); }
+}
+/* a phone held sideways: the text column is taller than the screen, so the photo does not stretch to it.
+   It is as tall as the screen allows and stays in view while the text beside it scrolls past. */
+@media (min-width: 36em) and (max-width: 55.99em) and (max-height: 30em) and (orientation: landscape) {
+  @supports (overflow: clip) {
+    .feature-card { overflow: clip; align-items: start; }
+    .feature-card__media {
+      position: sticky;
+      top: calc(var(--header-h) + 0.5rem);
+      height: calc(100vh - var(--header-h) - 1rem);
+      height: calc(100svh - var(--header-h) - 1rem);
+      max-height: 22rem;
+    }
+    .feature-card__media > .photo { grid-template-rows: minmax(0, 1fr); }
+  }
+}
+
+/* ---- depth timeline: one straight depth line with a marker per step;
+   each panel sits deeper and one notch further in ---- */
+.depth-timeline {
+  grid-template-columns: minmax(0, 1fr);
+  --marker-w: 4.75rem;
+  --tl-gap: clamp(1.5rem, 4vw, 2.75rem);
+  --tl-col-gap: clamp(0.6rem, 2vw, 1.25rem);
+  --tl-indent: 0rem;
+  display: grid;
+  gap: var(--tl-gap);
+}
+.depth-timeline__step {
+  --n: 0;
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--marker-w) minmax(0, 1fr);
+  column-gap: var(--tl-col-gap);
+  align-items: start;
+}
+.depth-timeline__step:nth-child(2) { --n: 1; }
+.depth-timeline__step:nth-child(3) { --n: 2; }
+.depth-timeline__step:nth-child(4) { --n: 3; }
+.depth-timeline__step:nth-child(5) { --n: 4; }
+.depth-timeline__step:nth-child(n + 6) { --n: 5; }
+/* the dashed depth line */
+.depth-timeline__step::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: calc(var(--tl-gap) * -1);
+  left: calc(var(--marker-w) / 2 - 1.5px);
+  width: 3px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0 7px, rgba(255, 255, 255, 0) 7px 14px);
+}
+.depth-timeline__step:first-child::before { top: 2rem; }
+.depth-timeline__step:last-child::before { bottom: auto; height: 2rem; }
+.depth-timeline__depth {
+  position: relative;
+  z-index: 1;
+  justify-self: center;
+  margin-top: 1.5rem;
+  padding: 0.45rem 0.75rem 0.5rem;
+  border-radius: var(--r-pill);
+  background: var(--ink);
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.4);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+  white-space: nowrap;
+}
+.depth-timeline__body {
+  max-width: 36rem;
+  margin-left: calc(var(--tl-indent) * var(--n));
+}
+/* dotted tie from the marker to its panel */
+.depth-timeline__body::before {
+  content: "";
+  position: absolute;
+  top: calc(1.5rem + 0.95rem - 3px);
+  right: 100%;
+  width: calc(var(--tl-indent) * var(--n) + var(--tl-col-gap) + var(--marker-w) / 2 - 1.75rem);
+  height: 6px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0 2.2px, transparent 2.7px) right center / 10px 6px repeat-x;
+}
+.depth-timeline__body h3 { font-size: var(--step-2); }
+@media (min-width: 52em) {
+  .depth-timeline { --marker-w: 6rem; --tl-indent: clamp(2rem, 5.5vw, 5rem); }
+  .depth-timeline--straight { --tl-indent: 0rem; }
+}
+/* phones: a marker column beside the panels left about 140 px for the text.
+   Here each marker sits above its panel, which gets the full width; the depth
+   line runs down the left through the markers and shows between the panels. */
+@media (max-width: 43.74em) {
+  .depth-timeline { --tl-gap: 1.4rem; --tl-x: 1.9rem; --tl-tie: 0.7rem; }
+  .depth-timeline__step { grid-template-columns: minmax(0, 1fr); row-gap: var(--tl-tie); }
+  .depth-timeline__step::before,
+  .depth-timeline__step:first-child::before { top: 100%; bottom: auto; left: calc(var(--tl-x) - 1.5px); height: var(--tl-gap); }
+  .depth-timeline__step:last-child::before { content: none; }
+  .depth-timeline__depth { justify-self: start; margin: 0 0 0 0.35rem; }
+  .depth-timeline__body { max-width: none; margin-left: 0; }
+  .depth-timeline__body::before {
+    top: auto;
+    right: auto;
+    bottom: 100%;
+    left: calc(var(--tl-x) - 1.5px);
+    width: 3px;
+    height: var(--tl-tie);
+    background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0 7px, rgba(255, 255, 255, 0) 7px 14px);
+  }
+}
+
+/* ---- course ladder: two sand rails, one rung per level ---- */
+.ladder {
+  --rail: 0.4rem;
+  --ladder-pad: clamp(1.1rem, 4.5vw, 3rem);
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 2.75rem);
+  max-width: 48rem;
+  padding: clamp(1.5rem, 4vw, 2.5rem) var(--ladder-pad);
+}
+.ladder::before,
+.ladder::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--rail);
+  border-radius: var(--rail);
+  background: linear-gradient(180deg, #f4d58d 0%, #f4d58d 70%, rgba(244, 213, 141, 0.55) 100%);
+}
+.ladder::before { left: 0; }
+.ladder::after { right: 0; }
+.ladder--center { margin-inline: auto; }
+.ladder--right { margin-left: auto; }
+.ladder__rung { position: relative; }
+/* the rung itself: two stubs from the rails to the card */
+.ladder__rung::before,
+.ladder__rung::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: var(--ladder-pad);
+  height: var(--rail);
+  margin-top: calc(var(--rail) / -2);
+  background: var(--sand);
+}
+.ladder__rung::before { right: 100%; }
+.ladder__rung::after { left: 100%; }
+.rung {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.25rem clamp(0.9rem, 3vw, 1.75rem);
+  align-items: start;
+}
+.rung > * + * { margin-block-start: 0; }
+.rung__num {
+  grid-row: 1 / span 2;
+  min-width: 1.1em;
+  font-family: var(--font-display);
+  font-size: var(--step-5);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 100;
+  line-height: 0.85;
+  letter-spacing: -0.03em;
+  font-variant-numeric: lining-nums;
+  color: var(--fg-accent);
+}
+.rung__body { display: grid; gap: 0.6rem; justify-items: start; min-width: 0; }
+.rung__title { font-size: var(--step-2); }
+.rung__body .btn { margin-top: 0.4rem; }
+@media (max-width: 30em) {
+  /* narrow phones: the numeral sits above the text, which gets the full width */
+  .rung { grid-template-columns: minmax(0, 1fr); }
+  .rung__num { grid-row: auto; font-size: var(--step-4); line-height: 1; }
+}
+/* phones: the numeral and the level share the first line ("1  BEGINNER"), and
+   the title, text and button below them get the full width of the card */
+@media (max-width: 43.74em) {
+  .rung { grid-template-columns: auto minmax(0, 1fr); gap: 0.6rem 0.75rem; align-items: center; justify-items: start; }
+  .rung__num { grid-row: auto; min-width: 0; font-size: var(--step-3); line-height: 1; }
+  .rung__body { display: contents; }
+  .rung__body > :not(.eyebrow) { grid-column: 1 / -1; }
+  .rung__body .btn { margin-top: 0.3rem; }
+}
+@media (max-width: 22.49em) {
+  .rung { --panel-pad: 1.1rem; }
+  .rung__title { font-size: 1.2rem; }
+}
+
+/* ---- filter chips + specialty cards ---- */
+.filter-bar { display: grid; gap: 0.9rem; }
+.filter-bar > * + * { margin-block-start: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.05rem;
+  border: 1.5px solid var(--ghost-line);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--fg);
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.chip:hover { background: var(--surface-2); border-color: var(--fg); }
+.chip:focus-visible { border-radius: var(--r-pill); }
+/* without the engine the chips cannot filter: leave the count line and the tags on the cards */
+.no-js .filter-bar .chips,
+.no-engine .filter-bar .chips { display: none; }
+.chip[aria-pressed="true"] {
+  border-color: var(--pill-bg);
+  background: var(--pill-bg);
+  color: var(--pill-fg);
+}
+.filter-status { font-size: var(--step--1); font-weight: 600; color: var(--fg-muted); }
+
+.spec-grid {
+  display: grid;
+  gap: clamp(0.9rem, 2vw, 1.5rem);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16.5rem), 1fr));
+}
+.spec-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.3rem 1rem;
+  align-items: start;
+  align-content: start;
+  padding: clamp(1.1rem, 2.2vw, 1.5rem);
+  border-radius: var(--r-md);
+}
+.spec-card > * + * { margin-block-start: 0; }
+.spec-card .icon-badge { grid-row: 1 / span 3; }
+.spec-card__title { font-size: var(--step-1); line-height: 1.2; align-self: center; }
+.spec-card__text { grid-column: 2; font-size: var(--step--1); color: var(--fg-muted); line-height: 1.5; }
+.spec-card .tags { grid-column: 2; margin-top: 0.45rem; }
+.spec-card .tag { font-size: 0.74rem; padding: 0.25em 0.7em; }
+@media (max-width: 47.99em) {
+  /* phones: descriptions are body copy, so 16 px; only labels and captions stay smaller */
+  .spec-card__text { font-size: 1rem; }
+  .spec-card .tag { font-size: 0.875rem; }
+}
+/* phones: fourteen cards in one column, so each is set a little tighter */
+@media (max-width: 43.74em) {
+  .spec-grid { gap: 0.7rem; }
+  .spec-card { gap: 0.2rem 0.85rem; padding: 0.95rem 1rem 1rem; }
+  .spec-card .icon-badge { width: 2.6rem; height: 2.6rem; }
+  .spec-card .icon-badge .icon { width: 1.35rem; height: 1.35rem; }
+  .spec-card__title { padding-top: 0.2rem; }
+  .spec-card__text { line-height: 1.45; }
+  .spec-card .tags { margin-top: 0.35rem; }
+}
+
+/* ---- connected steps (IDC: four parts) ---- */
+.steps {
+  --steps-gap: clamp(1.75rem, 3vw, 2.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--steps-gap);
+  counter-reset: step;
+}
+.step {
+  position: relative;
+  counter-increment: step;
+  padding: clamp(1.25rem, 2.4vw, 1.75rem);
+  border-radius: var(--r-md);
+}
+.step > * + * { margin-block-start: 0.5rem; }
+.step::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--sand);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+}
+.step__title { font-size: var(--step-1); line-height: 1.2; margin-top: 0.9rem; }
+.step__text { font-size: var(--step--1); color: var(--fg-muted); }
+@media (max-width: 47.99em) {
+  .step__text { font-size: 1rem; }               /* phones: body copy at 16 px */
+}
+/* phones: the number stands beside the title and text instead of above them */
+@media (max-width: 43.74em) {
+  .steps { --steps-gap: 1.4rem; }
+  .step { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); column-gap: 0.9rem; align-items: start; padding: 1.1rem 1.15rem; }
+  .step::before { grid-row: 1 / span 2; }
+  .step > * + * { margin-block-start: 0.3rem; }
+  .step__title { grid-column: 2; margin-top: 0; min-height: 2.75rem; display: flex; align-items: center; }
+  .step__text { grid-column: 2; }
+  .step:not(:last-child)::after { left: calc(1.15rem + 1.375rem - 3px); }
+}
+/* dotted link to the next step */
+.step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: calc(clamp(1.25rem, 2.4vw, 1.75rem) + 1.375rem - 3px);
+  width: 6px;
+  height: var(--steps-gap);
+  background: radial-gradient(circle, var(--sand) 0 2.4px, transparent 2.9px) center top / 6px 10px repeat-y;
+}
+@media (min-width: 60em) {
+  .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; padding-bottom: 4.5rem; }
+  .steps--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .step:nth-child(2) { translate: 0 1.5rem; }
+  .step:nth-child(3) { translate: 0 3rem; }
+  .step:nth-child(4) { translate: 0 4.5rem; }
+  .step:not(:last-child)::after {
+    top: calc(clamp(1.25rem, 2.4vw, 1.75rem) + 1.375rem - 3px);
+    left: 100%;
+    width: var(--steps-gap);
+    height: 6px;
+    background: radial-gradient(circle, var(--sand) 0 2.4px, transparent 2.9px) left center / 10px 6px repeat-x;
+  }
+}
+
+/* ---- icon feature grid (dive centre) ---- */
+.feature-grid {
+  display: grid;
+  gap: clamp(1rem, 2.4vw, 1.75rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18.5rem), 1fr));
+}
+.feature { display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+.feature > * + * { margin-block-start: 0; }
+.feature__title { font-size: var(--step-2); margin-top: 0.35rem; }
+.feature__text { color: var(--fg-muted); }
+/* phones: the icon stands beside the title, the text and any link run below at
+   full width. A 64 px icon on a line of its own made each card a third of a screen. */
+@media (max-width: 43.74em) {
+  .feature { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.65rem 0.9rem; align-items: center; justify-items: start; }
+  .feature > .icon-badge { width: 3.1rem; height: 3.1rem; }
+  .feature > .icon-badge .icon { width: 1.65rem; height: 1.65rem; }
+  .feature__title { margin-top: 0; }
+  .feature > :not(.icon-badge):not(.feature__title) { grid-column: 1 / -1; }
+  .feature-grid { gap: 0.85rem; }
+  .feature-grid > .feature { --panel-pad: 1.15rem; }
+}
+@media (min-width: 64em) {
+  .feature-grid--stagger { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-bottom: 2.75rem; }
+  .feature-grid--stagger > :nth-child(3n + 2) { translate: 0 2.75rem; }
+}
+
+/* ---- profile block (course director) ---- */
+.profile {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.25rem, 3.5vw, 2.75rem);
+  align-items: center;
+}
+.profile > * + * { margin-block-start: 0; }
+.profile__portrait { width: min(100%, 15rem); }
+.profile__portrait .photo { --ratio: 4 / 5; border-radius: 999px 999px var(--r-md) var(--r-md); }
+.profile__portrait .photo::before { padding-top: 5rem; background-position: center calc(50% - 0.2rem), 0 0, 0 0; }
+.profile__body { display: grid; gap: 0.85rem; min-width: 0; }
+.profile__name { font-size: var(--step-3); }
+@media (min-width: 44em) {
+  .profile { grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); }
+}
+/* year + line, used for a short career path */
+.milestones { display: grid; gap: 0.55rem; }
+.milestones li { display: grid; grid-template-columns: 3.6rem minmax(0, 1fr); gap: 0.9rem; align-items: baseline; }
+.milestones__year {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--fg-accent);
+}
+
+/* ---- link card and CTA card ---- */
+.link-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.4rem 1.25rem;
+  align-items: center;
+  color: var(--fg);
+  text-decoration: none;
+  transition: translate 0.3s var(--ease-out);
+}
+.link-card > * + * { margin-block-start: 0; }
+.link-card:hover { translate: 0 -3px; }
+.link-card:focus-visible { border-radius: var(--r-lg); }
+.link-card__title { font-family: var(--font-display); font-size: var(--step-2); font-weight: 600; font-variation-settings: "SOFT" 100; line-height: 1.15; letter-spacing: -0.015em; }
+.link-card__text { grid-column: 1; color: var(--fg-muted); }
+.link-card__arrow {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background: var(--coral);
+  color: var(--ink);
+  transition: transform 0.3s var(--ease-out);
+}
+.link-card:hover .link-card__arrow { transform: translateX(5px); }
+
+.cta-card {
+  max-width: 46rem;
+  margin-inline: auto;
+  --cta-pad: clamp(2rem, 5vw, 3.5rem);
+  padding: var(--cta-pad);
+  border-radius: var(--r-xl);
+  text-align: center;
+  overflow: hidden;
+}
+.cta-card::before {                           /* a few rising bubbles, confined to the right padding so they never meet the text */
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--cta-pad);
+  height: 8rem;
+  pointer-events: none;
+  opacity: 0.55;
+  background:
+    radial-gradient(circle at 50% 24%, transparent 0 0.55rem, var(--line) 0.6rem 0.7rem, transparent 0.75rem),
+    radial-gradient(circle at 32% 52%, transparent 0 0.3rem, var(--line) 0.35rem 0.45rem, transparent 0.5rem),
+    radial-gradient(circle at 64% 74%, transparent 0 0.18rem, var(--line) 0.22rem 0.32rem, transparent 0.37rem);
+}
+.cta-card__title { font-size: var(--step-3); }
+.cta-card .lead { max-width: 34rem; margin-inline: auto; }
+.cta-card .cluster { justify-content: center; }
+.cta-card--left { margin-inline: 0 auto; text-align: left; }
+.cta-card--left .lead { margin-inline: 0; }
+.cta-card--left .cluster { justify-content: flex-start; }
+
+/* ==========================================================================
+   14 Forms and map
+   ========================================================================== */
+.form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.15rem 1.25rem; }
+.form > * + * { margin-block-start: 0; }
+@media (min-width: 40em) {
+  .form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .field--full,
+  .form__actions,
+  .form__note { grid-column: 1 / -1; }
+}
+.field { display: grid; gap: 0.4rem; align-content: start; min-width: 0; }
+.field label { font-size: 0.95rem; font-weight: 700; line-height: 1.3; }
+.field__req { color: var(--fg-muted); font-weight: 600; }
+.field__hint { font-size: var(--step--1); color: var(--fg-muted); line-height: 1.4; }
+.field input,
+.field select,
+.field textarea {
+  display: block;
+  width: 100%;
+  min-height: 3.1rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--field-border);
+  border-radius: var(--r-sm);
+  background-color: var(--field-bg);
+  color: var(--fg);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.field textarea { min-height: 9.5rem; resize: vertical; }
+.field select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 2.75rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6 9.5 6 6 6-6' fill='none' stroke='%235f7f92' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 1.2rem;
+}
+.field ::placeholder { color: var(--fg-muted); opacity: 0.85; }
+.field input:hover,
+.field select:hover,
+.field textarea:hover { border-color: var(--fg); }
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible { outline-offset: 2px; border-color: var(--fg); border-radius: var(--r-sm); }
+.field [aria-invalid="true"] {
+  border-color: var(--error);
+  box-shadow: inset 0 0 0 1px var(--error);
+}
+.field-error {
+  display: flex;
+  gap: 0.45rem;
+  align-items: flex-start;
+  color: var(--error);
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.field-error::before {
+  content: "!";
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: 0.02rem;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  font-size: 0.78rem;
+  line-height: 1;
+}
+.form__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 0.35rem; }
+.form__note { font-size: var(--step--1); color: var(--fg-muted); }
+
+.form-success {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.4rem 1rem;
+  align-items: start;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1.5px solid var(--success);
+  border-radius: var(--r-md);
+  background: var(--success-bg);
+}
+.form-success:focus-visible { border-radius: var(--r-md); }
+.form-success::before {
+  content: "";
+  grid-row: 1 / span 2;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--sand) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6.5 12.5 3.6 3.6 7.4-8' fill='none' stroke='%230b2233' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 1.6rem no-repeat;
+}
+.form-success > * { grid-column: 2; }
+.form-success__title { font-size: var(--step-2); }
+.form-success a { white-space: nowrap; }      /* the phone number and the email stay whole */
+@media (max-width: 29.99em) {
+  /* narrow phones: tick above the text, so the message gets the full width */
+  .form-success { grid-template-columns: minmax(0, 1fr); }
+  .form-success::before { grid-row: auto; }
+  .form-success > * { grid-column: 1; }
+}
+
+/* map: rounded frame, link underneath; use as <div class="panel map"> */
+.map { padding: 0.6rem 0.6rem 1.1rem; }
+.map > * + * { margin-block-start: 0; }
+.map__frame {
+  position: relative;
+  overflow: hidden;
+  height: clamp(17rem, 46vw, 27rem);
+  border-radius: calc(var(--r-lg) - 0.6rem);
+  background: var(--surface-2);
+}
+.map__frame iframe {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.map__link { padding: 0.9rem 0.9rem 0; }
+@media (max-height: 30em) and (orientation: landscape) {
+  .map__frame { height: 13.5rem; }               /* a phone held sideways: the map and its link fit one screen */
+}
+/* touch screens: a finger that lands on an embedded map moves the map, not the
+   page, so the page gets stuck there. On touch devices the map is a picture of
+   where we are: a drag scrolls the page as anywhere else, and a tap on the map
+   opens Google Maps, exactly as the link under it does. */
+@media (hover: none) and (pointer: coarse) {
+  /* the embed's + / - buttons (its top 67 px) are drawn but could not be used: the frame is moved up
+     so that they lie outside the visible part (.map__frame hides what overflows) */
+  .map__frame iframe { pointer-events: none; top: -4.5rem; height: calc(100% + 4.5rem); }
+  /* and the whole map answers a tap as the "Open in Google Maps" link does */
+  .map__link .text-link { position: static; }
+  .map__link .text-link::after { inset: 0; }
+}
+
+/* ==========================================================================
+   15 Scenes and footer
+   ========================================================================== */
+/* full-bleed illustrations that stand on the footer (inline svg, slice) */
+.wreck-scene,
+.seabed {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  line-height: 0;
+}
+.wreck-scene { height: clamp(380px, 50vw, 860px); }
+.seabed { height: clamp(200px, 22.5vw, 360px); }
+.wreck-scene > svg,
+.seabed > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+/* ---- phones (under 700 px): the scenes are drawn 1600 units wide, and a slice
+   of the middle is not enough on a narrow screen ---- */
+@media (max-width: 43.74em) {
+  /* Seabed vignettes: each page says where its subject stands (--focus, in
+     drawing units from the left) and how much of the drawing a phone must show
+     (--span). The drawing is scaled so that --span fills the screen and is
+     centred on --focus; the strip is as tall as the drawing then is. */
+  .seabed { --focus: 800; --span: 640; height: auto; }
+  .seabed > svg {
+    width: min(calc(160000% / var(--span)), 68rem);
+    height: auto;
+    aspect-ratio: 1600 / 360;
+    margin-left: 50%;
+    translate: calc(var(--focus) / 1600 * -100%) 0;
+  }
+  [data-page="dive-trips"] .seabed { --focus: 812; --span: 640; }
+  [data-page="try-diving"] .seabed { --focus: 752; --span: 620; }
+  [data-page="courses"] .seabed { --focus: 782; --span: 570; }
+  [data-page="specialties"] .seabed { --focus: 812; --span: 640; }
+  [data-page="instructor-courses"] .seabed { --focus: 740; --span: 710; }
+  [data-page="dive-centre"] .seabed { --focus: 790; --span: 610; }
+  [data-page="about"] .seabed { --focus: 806; --span: 640; }
+  [data-page="contact"] .seabed { --focus: 800; --span: 580; }
+
+  /* The wreck: drawn tall, which makes it two to three screens wide. Without the
+     engine (and with reduced motion) it stands still and shows the part from the
+     bridge to the diver. */
+  .wreck-scene {
+    --wreck-h: clamp(24rem, 62vh, 32rem);
+    --wreck-h: clamp(24rem, 62svh, 32rem);
+    height: var(--wreck-h);
+    pointer-events: none;
+  }
+  .wreck-scene > svg {
+    width: calc(var(--wreck-h) * 2);
+    height: var(--wreck-h);
+    margin-left: calc(50% - var(--wreck-h) * 1.04);
+  }
+  /* With the engine (js/ocean.js adds .wreck-scene--tour): the scene rises into
+     view, comes to rest on the foot of the screen and glides from bow to stern
+     while the page is scrolled on; then the seabed carries on. The empty block
+     in front of the drawing is that stretch of scrolling (--wreck-pan: 0.7 of
+     the distance the drawing has to travel sideways). */
+  @supports (overflow: clip) {
+    .wreck-scene--tour {
+      --wreck-h: clamp(26rem, 78vh, 38rem);
+      --wreck-h: clamp(26rem, 78svh, 38rem);
+      --wreck-pan: calc((var(--wreck-h) * 2 - 100vw) * 0.7);
+      height: calc(var(--wreck-h) + var(--wreck-pan));
+      overflow: clip;
+    }
+    .wreck-scene--tour::before { content: ""; display: block; height: var(--wreck-pan); }
+    .wreck-scene--tour > svg { position: sticky; bottom: 0; margin-left: 0; will-change: transform; }
+  }
+}
+
+.site-footer {
+  margin-top: -1px;                           /* no seam under the scene */
+  padding: clamp(2.5rem, 5vw, 3.75rem) 0 calc(clamp(1.5rem, 3vw, 2rem) + var(--safe-b) + var(--bar-space));
+  background: #12293b linear-gradient(180deg, #2b4a5e 0%, #12293b 100%);
+  color: var(--fg);
+  color-scheme: dark;
+  font-size: 1rem;
+}
+.site-footer > .wrap { padding-right: var(--pill-clear); }   /* phones: footer text stays clear of the depth pill */
+.site-footer a { color: var(--fg); text-decoration: none; }
+.site-footer a:hover { color: var(--sand); text-decoration: underline; }
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+}
+.site-footer__marks { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem 1.1rem; }
+.site-footer__brand { display: grid; gap: 1.1rem; justify-items: start; align-content: start; }
+.site-footer__brand .logo { margin-right: 0; }
+.site-footer__tagline { max-width: 24rem; color: var(--fg-muted); }
+.site-footer__title {
+  margin-bottom: 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variation-settings: normal;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--sand);
+}
+.site-footer__links { display: flex; flex-wrap: wrap; gap: 0 1.35rem; }
+.site-footer__links a { display: inline-block; padding: 0.3rem 0; font-weight: 600; }
+@media (max-width: 47.99em) {
+  .site-footer__links { gap: 0 1.5rem; }
+  .site-footer__links a { padding: 0.6rem 0; }   /* 44 px tap height on phones */
+}
+@media (max-width: 39.99em) {
+  /* one-column footer: the logo and the tagline share a row, so the brand block is a third shorter */
+  .site-footer__grid { gap: 1.6rem; }
+  .site-footer__brand { grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: 1rem; }
+  .site-footer__brand .logo--full { width: 5.75rem; padding: 0.4rem 0.45rem 0.35rem; }
+  .site-footer__marks { grid-column: 1 / -1; }
+}
+.site-footer__hours { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem 1.25rem; }
+.site-footer__hours li { display: grid; gap: 0.05rem; line-height: 1.4; }
+.site-footer__hours span:first-child { color: var(--fg-muted); font-size: var(--step--1); }
+.site-footer__hours span:last-child { font-weight: 600; font-variant-numeric: tabular-nums; }
+.site-footer__contact { display: grid; gap: 1.35rem; font-style: normal; }   /* room for the enlarged tap areas of the links */
+.site-footer__contact li {
+  display: grid;
+  grid-template-columns: 1.3rem minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  line-height: 1.45;
+}
+.site-footer__contact .icon { margin-top: 0.18em; color: var(--sand); }
+.site-footer__contact a { position: relative; font-weight: 600; white-space: nowrap; }
+.site-footer__contact a::after { content: ""; position: absolute; inset: -0.66rem 0; }   /* 44 px tap height, same look */
+
+/* the official PADI badge image. Its own background is near-black, so it sits
+   on the dark footer as a small plaque; the text colour is for the alt text
+   if the file is ever missing */
+.padi-badge {
+  display: block;
+  width: 10.5rem;
+  height: auto;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--r-sm);
+  background: #1c1b21;
+  color: var(--sand);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.social { display: flex; gap: 0.6rem; }
+.social a {
+  display: grid;
+  place-items: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  border: 1.5px solid var(--ghost-line);
+  border-radius: 50%;
+  color: var(--fg);
+  transition: translate 0.25s var(--ease-out);
+}
+.social a:hover { translate: 0 -2px; border-color: var(--sand); background: var(--sand); color: var(--ink); }
+.social a:focus-visible { border-radius: 50%; }
+.social .icon { width: 1.35rem; height: 1.35rem; }
+
+.site-footer__base {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  margin-top: clamp(2rem, 4vw, 3rem);
+  color: var(--fg-muted);
+  font-size: var(--step--1);
+}
+@media (max-width: 39.99em) {
+  /* one-column footer: each season and its hours share a row */
+  .site-footer__hours { grid-template-columns: minmax(0, 1fr); gap: 0.4rem; }
+  .site-footer__hours li { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 1rem; }
+}
+@media (max-width: 22.49em) {
+  /* narrowest phones: every row is the season with its hours beneath it (two of the four did not fit on one line) */
+  .site-footer__hours { gap: 0.55rem; }
+  .site-footer__hours li { display: grid; gap: 0.05rem; }
+}
+@media (min-width: 40em) {
+  .site-footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem 2rem; }
+  .site-footer__links { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.1rem 1.5rem; }
+  .site-footer__hours { grid-template-columns: minmax(0, 1fr); }
+}
+@media (min-width: 75em) {                     /* below this the two-column grid stays: four columns wrap the email and the links */
+  .site-footer__grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.25fr) minmax(0, 0.95fr) minmax(0, 1.2fr); gap: 2.5rem; }
+}
+
+/* ==========================================================================
+   16 Reveal: gentle float-up. Hidden only when JS is on (.js), never under
+   reduced motion, and always shown once the failsafe adds .reveal-all.
+   ========================================================================== */
+.reveal {
+  transition:
+    opacity 0.8s ease var(--reveal-delay, 0ms),
+    transform 0.9s var(--ease-out) var(--reveal-delay, 0ms),
+    translate 0.3s var(--ease-out);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(1.75rem);
+  }
+  html.reveal-all .reveal:not(.is-visible) {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   17 Reduced motion and print
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .btn,
+  .btn .icon,
+  .text-link .icon,
+  .insta__tile,
+  .link-card,
+  .link-card__arrow,
+  .social a,
+  .skip-link,
+  .menu-toggle__icon span,
+  .site-nav,
+  .site-nav::before,
+  .site-nav::after,
+  .site-nav__list li,
+  .site-nav__extra,
+  .site-nav__list a::after,
+  html.menu-open .site-nav__list li,
+  html.menu-open .site-nav__extra,
+  html.menu-open .site-nav::before,
+  html.menu-open .site-nav::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+  .scroll-cue__dot .icon { animation: none; }
+  .btn:hover,
+  .insta__tile:hover,
+  .link-card:hover,
+  .social a:hover { translate: none; }
+  .btn:hover .icon,
+  .text-link:hover .icon,
+  .link-card:hover .link-card__arrow { transform: none; }
+}
+
+@media print {
+  html { background: #fff; }
+  .ocean,
+  .site-header,
+  .wave-divider,
+  .wreck-scene,
+  .seabed,
+  .scroll-cue { display: none !important; }
+  .panel { box-shadow: none; border-color: #ccc; background: #fff; color: #000; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* ==========================================================================
+   Notes for the js/ocean.js author (hooks this stylesheet already styles)
+   --------------------------------------------------------------------------
+   - Toggle .is-deep on the header below the tone switch depth: it switches
+     the bar between light and dark glass.
+   - .ocean is already fixed / inset 0 / z-index var(--z-ocean) / no pointer
+     events. Put the creature layer at var(--z-life) and the HUD at
+     var(--z-hud); main and footer sit at var(--z-content) above the life.
+   - Between 48em and 87.5em wide the content column keeps var(--hud-space)
+     (4.5rem) free on the right edge for the depth HUD.
+   - html.menu-open: styles the full-screen menu below 78em (and locks page
+     scroll with overflow: hidden). Desktop nav starts at (min-width: 78em).
+     The closed menu is visibility: hidden, so its links are not focusable.
+   - .site-header.is-scrolled, .reveal.is-visible, .photo.is-missing,
+     [data-tone="light|dark"], [hidden], [aria-invalid="true"],
+     .chip[aria-pressed="true"] are all styled here.
+   - The inline head script adds html.reveal-all and html.no-engine after 3 s
+     without window.__sunfishReady, and removes .no-engine again once the
+     flag appears. .no-engine (like .no-js) puts the header in normal flow.
+   - .btn is position: relative and never clips overflow; its hover lift uses
+     the translate property, so transform is free.
+   - Home zones are height-calibrated (see "depth calibration" in section 11)
+     for an even pace; the engine ties the gauge to the section tops, so with
+     a section top at the header depth reads exactly 5 / 12 / 20 / 30 m.
+   ========================================================================== */
+
+/* === OCEAN ENGINE: everything below is owned by the js/ocean.js author === */
+
+/* ==========================================================================
+   18 Ocean engine (everything js/ocean.js creates, plus the sf-* classes)
+   --------------------------------------------------------------------------
+   18.1 sf-* animation classes      18.5 Bubbles and torch
+   18.2 Water and light (#ocean)    18.6 Menu scroll lock
+   18.3 Sea-life layer              18.7 Pausing, reduced motion, print
+   18.4 Depth HUD
+   Fades by depth are plain CSS expressions of --depth (0..1, set on <html>
+   by the engine). Only transform and opacity are animated.
+   Phones (under 700 px): for the six layers of the water and the light the
+   engine works the same expressions out itself and writes the results as
+   plain transform / opacity values, which is cheaper on a slow phone (LIGHT
+   and waterSync in js/ocean.js). If a curve in 18.2 is changed, change it
+   there too.
+   ========================================================================== */
+
+/* ---- 18.0 --depth is a registered number that does not inherit. A custom
+   property that changes on <html>, or that inherits, makes the browser restyle
+   every element below it on every scroll frame. So the engine writes the value
+   each frame on the leaf elements whose styles read it and nowhere else: the
+   layers inside #ocean, the gauge's fill and dot, the torch glow, the creatures
+   that are on or near the screen, and any element with [data-depth]; and on
+   <html> as soon as scrolling pauses. To use var(--depth) on a new element,
+   give that element the data-depth attribute. (Browsers without @property
+   inherit the value from <html> in between, as usual.) ---- */
+@property --depth {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+/* ---- 18.1 Shared SVG animation classes (used inside the creature art, the
+   wreck scene and the seabed vignettes; see the contract) ---- */
+.sf-wag { animation: sfWag var(--sf-dur, 1.2s) ease-in-out var(--sf-delay, 0s) infinite alternate; }
+.sf-sway { animation: sfSway var(--sf-dur, 4s) ease-in-out var(--sf-delay, 0s) infinite alternate; }
+.sf-pulse { animation: sfPulse var(--sf-dur, 2.4s) ease-in-out var(--sf-delay, 0s) infinite alternate; }
+.sf-fin { animation: sfFin var(--sf-dur, 0.9s) ease-in-out var(--sf-delay, 0s) infinite alternate; }
+.sf-drift { animation: sfDrift var(--sf-dur, 12s) ease-in-out var(--sf-delay, 0s) infinite alternate; }
+.sf-bob { animation: sfBob var(--sf-dur, 5s) ease-in-out var(--sf-delay, 0s) infinite alternate; }
+.sf-glow { animation: sfGlow var(--sf-dur, 3s) ease-in-out var(--sf-delay, 0s) infinite alternate; }
+@keyframes sfWag { from { transform: rotate(calc(var(--sf-amp, 8deg) * -1)); } to { transform: rotate(var(--sf-amp, 8deg)); } }
+@keyframes sfSway { from { transform: rotate(calc(var(--sf-amp, 5deg) * -1)); } to { transform: rotate(var(--sf-amp, 5deg)); } }
+@keyframes sfPulse { from { transform: scale(1, 0.9); } to { transform: scale(1.05, 1); } }
+@keyframes sfFin { from { transform: scaleY(1); } to { transform: scaleY(0.72); } }
+@keyframes sfDrift { from { transform: translate(0, 0); } to { transform: translate(var(--sf-dx, 30px), var(--sf-dy, 0px)); } }
+@keyframes sfBob { from { transform: translateY(calc(var(--sf-bob, 4px) * -1)); } to { transform: translateY(var(--sf-bob, 4px)); } }
+@keyframes sfGlow { from { opacity: 0.45; } to { opacity: 1; } }
+
+/* ---- 18.2 Water and light ---- */
+.ocean { overflow: hidden; contain: strict; }
+.ocean > * { position: absolute; pointer-events: none; }
+
+/* The water column: a strip four viewports tall that slides up by three of
+   them as you dive. The stops are placed so that the MIDDLE of the screen shows
+   exactly the colour of the depth on the gauge: a depth d (0..1) sits at
+   12.5% + 75% * d of the strip, i.e. 0 m at 12.5%, 5 m at 21.43%, 12 m at
+   33.93%, 20 m at 48.21%, 30 m at 66.07% and 42 m at 87.5%. Above the first and
+   below the last stop the strip is flat, so the top of the page is pure
+   #7fdbe6 down to mid-screen and the seabed is #04182b from mid-screen down.
+   js/ocean.js (WATER, in the tone section) carries the same table. */
+.ocean__water {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 400%;
+  background: #1286a8 linear-gradient(180deg, #7fdbe6 0%, #7fdbe6 12.5%, #2bb3c9 21.43%, #1286a8 33.93%, #0b5c85 48.21%, #083a5e 66.07%, #04182b 87.5%, #04182b 100%);
+  transform: translate3d(0, calc(var(--depth, 0) * -75%), 0);
+  will-change: transform;
+}
+
+/* sun rays: flat beams that widen on the way down; gone by about 15 m */
+.ocean__rays {
+  inset: 0 0 8% 0;
+  opacity: clamp(0, calc(1 - var(--depth, 0) * 2.8), 1);
+}
+.ocean__rays::before {                        /* the bright patch where the sun enters */
+  content: "";
+  position: absolute;
+  inset: 0 0 45% 0;
+  background: radial-gradient(70% 100% at 42% 0%, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0) 70%);
+}
+.ocean__ray {
+  position: absolute;
+  top: -6%;
+  left: var(--x, 20%);
+  width: max(var(--w, 18vw), 6.5rem);
+  height: 108%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, var(--a, 0.2)) 0%, rgba(255, 255, 255, 0) 86%);
+  clip-path: polygon(40% 0, 60% 0, 100% 100%, 0 100%);
+  transform-origin: 50% 0;
+  transform: rotate(var(--tilt, 14deg));
+  animation: ocRay var(--dur, 10s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+@keyframes ocRay {
+  from { transform: rotate(calc(var(--tilt, 14deg) - 2.5deg)); opacity: 0.4; }
+  to { transform: rotate(calc(var(--tilt, 14deg) + 2.5deg)); opacity: 1; }
+}
+
+/* the surface seen from below: two bright rippling bands along the top edge */
+.ocean__surface {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(2.75rem, 6vw, 4.25rem);
+  opacity: clamp(0, calc(1 - var(--depth, 0) * 2.8), 1);
+  transform-origin: 50% 0;
+  transform: scaleY(clamp(0.4, calc(1 - var(--depth, 0) * 1.8), 1));
+}
+.ocean__wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  max-width: none;
+  height: 100%;
+  animation: ocSlide 15s linear infinite;
+}
+.ocean__wave path { fill: rgba(255, 255, 255, 0.6); stroke: #fff; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.ocean__wave--b { animation-duration: 24s; animation-direction: reverse; }
+.ocean__wave--b path { fill: rgba(255, 255, 255, 0.3); stroke: rgba(255, 255, 255, 0.55); stroke-width: 1.5; }
+@keyframes ocSlide { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+
+/* glitter: flecks of sunlight just under the surface; gone by about 8 m */
+.ocean__glitter {
+  inset: 0;
+  opacity: clamp(0, calc(1 - var(--depth, 0) * 5.2), 1);
+}
+.ocean__fleck {
+  position: absolute;
+  height: 3px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+  animation: ocTwinkle var(--dur, 3s) ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes ocTwinkle {
+  0%, 100% { opacity: 0; transform: scale(0.3, 0.6); }
+  50% { opacity: 0.85; transform: scale(1, 1); }
+}
+
+/* marine snow: three tiled layers of specks, falling one tile per loop */
+.ocean__snow {
+  inset: 0;
+  opacity: clamp(0, calc((var(--depth, 0) - 0.46) * 5), 0.9);
+  animation: ocSway 11s ease-in-out infinite alternate;
+}
+.ocean__flakes {
+  position: absolute;
+  top: calc(var(--tile) * -1);
+  right: -1.5rem;
+  bottom: 0;
+  left: -1.5rem;
+  background-size: var(--tile) var(--tile);
+  animation: ocFall var(--dur, 30s) linear infinite;
+}
+.ocean__flakes--1 {
+  --tile: 340px;
+  --dur: 27s;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.5) 0 1.6px, transparent 2.3px),
+    radial-gradient(circle at 64% 9%, rgba(255, 255, 255, 0.4) 0 1.3px, transparent 2px),
+    radial-gradient(circle at 38% 47%, rgba(255, 255, 255, 0.46) 0 1.9px, transparent 2.6px),
+    radial-gradient(circle at 86% 61%, rgba(255, 255, 255, 0.4) 0 1.4px, transparent 2.1px),
+    radial-gradient(circle at 23% 82%, rgba(255, 255, 255, 0.44) 0 1.5px, transparent 2.2px);
+}
+.ocean__flakes--2 {
+  --tile: 290px;
+  --dur: 41s;
+  background-image:
+    radial-gradient(circle at 21% 31%, rgba(255, 255, 255, 0.34) 0 1.1px, transparent 1.7px),
+    radial-gradient(circle at 71% 14%, rgba(255, 255, 255, 0.3) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 49% 68%, rgba(255, 255, 255, 0.34) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 91% 86%, rgba(255, 255, 255, 0.28) 0 1px, transparent 1.6px);
+}
+.ocean__flakes--3 {
+  --tile: 220px;
+  --dur: 58s;
+  background-image:
+    radial-gradient(circle at 17% 22%, rgba(255, 255, 255, 0.3) 0 0.8px, transparent 1.4px),
+    radial-gradient(circle at 58% 55%, rgba(255, 255, 255, 0.28) 0 0.8px, transparent 1.4px),
+    radial-gradient(circle at 84% 88%, rgba(255, 255, 255, 0.3) 0 0.9px, transparent 1.5px);
+}
+@keyframes ocFall { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, var(--tile), 0); } }
+@keyframes ocSway { from { transform: translate3d(-14px, 0, 0); } to { transform: translate3d(14px, 0, 0); } }
+
+/* soft vignette in the deep */
+.ocean__vignette {
+  inset: 0;
+  background: radial-gradient(125% 95% at 50% 42%, rgba(2, 12, 22, 0) 52%, rgba(2, 12, 22, 0.62) 100%);
+  opacity: clamp(0, calc((var(--depth, 0) - 0.46) * 3), 1);
+}
+
+/* ---- 18.3 Sea-life layer: document space, behind the content ---- */
+body { position: relative; }                    /* the layer fills the page without adding to its height */
+.sea-life {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-life);
+  overflow: hidden;
+  overflow: clip;
+  pointer-events: none;
+  contain: layout paint style;
+}
+/* one creature (or shoal). Parallax: --d0 is the depth at which it is centred
+   on screen, --par how far it lags (+) or leads (-) the page over a full dive. */
+.sl {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  transform: translate3d(0, calc((var(--depth, 0) - var(--d0, 0)) * var(--par, 0px)), 0) scaleX(var(--sx, 1));
+}
+.sl:not(.is-off):not(.sl--still):not(.sl--flat) { will-change: transform; }
+.sl--still,
+.sl--flat { transform: scaleX(var(--sx, 1)); }            /* --flat: no parallax (phones), so the engine never has to restyle it while scrolling */
+.sl svg { display: block; width: 100%; height: 100%; max-width: none; overflow: visible; }
+.sl__x,
+.sl__y,
+.sl__m,
+.sl__part { position: absolute; left: 0; }
+.sl__x { top: 0; }
+
+/* swimmers patrol: across, turn off-screen, and back (the lane is mirrored
+   with --sx: -1 for those that start leftward) */
+.sl--swim .sl__x { animation: slPatrol var(--dur, 80s) linear var(--delay, 0s) infinite; }
+@keyframes slPatrol {
+  0% { transform: translate3d(calc(-100% - 40px), 0, 0) scaleX(1); }
+  46% { transform: translate3d(calc(100vw + 40px), 0, 0) scaleX(1); }
+  50% { transform: translate3d(calc(100vw + 40px), 0, 0) scaleX(-1); }
+  96% { transform: translate3d(calc(-100% - 40px), 0, 0) scaleX(-1); }
+  100% { transform: translate3d(calc(-100% - 40px), 0, 0) scaleX(1); }
+}
+/* the wrasse darts: quick bursts with short rests */
+.sl--dart .sl__x { animation-name: slDart; animation-timing-function: cubic-bezier(0.3, 0.55, 0.3, 1); }
+@keyframes slDart {
+  0% { transform: translate3d(calc(-100% - 40px), 0, 0) scaleX(1); }
+  9% { transform: translate3d(18vw, 0, 0) scaleX(1); }
+  14% { transform: translate3d(21vw, 0, 0) scaleX(1); }
+  23% { transform: translate3d(47vw, 0, 0) scaleX(1); }
+  29% { transform: translate3d(50vw, 0, 0) scaleX(1); }
+  38% { transform: translate3d(76vw, 0, 0) scaleX(1); }
+  41% { transform: translate3d(78vw, 0, 0) scaleX(1); }
+  47% { transform: translate3d(calc(100vw + 40px), 0, 0) scaleX(1); }
+  50% { transform: translate3d(calc(100vw + 40px), 0, 0) scaleX(-1); }
+  59% { transform: translate3d(74vw, 0, 0) scaleX(-1); }
+  64% { transform: translate3d(71vw, 0, 0) scaleX(-1); }
+  73% { transform: translate3d(45vw, 0, 0) scaleX(-1); }
+  79% { transform: translate3d(42vw, 0, 0) scaleX(-1); }
+  88% { transform: translate3d(16vw, 0, 0) scaleX(-1); }
+  91% { transform: translate3d(14vw, 0, 0) scaleX(-1); }
+  97% { transform: translate3d(calc(-100% - 40px), 0, 0) scaleX(-1); }
+  100% { transform: translate3d(calc(-100% - 40px), 0, 0) scaleX(1); }
+}
+/* a shoal with no clear lane across the page mills about in an open patch */
+.sl--roam .sl__x { animation: slRoam var(--dur, 24s) ease-in-out var(--delay, 0s) infinite; }
+@keyframes slRoam {
+  0% { transform: translate3d(0, 0, 0) scaleX(1); }
+  47% { transform: translate3d(var(--roam, 200px), 0, 0) scaleX(1); }
+  50% { transform: translate3d(var(--roam, 200px), 0, 0) scaleX(-1); }
+  97% { transform: translate3d(0, 0, 0) scaleX(-1); }
+  100% { transform: translate3d(0, 0, 0) scaleX(1); }
+}
+/* gentle vertical sine on a nested wrapper */
+.sl__bob { animation: slBob var(--bob-dur, 5s) ease-in-out var(--bob-delay, 0s) infinite alternate; }
+@keyframes slBob {
+  from { transform: translate3d(0, calc(var(--bob, 8px) * -1), 0) rotate(calc(var(--tilt, 0deg) * -1)); }
+  to { transform: translate3d(0, var(--bob, 8px), 0) rotate(var(--tilt, 0deg)); }
+}
+/* the jellyfish drifts up and sideways, and sinks back */
+.sl--drift .sl__x { animation: slDrift var(--dur, 26s) ease-in-out var(--delay, 0s) infinite alternate; }
+@keyframes slDrift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(var(--dx, 40px), var(--dy, -140px), 0); }
+}
+/* anchored at a page edge: the base dissolves into the water */
+.sl--anchor {
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 72%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 72%, rgba(0, 0, 0, 0) 100%);
+}
+.sl--anchor .sl__part { bottom: 0; transform-origin: 50% 100%; }
+/* wreck zone: single-tone silhouettes only. The water there runs from #083a5e to
+   #04182b, so the tone is a dim blue a little lighter than the water at 30 m:
+   a darker one disappears below about 33 m. */
+.sl--dark { opacity: 0.78; }
+.sl--dark svg { fill: #23526f; }
+.sl--dark svg [fill]:not([fill="none"]) { fill: #23526f; }
+.sl--dark svg [stroke]:not([stroke="none"]) { stroke: #23526f; }
+
+/* ---- 18.4 Depth HUD: a small dive computer on the right edge ---- */
+.depth-hud {
+  --hud-row: 2.75rem;
+  --hud-bg: rgba(5, 25, 41, 0.88);
+  --hud-line: rgba(255, 255, 255, 0.2);
+  --focus: #f4d58d;
+  position: fixed;
+  z-index: var(--z-hud);
+  top: calc(50% + 1.25rem);
+  right: 0.75rem;
+  translate: 0 -50%;
+  width: 8.6rem;
+  padding: 0.5rem;
+  border: 1px solid var(--hud-line);
+  border-radius: 1.5rem;
+  background: var(--hud-bg);
+  box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.75);
+  color: #fff;
+  color-scheme: dark;
+  font-family: var(--font-body);
+  line-height: 1.15;
+}
+.depth-hud__read {
+  margin: 0;
+  padding: 0.6rem 0.4rem 0.65rem;
+  border: 1px solid rgba(127, 219, 230, 0.26);
+  border-radius: 1.05rem;
+  background: rgba(127, 219, 230, 0.1);
+  text-align: center;
+}
+.depth-hud__num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  font-variation-settings: "SOFT" 100;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.depth-hud__unit { font-size: 0.8rem; font-weight: 700; color: #c1d9e3; }
+.depth-hud__zone {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--sand);
+}
+.depth-hud__toggle { display: none; }
+.depth-hud__panel { margin-top: 0.45rem; }
+.depth-hud__rows { position: relative; }
+.depth-hud__track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0.6rem;
+  width: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.24);
+  pointer-events: none;
+}
+/* the engine writes --depth on these two parts only */
+.depth-hud__fill,
+.depth-hud__dot {
+  /* 0..5: how many zone rows the marker has passed (each zone gets one row) */
+  --hud-pos: calc(
+    clamp(0, var(--depth, 0) / 0.11905, 1)
+    + clamp(0, (var(--depth, 0) - 0.11905) / 0.16667, 1)
+    + clamp(0, (var(--depth, 0) - 0.28571) / 0.19048, 1)
+    + clamp(0, (var(--depth, 0) - 0.47619) / 0.2381, 1)
+    + clamp(0, (var(--depth, 0) - 0.71429) / 0.28571, 1));
+}
+.depth-hud__fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--sand);
+  transform-origin: 50% 0;
+  transform: scaleY(calc(var(--hud-pos) / 5));
+}
+.depth-hud__dot {
+  position: absolute;
+  top: -0.375rem;
+  left: 50%;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-left: -0.375rem;
+  border-radius: 50%;
+  background: var(--coral);
+  box-shadow: 0 0 0 3px rgba(255, 122, 89, 0.32);
+  transform: translate3d(0, calc(var(--hud-pos) * var(--hud-row)), 0);
+  will-change: transform;
+}
+.depth-hud__btn {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 0.12rem;
+  width: 100%;
+  height: var(--hud-row);
+  padding: 0 0.3rem 0 1.55rem;
+  border: 0;
+  border-radius: 0.8rem;
+  background: transparent;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.depth-hud__btn::before {                       /* the tick where the zone begins */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0.6rem;
+  width: 0.5rem;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.45);
+}
+.depth-hud__btn:hover { background: rgba(255, 255, 255, 0.1); }
+.depth-hud__btn[aria-current] { background: rgba(244, 213, 141, 0.14); color: var(--sand); }
+.depth-hud__btn:focus-visible,
+.depth-hud__toggle:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; border-radius: 0.8rem; }
+.depth-hud__toggle:focus-visible { border-radius: var(--r-pill); }
+.depth-hud__m { font-size: 0.7rem; font-weight: 600; color: #c1d9e3; font-variant-numeric: lining-nums tabular-nums; }
+.depth-hud__m small { font-size: 1em; }
+.depth-hud__btn[aria-current] .depth-hud__m { color: inherit; }
+.depth-hud__chev {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.2s ease;
+}
+
+/* compact: between the tablet breakpoint and wide desktops the content column
+   leaves only var(--hud-space) free, so rows show the depth and the zone name
+   slides out on hover / focus */
+@media (min-width: 48em) and (max-width: 89.99em) and (min-height: 35.01em) {
+  .depth-hud { right: 0.35rem; width: 4rem; padding: 0.35rem 0.3rem 0.4rem; border-radius: 1.3rem; }
+  .depth-hud__read { padding: 0.5rem 0.1rem 0.55rem; border-radius: 1rem; }
+  .depth-hud__num { font-size: 1.5rem; }
+  .depth-hud__unit { font-size: 0.7rem; }
+  .depth-hud__zone { font-size: 0.66rem; letter-spacing: 0; text-transform: none; }
+  .depth-hud__track { left: 0.45rem; }
+  .depth-hud__btn { padding: 0 0.1rem 0 1.15rem; }
+  .depth-hud__btn::before { left: 0.45rem; width: 0.4rem; }
+  .depth-hud__m { font-size: 0.8rem; font-weight: 700; color: inherit; }
+  .depth-hud__m small { font-size: 0.78em; font-weight: 600; }
+  .depth-hud__name {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 0.75rem);
+    translate: 0 -50%;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--hud-line);
+    border-radius: var(--r-pill);
+    background: var(--hud-bg);
+    color: #fff;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(6px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
+    pointer-events: auto;                       /* part of the hover target, so the pointer can move onto it */
+  }
+  .depth-hud__name::after {                     /* bridges the gap between the name and its button */
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: 0.85rem;
+  }
+  .depth-hud__btn:hover .depth-hud__name,
+  .depth-hud__btn:focus-visible .depth-hud__name { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+  /* touch screens have no hover: the name shows while the tapped zone button has the focus */
+  @media (hover: none) {
+    .depth-hud__btn:focus .depth-hud__name { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+  }
+  /* Escape puts the name away until the pointer or the focus leaves the button */
+  .depth-hud.is-tip-off .depth-hud__btn .depth-hud__name { opacity: 0; visibility: hidden; }
+}
+
+/* small or short screens: a slim pill on the right edge (depth + zone). It is
+   narrower than the page gutter plus the padding of a panel, so it never sits
+   on text; tap it to open the zone list beside it. */
+@media (max-width: 47.99em), (max-height: 35em) {
+  .depth-hud {
+    top: calc(50% + 1.5rem);
+    right: 0;
+    translate: 0 -50%;
+    width: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+  }
+  .depth-hud__read { display: none; }
+  .depth-hud__toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+    width: 1.7rem;
+    padding: 0.6rem 0 0.5rem;
+    border: 1px solid var(--hud-line);
+    border-right: 0;
+    border-radius: 0.95rem 0 0 0.95rem;
+    background: var(--hud-bg);
+    box-shadow: 0 12px 26px -14px rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-family: var(--font-body);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .depth-hud__toggle { position: relative; padding-right: var(--safe-r); width: calc(1.7rem + var(--safe-r)); }
+  .depth-hud__toggle::before { content: ""; position: absolute; inset: 0 0 0 -1.1rem; }   /* tap area 44 px wide; the pill looks the same */
+  .depth-hud__toggle:focus-visible { border-radius: 0.95rem 0 0 0.95rem; }
+  .depth-hud__toggle .depth-hud__num { font-size: 1rem; letter-spacing: -0.04em; }
+  .depth-hud__toggle .depth-hud__unit { font-size: 0.62rem; line-height: 1; margin-bottom: 0.3rem; }
+  /* The pill shows the depth only, so it is short enough to stay out of the way.
+     The zone name is a small flag that drops out under it for a moment when
+     the dive enters a new zone (js/ocean.js sets .is-zone-new); the zone list
+     behind the pill has all five. The flag is written downwards and is exactly
+     as wide as the pill, so like the pill it stays in the page gutter and the
+     padding of a panel and never lies on text. */
+  .depth-hud__toggle .depth-hud__zone {
+    position: absolute;
+    top: calc(100% + 0.3rem);
+    right: 0;
+    width: calc(1.7rem + var(--safe-r));
+    margin: 0;
+    padding: 0.7rem var(--safe-r) 0.7rem 0;
+    display: flex;
+    align-items: center;
+    writing-mode: vertical-rl;
+    border: 1px solid var(--hud-line);
+    border-right: 0;
+    border-radius: 0.95rem 0 0 0.95rem;
+    background: var(--hud-bg);
+    font-size: 0.7rem;
+    line-height: 1;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-0.5rem);
+    transition: opacity 0.3s ease, transform 0.3s var(--ease-out);
+  }
+  @media (max-height: 30em) {
+    .depth-hud__toggle .depth-hud__zone { padding-top: 0.55rem; padding-bottom: 0.55rem; }   /* a phone held sideways: the longest name ends above the foot of the screen */
+  }
+  .depth-hud.is-zone-new:not(.is-open) .depth-hud__toggle .depth-hud__zone { opacity: 1; transform: none; }
+  .depth-hud__chev { width: 0.85rem; height: 0.85rem; transform: rotate(-90deg); }
+  .depth-hud.is-open .depth-hud__chev { transform: rotate(90deg); }
+  .depth-hud__panel {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 0.5rem);
+    translate: 0 -50%;
+    width: 11.5rem;
+    margin: 0;
+    padding: 0.7rem 0.45rem 0.5rem;
+    border: 1px solid var(--hud-line);
+    border-radius: 1.3rem;
+    background: rgba(5, 25, 41, 0.96);
+    box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.75);
+  }
+  .depth-hud.is-open .depth-hud__panel { display: block; }
+  .depth-hud__btn { font-size: 0.9rem; }
+}
+
+/* ---- 18.5 Bubbles and torch ---- */
+.ocean__bubbles { inset: 0; }
+.bubble {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.85) 0 13%, rgba(255, 255, 255, 0.14) 15% 100%);
+  opacity: 0;
+  pointer-events: none;
+}
+.ocean__bubbles .bubble { top: 100%; }
+/* bursts from buttons live above everything, including the open menu */
+.bubble-layer {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-menu) + 1);
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+.bubble-layer .bubble {                         /* a fine dark ring keeps them visible on light glass */
+  border-color: #fff;
+  background: radial-gradient(circle at 32% 30%, #fff 0 14%, rgba(127, 219, 230, 0.4) 16% 100%);
+  box-shadow: 0 0 0 1.5px rgba(10, 90, 112, 0.5);
+}
+
+/* torch: a wide beam in the water plus a small warm spot on whatever is under
+   the cursor. Mouse only, wreck depths only, never under reduced motion. */
+.ocean__torch,
+.torch-glow { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .ocean__torch,
+  .torch-glow {
+    display: block;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .ocean__torch {
+    width: 44rem;
+    height: 44rem;
+    margin: -22rem 0 0 -22rem;
+    background:
+      radial-gradient(circle, rgba(255, 240, 200, 0.2) 0%, rgba(255, 240, 200, 0) 24%),
+      radial-gradient(circle, rgba(120, 205, 232, 0.22) 0%, rgba(70, 165, 210, 0.1) 38%, rgba(70, 165, 210, 0) 68%);
+  }
+  .torch-glow {
+    position: fixed;
+    z-index: calc(var(--z-content) + 1);
+    width: 22rem;
+    height: 22rem;
+    margin: -11rem 0 0 -11rem;
+    background: radial-gradient(circle, rgba(255, 240, 200, 0.16) 0%, rgba(255, 232, 170, 0.07) 42%, rgba(255, 232, 170, 0) 70%);
+  }
+  html.has-torch .ocean__torch,
+  html.has-torch .torch-glow { opacity: clamp(0, calc((var(--depth, 0) - 0.69) * 9), 1); }
+}
+
+/* ---- 18.6 Menu scroll lock without a layout jump: while html.menu-open hides
+   the page scrollbar, its width (measured by the engine) is given back ---- */
+html.menu-open body { padding-right: var(--scrollbar-w, 0px); }
+html.menu-open .site-header { right: var(--scrollbar-w, 0px); }
+
+/* ---- 18.7 Pausing, reduced motion, print ---- */
+/* off-screen creatures and scenes: wrappers and their sf-* parts stand still */
+.is-off,
+.is-off * { animation-play-state: paused !important; }
+/* light layers that are fully faded at the current depth */
+.ocean--no-sun .ocean__ray,
+.ocean--no-sun .ocean__wave,
+.ocean--no-sun .ocean__fleck,
+.ocean--no-snow .ocean__snow,
+.ocean--no-snow .ocean__flakes { animation-play-state: paused; }
+/* phones, while the page is being scrolled (js/ocean.js, calm()): the moving parts
+   inside the drawings and the slow loops of the light hold their pose; swimming
+   and bobbing carry on */
+.is-calm [class*="sf-"],
+.ocean.is-calm .ocean__ray,
+.ocean.is-calm .ocean__wave,
+.ocean.is-calm .ocean__fleck,
+.ocean.is-calm .ocean__snow,
+.ocean.is-calm .ocean__flakes { animation-play-state: paused; }
+/* hidden tab: everything stops */
+html.is-paused *,
+html.is-paused *::before,
+html.is-paused *::after { animation-play-state: paused !important; }
+
+@media (max-width: 43.74em) {
+  .ocean__flakes--2 { display: none; }           /* about half the particles on small screens */
+  /* the fading layers, while they are in play: the engine writes their opacity as a
+     plain value on phones (js/ocean.js, LIGHT), and this lets the browser change it
+     without rebuilding its list of layers on every scroll frame */
+  .ocean:not(.ocean--no-sun) :is(.ocean__rays, .ocean__surface, .ocean__glitter),
+  .ocean:not(.ocean--no-snow) :is(.ocean__snow, .ocean__vignette) { will-change: opacity; }
+  .ocean:not(.ocean--no-sun) .ocean__surface { will-change: opacity, transform; }
+  /* Moving parts inside a drawing are redrawn by the page itself on every frame
+     (a browser cannot hand them to the graphics chip). On phones the growth on
+     the wreck and on the seabed stands still, and a seagrass tuft sways three of
+     its nine blades. Fish, the diver, the torch and the bubbles keep moving. */
+  .wreck-scene .sf-sway,
+  .seabed .sf-sway,
+  .sea-life svg[viewBox="0 0 200 260"] > .sf-sway:not(:nth-child(3n)) { animation: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-wag, .sf-sway, .sf-pulse, .sf-fin, .sf-drift, .sf-bob, .sf-glow,
+  .ocean *,
+  .sea-life *,
+  .depth-hud * { animation: none !important; }
+  .depth-hud *,
+  .ocean__torch,
+  .torch-glow { transition: none !important; }
+  .sl { transform: scaleX(var(--sx, 1)); will-change: auto; }
+  .ocean__fleck { opacity: 0.5; }
+  .ocean__ray { opacity: 0.7; }
+  .ocean__torch,
+  .torch-glow,
+  .bubble-layer,
+  .ocean__bubbles { display: none !important; }
+}
+
+@media print {
+  .sea-life,
+  .depth-hud,
+  .bubble-layer,
+  .torch-glow { display: none !important; }
+}
+
+/* ==========================================================================
+   19 Mobile action bar (phones only): Call, WhatsApp, Book a dive
+   --------------------------------------------------------------------------
+   The markup is the block marked MOBILE ACTION BAR at the foot of every page;
+   the behaviour is initActionBar() in js/ocean.js. To remove the bar, delete
+   that block from the nine pages and this whole section: nothing else depends
+   on it (the script does nothing when the bar is not there).
+   - Under 48em wide only, and not on a screen under 30em tall (a phone held
+     sideways has no height to spare). Wherever there is no bar, the header
+     shows its own "Book a dive" button, as it did before.
+   - Without JavaScript it simply sits at the foot of the screen.
+   - With the engine it is out of the way until the buttons of the page's
+     opening panel have scrolled off, while the menu is open, while a form
+     field is being typed in, and while the footer, the home page's wreck and
+     seabed panels or the contact page's own contact list are on screen (those
+     show the same actions). It comes and goes with a transform only.
+   - With the script running the bar is always put away over the footer, so
+     the footer needs no room for it. Without JavaScript (or when the script
+     failed to load) the bar is always there: then --bar-space is added to the
+     footer's bottom padding, so that the bar never covers the last line.
+   ========================================================================== */
+.action-bar { display: none; }
+@media (max-width: 47.99em) and (min-height: 30.01em) {
+  :root:not(.js), :root.no-engine { --bar-space: 4.25rem; }   /* the two states in which the bar is always shown */
+  .site-header__cta { display: none; }           /* "Book a dive" is in the bar */
+  .action-bar {
+    --focus: #f4d58d;
+    position: fixed;
+    z-index: calc(var(--z-hud) - 2);             /* under the depth gauge's zone list, over the page */
+    left: 0;
+    right: 0;
+    bottom: calc(0.55rem + var(--safe-b));
+    display: flex;
+    gap: 0.25rem;
+    width: min(100% - 1.1rem - var(--safe-l) - var(--safe-r), 25rem);
+    margin-inline: auto;
+    padding: 0.3rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1.75rem;
+    background: #072033;
+    box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.75);
+    color: #fff;
+    transition: transform 0.4s var(--ease-out), visibility 0s linear 0s;
+  }
+  .action-bar__item {
+    display: flex;
+    flex: 1 1 auto;                              /* each as wide as its label needs, the rest shared out */
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-width: 2.75rem;
+    min-height: 2.9rem;
+    padding: 0 0.6rem;
+    border-radius: var(--r-pill);
+    color: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.1;
+    text-decoration: none;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .action-bar__item .icon { width: 1.3rem; height: 1.3rem; }
+  .action-bar__item:active { background: rgba(255, 255, 255, 0.12); }
+  .action-bar__item:focus-visible { outline-offset: -3px; border-radius: var(--r-pill); }
+  .action-bar__item--book { flex-grow: 2; background: var(--coral); color: var(--ink); --focus: #0b2233; }
+  .action-bar__item--book:active { background: var(--coral-soft); }
+  /* the engine is running: wait below the screen until .is-on; and while the menu is open */
+  html.menu-open .action-bar,
+  .js:not(.no-engine) .action-bar:not(.is-on) {
+    visibility: hidden;
+    transform: translateY(calc(100% + 1.25rem + var(--safe-b)));
+    transition: transform 0.3s ease-in, visibility 0s linear 0.3s;
+  }
+}
+/* narrowest phones: icon above label, so three labels fit side by side */
+@media (max-width: 22.49em) {
+  .action-bar__item { flex-direction: column; gap: 0.15rem; min-height: 3.1rem; padding: 0.2rem 0.25rem; font-size: 0.75rem; }
+  .action-bar__item .icon { width: 1.2rem; height: 1.2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .action-bar,
+  html.menu-open .action-bar,
+  .js:not(.no-engine) .action-bar:not(.is-on) { transition: none; }
+}
+@media print {
+  .action-bar { display: none !important; }
+}
