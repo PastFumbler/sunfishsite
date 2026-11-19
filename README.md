@@ -48,7 +48,7 @@ Other fallbacks that are built in:
 | Path | What it is |
 |---|---|
 | `index.html` | Home. The full descent in five zones, the wreck scene, then Instagram strip, opening hours and contact on the seabed |
-| `dive-trips.html` | Nine local shore sites as a card grid, three wrecks as feature cards |
+| `dive-trips.html` | A map of Cyprus with a tack for each dive site, nine local shore sites as a card grid, three wrecks as feature cards |
 | `try-diving.html` | Discover Scuba Diving as a four-step timeline, photo gallery, Bubblemaker |
 | `courses.html` | The PADI course ladder, five rungs, plus a link card to Specialties |
 | `specialties.html` | Fourteen specialties in a filterable card grid |
@@ -60,7 +60,7 @@ Other fallbacks that are built in:
 | `.nojekyll` | An empty file for GitHub Pages. It tells GitHub to publish the files exactly as they are. Leave it in place (section 10) |
 | `.gitignore` | A short list of clutter that Windows, macOS and editors create (`Thumbs.db`, `.DS_Store` and the like), so that Git leaves it out of the repository |
 | `css/` | Stylesheet folder |
-| `css/styles.css` | All styles, in numbered sections 01 to 19 (see section 4) |
+| `css/styles.css` | All styles, in numbered sections 01 to 20 (see section 4) |
 | `js/` | Script folder |
 | `js/ocean.js` | All behaviour, plus the embedded sea-life drawings (the `ART` table) |
 | `assets/` | Images and illustrations |
@@ -212,6 +212,7 @@ The rules are in sections 17 and 18.7 of the stylesheet; the script reads the se
 | 16 Reveal, 17 Reduced motion and print | Float-up on entry, motion and print rules |
 | 18 Ocean engine | Everything `js/ocean.js` creates: 18.1 `sf-*` classes, 18.2 water and light, 18.3 sea life, 18.4 depth gauge, 18.5 bubbles and torch, 18.6 menu scroll lock, 18.7 pausing and reduced motion |
 | 19 Mobile action bar | The Call, WhatsApp and Book a dive bar on phones. Self-contained: see section 9 |
+| 20 Dive map | The two maps of `dive-trips.html`, their tacks and the list under them: see section 6 (f) |
 
 Rules for phones sit beside the component they change, in media queries: `(max-width: 47.99em)` is "under 768 px", `(max-width: 43.74em)` is "under 700 px" (the width below which the script also switches to its lighter phone behaviour), `(max-width: 22.49em)` is "narrower than 360 px", and `(max-height: 30em) and (orientation: landscape)` is a phone held sideways. Every phone layout is stylesheet only: the HTML is the same at every size.
 
@@ -351,19 +352,19 @@ Three slots show something there is no picture of from the centre itself. They a
 
 ### (d) The dive-site photos, and photos still to supply
 
-**The nine dive-site cards** (`dive-trips.html`, comment on line 155) now carry the photographs the owner supplied. Each was cropped to the card's 3:2 shape; none was enlarged, so three are smaller than the others because their originals were small. To change one, save the new photo in `assets/img` under exactly the same name and update `alt`, `width` and `height` on the line shown:
+**The nine dive-site cards** (`dive-trips.html`, comment on line 195) now carry the photographs the owner supplied. Each was cropped to the card's 3:2 shape; none was enlarged, so three are smaller than the others because their originals were small. To change one, save the new photo in `assets/img` under exactly the same name and update `alt`, `width` and `height` on the line shown:
 
 | Dive site | File in `assets/img/` | Size (px) | What it shows | Image tag on line |
 |---|---|---|---|---|
-| Green Bay | `site-green-bay.jpg` | 1080 x 720 | Statues and columns standing on the sandy seabed | 159 |
-| Blue Haze | `site-blue-haze.jpg` | 1200 x 800 | Two divers at the surface in clear turquoise water beside the rocky shore | 169 |
-| The Caves | `site-the-caves.jpg` | 640 x 427 | Looking out through the mouth of an underwater cave onto sunlit sand | 179 |
-| The Canyon | `site-the-canyon.jpg` | 960 x 640 | Divers climbing down the rocks to the clear water | 189 |
-| Chapel Bay | `site-chapel-bay.jpg` | 1024 x 683 | A shoal of small silver fish over an algae-covered rock just below the surface | 199 |
-| Konnos Point | `site-konnos-point.jpg` | 935 x 623 | Fish over pale boulders and seagrass in blue water | 209 |
-| Paramount | `site-paramount.jpg` | 640 x 427 | Sunlight falling through blue water from the surface | 219 |
-| Nissia | `site-nissia.jpg` | 894 x 596 | A diver hovering over seagrass and sand | 229 |
-| Shallow Reef | `site-shallow-reef.jpg` | 1200 x 800 | Ornate wrasse beside an algae-covered rock just below the surface | 239 |
+| Green Bay | `site-green-bay.jpg` | 1080 x 720 | Statues and columns standing on the sandy seabed | 199 |
+| Blue Haze | `site-blue-haze.jpg` | 1200 x 800 | Two divers at the surface in clear turquoise water beside the rocky shore | 209 |
+| The Caves | `site-the-caves.jpg` | 640 x 427 | Looking out through the mouth of an underwater cave onto sunlit sand | 219 |
+| The Canyon | `site-the-canyon.jpg` | 960 x 640 | Divers climbing down the rocks to the clear water | 229 |
+| Chapel Bay | `site-chapel-bay.jpg` | 1024 x 683 | A shoal of small silver fish over an algae-covered rock just below the surface | 239 |
+| Konnos Point | `site-konnos-point.jpg` | 935 x 623 | Fish over pale boulders and seagrass in blue water | 249 |
+| Paramount | `site-paramount.jpg` | 640 x 427 | Sunlight falling through blue water from the surface | 259 |
+| Nissia | `site-nissia.jpg` | 894 x 596 | A diver hovering over seagrass and sand | 269 |
+| Shallow Reef | `site-shallow-reef.jpg` | 1200 x 800 | Ornate wrasse beside an algae-covered rock just below the surface | 279 |
 
 - Best size for a replacement: landscape, about 1200 x 800 px (3:2), JPEG. A photo of another shape is cropped from the centre to 3:2. The photos of The Caves and Paramount are only 640 px wide: sharper originals would look better on large screens.
 - The `alt` text of each says what the photo shows and names the site, as the owner supplied each photo for that site. Where the photos came from and who took them is not recorded here: confirm you may use them before launch.
@@ -387,12 +388,40 @@ Three slots show something there is no picture of from the centre itself. They a
 | What | File | Where | Notes |
 |---|---|---|---|
 | Logo in the header | `logo-sunfish-divers-emblem.jpg` (244 x 200) | Line 56 of every page (the comment; the image is on line 58) | The sunfish and the curved "sunfish divers" lettering cut from the real logo, on a white rounded tile, beside the text wordmark "Sunfish Divers". The whole logo is too tall to read at header height, so only its upper part is used here. Styles: `.logo`, `.logo__tile`, `.logo__mark` in section 09 of the stylesheet |
-| Logo in the footer | `logo-sunfish-divers.jpg` (395 x 500) | Footer of every page (comment on index 373, dive-trips 398, try-diving 309, courses 291, specialties 367, instructor-courses 315, dive-centre 304, about 297, contact 347) | The whole logo, "DIVE the Enjoy Difference" included, on a white tile. Styles: `.logo--full` in section 09 |
-| PADI badge | `padi-5-star-idc-badge.jpg` (488 x 211) | Footer of every page (comment on index 378, dive-trips 403, try-diving 314, courses 296, specialties 372, instructor-courses 320, dive-centre 309, about 302, contact 352) | The badge file from the footer of the live site. Its own background is near-black, so it sits on the dark footer as a small plaque. Its `alt` text reads "PADI 5 Star Instructor Development Centre". Styles: `.padi-badge` in section 15 |
+| Logo in the footer | `logo-sunfish-divers.jpg` (395 x 500) | Footer of every page (comment on index 373, dive-trips 438, try-diving 309, courses 291, specialties 367, instructor-courses 315, dive-centre 304, about 297, contact 347) | The whole logo, "DIVE the Enjoy Difference" included, on a white tile. Styles: `.logo--full` in section 09 |
+| PADI badge | `padi-5-star-idc-badge.jpg` (488 x 211) | Footer of every page (comment on index 378, dive-trips 443, try-diving 314, courses 296, specialties 372, instructor-courses 320, dive-centre 309, about 302, contact 352) | The badge file from the footer of the live site. Its own background is near-black, so it sits on the dark footer as a small plaque. Its `alt` text reads "PADI 5 Star Instructor Development Centre". Styles: `.padi-badge` in section 15 |
 
 - The logo comes from a JPEG with a white background (`sunfish-logo-800x800.jpg` on the live site), which is why it sits on a white tile. If you have the logo as a vector file (SVG) or a PNG with a transparent background, it will be sharper: save it over the two logo files, or change the two `src` values on all nine pages.
 - Both logo images have an empty `alt`, because the link around them is already named "Sunfish Divers, home".
 - The browser tab icon is still the drawn sunfish silhouette, `assets/svg/favicon.svg`.
+
+### (f) The dive map
+
+`dive-trips.html` carries two drawn maps in the panel "Where we dive", between the `DIVE MAP:BEGIN` and `DIVE MAP:END` comments (lines 149 to 188): Cyprus with the Zenobia wreck and a frame round the south-east corner, and a close-up of the coast from Ayia Napa round Cavo Greko to Protaras with a numbered tack for each local dive site and a lettered one for each wreck. The list under the maps names every tack and links to its card further down the page (the cards have the ids `site-green-bay`, `wreck-liberty` and so on). The coastline is drawn from OpenStreetMap data, which is why the credit line under the list must stay. The styles are section 20 of `css/styles.css`.
+
+**The tack positions are approximate and need the owner's check.** The live site names the sites but does not say where they are, so each tack was placed from public sources:
+
+| Tack | Place | Latitude, longitude used | What the position rests on |
+|---|---|---|---|
+| 1 | Green Bay | 34.9990, 34.0672 | Green Bay beach, Protaras (OpenStreetMap) |
+| 2 | Blue Haze | 34.9785, 34.0236 | Ammos tou Kambouri beach, Ayia Napa, where dive listings place the site |
+| 3 | The Caves | 34.9680, 34.0546 | the sea caves west of Cape Greco (OpenStreetMap) |
+| 4 | The Canyon | 34.9665, 34.0605 | dive listings: under the southern cliffs of Cape Greco, beside the Caves |
+| 5 | Chapel Bay | 34.9756, 34.0772 | below the chapel of Agioi Anargyroi (OpenStreetMap) |
+| 6 | Konnos Point | 34.9815, 34.0778 | the headland on the south side of Konnos Bay (estimate) |
+| 7 | Paramount | 34.9943, 34.0702 | the shore below the Paramount hotel, Protaras (OpenStreetMap) |
+| 8 | Nissia | 35.0012, 34.0668 | Nissia bay beside Green Bay; dive listings also call it Green Bay 2 |
+| 9 | Shallow Reef | not placed | no published position found |
+| L | Liberty wreck | 35.0508, 34.0362 | OpenStreetMap wreck position |
+| N | Nemesis III wreck | 35.0498, 34.0365 | OpenStreetMap wreck position |
+| Z | Zenobia wreck (on the map of Cyprus) | 34.8972, 33.6576 | OpenStreetMap wreck position off Larnaca |
+| flag | Sunfish Divers, Ayia Napa | 34.9854, 34.0002 | the same point as the marker of the map on `contact.html`, which is itself to be confirmed |
+
+- **Shallow Reef has no tack**: no published position was found for it. The list shows it as "not yet on the map".
+- The tacks of the shore sites were moved to the nearest point of the coastline; Konnos Point moved furthest (about 450 m, to the headland on the north side of Konnos Bay), so check that one first.
+- The page says "Tack positions are approximate" under the list. Take that sentence out once every position is confirmed.
+
+To move a tack, or to add the one for Shallow Reef, the simplest way is to pass the corrected latitude and longitude of each site to whoever maintains the site. By hand: each tack is one `<a href="#site-...">` element on the long line of the close-up drawing; inside it the path `tack__pin` runs from the place on the coast to the numbered head, `tack__tip` is the dot on the coast and `tack__head` holds the circle and the number. A position on the close-up is x = (longitude - 33.985) x 5217.4 and y = (35.068 - latitude) x 6369.3, in the drawing's own units (it is 600 wide and 764 high; one kilometre is about 57.3 units). Keep the head about 70 units away from the tip, out over open water and clear of its neighbours.
 
 ### Replacing or adding a photo
 
@@ -418,13 +447,14 @@ Three slots show something there is no picture of from the centre itself. They a
 | Page URLs for sharing | Line 18 of every page (`og:url`) | Currently `https://sunfish-divers.com/` for the home page and `https://sunfish-divers.com/PAGE.html` for the others. Change them if the live addresses differ. These are the only addresses in the site that name a domain; on the test site they simply point at the future address |
 | Share image | Line 19 of every page (`og:image`), file `assets/img/og-sunfish-divers.jpg` | The file is a real photo (the front of the dive centre). The tag must hold a full address, and it points at `https://sunfish-divers.com/assets/img/og-sunfish-divers.jpg`, where the file does not exist yet: link previews show no picture until the site is on its final domain, or until line 19 is changed to the address where the site really is. That is true of the test site too: a link to it shared in a chat shows the title and description without a picture |
 | Photo rights | Section 6 | Confirm the right to use each photo from the live site, and the PADI course artwork in 6 (b). The two stock photographs in 6 (c) need no permission and no credit |
+| Dive map | Section 6 (f) | Confirm the position of every tack on the map of `dive-trips.html` and give the position of Shallow Reef, which has no tack yet |
 | Photos still missing | Section 6 (d) | The nine dive-site photos are in place. Supply the others listed there, and replace the three stock photographs in 6 (c) with your own when you have them |
 | Instagram strip | `index.html` lines 309 to 325 | Three fixed tiles that link to the Instagram profile. It is not a live feed; either supply newer photos or connect a feed |
 | Course, site and service details | The content TODOs below | The pages hold only what was in the brief. No prices, schedules, depths or staff details were invented |
 
 ### Every TODO comment, by file
 
-There are 64 `TODO` comments, all in the HTML pages. `css/styles.css`, `js/ocean.js` and the SVG files contain none. Line numbers are those of the files as delivered; they move as soon as a line is added or removed above them, so search a page for `TODO` to find them again.
+There are 65 `TODO` comments, all in the HTML pages. `css/styles.css`, `js/ocean.js` and the SVG files contain none. Line numbers are those of the files as delivered; they move as soon as a line is added or removed above them, so search a page for `TODO` to find them again.
 
 **`index.html`**
 
@@ -442,17 +472,18 @@ There are 64 `TODO` comments, all in the HTML pages. `css/styles.css`, `js/ocean
 |---|---|
 | 9 | Take out the `noindex` tag on the next line when the site goes live (section 10) |
 | 17 | Confirm the final page URL and the share image address |
-| 164 | Green Bay: add depth, level and a short description |
-| 174 | Blue Haze: add depth, level and a short description |
-| 184 | The Caves: add depth, level and a short description |
-| 194 | The Canyon: add depth, level and a short description |
-| 204 | Chapel Bay: add depth, level and a short description |
-| 214 | Konnos Point: add depth, level and a short description |
-| 224 | Paramount: add depth, level and a short description |
-| 234 | Nissia: add depth, level and a short description |
-| 244 | Shallow Reef: add depth, level and a short description |
-| 443 | Confirm the WhatsApp number in the footer |
-| 461 | Confirm the WhatsApp number in the phone action bar |
+| 150 | Dive map: confirm the position of every tack and place Shallow Reef, which has no tack yet (section 6 (f)) |
+| 204 | Green Bay: add depth, level and a short description |
+| 214 | Blue Haze: add depth, level and a short description |
+| 224 | The Caves: add depth, level and a short description |
+| 234 | The Canyon: add depth, level and a short description |
+| 244 | Chapel Bay: add depth, level and a short description |
+| 254 | Konnos Point: add depth, level and a short description |
+| 264 | Paramount: add depth, level and a short description |
+| 274 | Nissia: add depth, level and a short description |
+| 284 | Shallow Reef: add depth, level and a short description |
+| 483 | Confirm the WhatsApp number in the footer |
+| 501 | Confirm the WhatsApp number in the phone action bar |
 
 **`try-diving.html`**
 

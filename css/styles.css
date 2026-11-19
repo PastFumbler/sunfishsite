@@ -3512,3 +3512,138 @@ html.is-paused *::after { animation-play-state: paused !important; }
 @media print {
   .action-bar { display: none !important; }
 }
+
+/* ==========================================================================
+   20 Dive map (dive-trips.html): Cyprus, and a close-up of Cavo Greko
+   --------------------------------------------------------------------------
+   The markup is the block between the DIVE MAP markers in dive-trips.html.
+   Each tack is a <g class="tack"> whose pin runs from the place on the coast
+   (the tip) to a numbered head set off into open water. The list under the
+   maps carries the names and the links; the drawings themselves are hidden
+   from screen readers. Colours are fixed (a chart of its own), so the maps
+   read the same at every depth. Only transform is animated.
+   ========================================================================== */
+.dive-map { margin-top: clamp(1.75rem, 5vw, 3.5rem); }
+.dive-map__head { margin-bottom: 1rem; }
+.dive-map__title {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem);
+  line-height: 1.1;
+}
+.dive-map__grid { display: grid; gap: 1rem; }
+.dive-map__fig { margin: 0; }
+.dive-map__svg { display: block; width: 100%; height: auto; border-radius: 1.25rem; background: #0d4466; }
+.dive-map__fig figcaption { margin-bottom: 0.4rem; font-size: 0.9375rem; font-weight: 700; line-height: 1.3; }
+
+/* the drawings */
+.mapsea { fill: #0d4466; }
+.mapshallows { fill: none; stroke: #1b6f93; stroke-width: 14; stroke-linejoin: round; }
+.mapland { fill: #f4d58d; }
+.maptown { fill: #0b2233; }
+.maplabel {
+  font-family: var(--font-body);
+  font-size: 34px;
+  font-weight: 700;
+  fill: #0b2233;
+  stroke: #f4d58d;
+  stroke-width: 7px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+}
+.dive-map__fig--close .maplabel { font-size: 27px; }
+.maplabel--sea { fill: #eaf6f8; stroke: #0d4466; }
+.mapframe { fill: none; stroke: #ff7a59; stroke-width: 4; }
+.mapscale path { fill: none; stroke: #eaf6f8; stroke-width: 3; stroke-linecap: round; }
+.mapscale text { font-family: var(--font-body); font-size: 23px; font-weight: 600; fill: #eaf6f8; }
+.mapflag__pole { fill: none; stroke: #0b2233; stroke-width: 3.5; stroke-linecap: round; }
+.mapflag__foot { fill: #0b2233; }
+.mapflag__cloth { fill: #d9452f; }
+.mapflag__stripe { fill: #fff4dc; }
+.tack__pin { fill: none; stroke: #fff4dc; stroke-width: 4; stroke-linecap: round; }
+.tack__tip { fill: #0b2233; stroke: #fff4dc; stroke-width: 3; }
+.tack__head { transition: transform 0.18s ease; }
+.tack__head circle { fill: #ff7a59; stroke: #fff4dc; stroke-width: 3; }
+.tack__head text { font-family: var(--font-body); font-size: 25px; font-weight: 800; fill: #0b2233; }
+.tack--wreck .tack__head circle { fill: #fff4dc; stroke: #0b2233; }
+.dive-map__svg a { cursor: pointer; }
+.dive-map__svg a:hover .tack__head,
+.dive-map:has(.map-key__item[data-pin="1"]:is(:hover, :focus-visible)) .tack[data-pin="1"] .tack__head,
+.dive-map:has(.map-key__item[data-pin="2"]:is(:hover, :focus-visible)) .tack[data-pin="2"] .tack__head,
+.dive-map:has(.map-key__item[data-pin="3"]:is(:hover, :focus-visible)) .tack[data-pin="3"] .tack__head,
+.dive-map:has(.map-key__item[data-pin="4"]:is(:hover, :focus-visible)) .tack[data-pin="4"] .tack__head,
+.dive-map:has(.map-key__item[data-pin="5"]:is(:hover, :focus-visible)) .tack[data-pin="5"] .tack__head,
+.dive-map:has(.map-key__item[data-pin="6"]:is(:hover, :focus-visible)) .tack[data-pin="6"] .tack__head,
+.dive-map:has(.map-key__item[data-pin="7"]:is(:hover, :focus-visible)) .tack[data-pin="7"] .tack__head,
+.dive-map:has(.map-key__item[data-pin="8"]:is(:hover, :focus-visible)) .tack[data-pin="8"] .tack__head,
+.dive-map:has(.map-key__item[data-pin="L"]:is(:hover, :focus-visible)) .tack[data-pin="L"] .tack__head,
+.dive-map:has(.map-key__item[data-pin="N"]:is(:hover, :focus-visible)) .tack[data-pin="N"] .tack__head,
+.dive-map:has(.map-key__item[data-pin="Z"]:is(:hover, :focus-visible)) .tack[data-pin="Z"] .tack__head { transform: scale(1.22); }
+
+/* the list of tacks */
+.dive-map__keys { display: grid; gap: 0.5rem; align-content: start; }
+.map-key {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.map-key__wide { grid-column: 1 / -1; }
+.map-key--other { padding-top: 0.5rem; border-top: 1px solid currentColor; border-top-color: color-mix(in srgb, currentColor 22%, transparent); }
+.map-key__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  color: inherit;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
+}
+a.map-key__item:hover > span:last-child { text-decoration: underline; }
+.map-key__item small { font-size: 0.875rem; font-weight: 400; }
+.map-key__n {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: #ff7a59;
+  color: #0b2233;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.map-key__n--wreck { background: #fff4dc; box-shadow: inset 0 0 0 2px #0b2233; }
+.map-key__n--off { background: none; color: inherit; box-shadow: inset 0 0 0 2px currentColor; }
+.map-key__n--flag {
+  height: 1.25rem;
+  border-radius: 0.2rem;
+  background: linear-gradient(to bottom right, #d9452f 0 36%, #fff4dc 36% 64%, #d9452f 64%);
+}
+.dive-map__note { margin: 0.25rem 0 0; font-size: 0.875rem; }
+
+@media (min-width: 40em) {
+  .dive-map__fig--island .maplabel { font-size: 26px; }
+}
+@media (min-width: 40em) and (max-width: 61.99em) {
+  .dive-map__fig--close { width: 100%; max-width: 26rem; margin-inline: auto; }
+}
+@media (min-width: 62em) {
+  .dive-map__grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    grid-template-areas: "island close" "keys close";
+    grid-template-rows: auto 1fr;
+    gap: 1.25rem 1.5rem;
+  }
+  .dive-map__fig--island { grid-area: island; }
+  .dive-map__fig--close { grid-area: close; }
+  .dive-map__keys { grid-area: keys; }
+  .map-key { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tack__head { transition: none; }
+}
